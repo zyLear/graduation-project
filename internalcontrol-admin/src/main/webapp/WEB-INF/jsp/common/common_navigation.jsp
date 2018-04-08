@@ -248,10 +248,10 @@
                             <a href="${pageContext.request.contextPath}/project/project-list">立项列表</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/project/application">立项申请</a>
+                            <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/project/approval"> 项目审批</a>
+                            <a href="${pageContext.request.contextPath}/project/project-approval"> 项目审批</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -270,7 +270,7 @@
                             <a href="#"> 预算列表</a>
                         </li>
                         <li>
-                            <a href="#"> 预算申请</a>
+                            <a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>
                         </li>
 
                     </ul>

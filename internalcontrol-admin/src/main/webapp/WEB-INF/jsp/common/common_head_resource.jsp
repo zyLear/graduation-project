@@ -6,7 +6,7 @@
 <!-- MetisMenu CSS -->
 <link href="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-<!-- Custom CSS -->
+<!-- SB Admin CSS -->
 <link href="${pageContext.request.contextPath}/resources/dist/css/sb-admin-2.min.css" rel="stylesheet">
 
 <!-- Morris Charts CSS -->
@@ -14,3 +14,6 @@
 
 <!-- Custom Fonts -->
 <link href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<%-- Custom CSS --%>
+<link href="${pageContext.request.contextPath}/resources/dist/css/common-custom.css" rel="stylesheet">
