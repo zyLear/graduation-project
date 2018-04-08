@@ -7,35 +7,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 /**
  * Created by xiezongyu on 2018/4/8.
  */
 @Controller
-@RequestMapping(value = "/budget")
-public class BudgetController {
+@RequestMapping(value = "/bidding")
+public class BiddingController {
 
-    @RequestMapping("/budget-list")
-    public ModelAndView budgetList() {
-        return new ModelAndView("budget/budget-list");
+
+    @RequestMapping("/bidding-list-page")
+    public ModelAndView biddingListPage() {
+        return new ModelAndView("bidding/bidding-list-page");
     }
 
-    @RequestMapping("/budget-application")
-    public ModelAndView application() {
-        return new ModelAndView("budget/budget-application");
-    }
-
-
-    @RequestMapping("/budget-submit")
-    public ModelAndView budgetSubmit() {
-        return new ModelAndView("budget/budget-submit");
+    @RequestMapping("/bidding-create-page")
+    public ModelAndView biddingCreatePage() {
+        return new ModelAndView("bidding/bidding-create-page");
     }
 
 
     @ResponseBody
-    @RequestMapping("/budget-detail")
+    @RequestMapping("/bidding-detail")
     public PageResult budgetDetail() {
         PageResult pageResult = new PageResult();
         pageResult.setTotal(4);

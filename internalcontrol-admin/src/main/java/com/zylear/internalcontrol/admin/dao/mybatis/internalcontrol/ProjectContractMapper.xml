@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectContractMapper" >
+  <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bid_number" property="bidNumber" jdbcType="VARCHAR" />
+    <result column="contract_number" property="contractNumber" jdbcType="VARCHAR" />
+    <result column="contract_name" property="contractName" jdbcType="VARCHAR" />
+    <result column="contract_money" property="contractMoney" jdbcType="DOUBLE" />
+    <result column="contract_status" property="contractStatus" jdbcType="TINYINT" />
+    <result column="finish_day" property="finishDay" jdbcType="DATE" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.ProjectContract" extends="BaseResultMap" >
+    <result column="contract_content" property="contractContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bid_number, contract_number, contract_name, contract_money, contract_status, 
+    finish_day, file_path, is_deleted, create_time, last_update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    contract_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_project_contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_project_contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    insert into t_project_contract (id, bid_number, contract_number, 
+      contract_name, contract_money, contract_status, 
+      finish_day, file_path, is_deleted, 
+      create_time, last_update_time, contract_content
+      )
+    values (#{id,jdbcType=INTEGER}, #{bidNumber,jdbcType=VARCHAR}, #{contractNumber,jdbcType=VARCHAR}, 
+      #{contractName,jdbcType=VARCHAR}, #{contractMoney,jdbcType=DOUBLE}, #{contractStatus,jdbcType=TINYINT}, 
+      #{finishDay,jdbcType=DATE}, #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{contractContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    insert into t_project_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bidNumber != null" >
+        bid_number,
+      </if>
+      <if test="contractNumber != null" >
+        contract_number,
+      </if>
+      <if test="contractName != null" >
+        contract_name,
+      </if>
+      <if test="contractMoney != null" >
+        contract_money,
+      </if>
+      <if test="contractStatus != null" >
+        contract_status,
+      </if>
+      <if test="finishDay != null" >
+        finish_day,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="contractContent != null" >
+        contract_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bidNumber != null" >
+        #{bidNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNumber != null" >
+        #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="contractName != null" >
+        #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractMoney != null" >
+        #{contractMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="contractStatus != null" >
+        #{contractStatus,jdbcType=TINYINT},
+      </if>
+      <if test="finishDay != null" >
+        #{finishDay,jdbcType=DATE},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractContent != null" >
+        #{contractContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    update t_project_contract
+    <set >
+      <if test="bidNumber != null" >
+        bid_number = #{bidNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNumber != null" >
+        contract_number = #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="contractName != null" >
+        contract_name = #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractMoney != null" >
+        contract_money = #{contractMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="contractStatus != null" >
+        contract_status = #{contractStatus,jdbcType=TINYINT},
+      </if>
+      <if test="finishDay != null" >
+        finish_day = #{finishDay,jdbcType=DATE},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractContent != null" >
+        contract_content = #{contractContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    update t_project_contract
+    set bid_number = #{bidNumber,jdbcType=VARCHAR},
+      contract_number = #{contractNumber,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=DOUBLE},
+      contract_status = #{contractStatus,jdbcType=TINYINT},
+      finish_day = #{finishDay,jdbcType=DATE},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      contract_content = #{contractContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    update t_project_contract
+    set bid_number = #{bidNumber,jdbcType=VARCHAR},
+      contract_number = #{contractNumber,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_money = #{contractMoney,jdbcType=DOUBLE},
+      contract_status = #{contractStatus,jdbcType=TINYINT},
+      finish_day = #{finishDay,jdbcType=DATE},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

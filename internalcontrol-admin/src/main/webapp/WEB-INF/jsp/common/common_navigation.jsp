@@ -245,7 +245,7 @@
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 项目管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="${pageContext.request.contextPath}/project/project-list">立项列表</a>
+                            <a href="${pageContext.request.contextPath}/project/project-list">项目列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
@@ -267,12 +267,14 @@
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"> 预算列表</a>
+                            <a href="${pageContext.request.contextPath}/budget/budget-list"> 预算列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>
                         </li>
-
+                        <li>
+                            <a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>
+                        </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -280,10 +282,10 @@
                     <a href="#"><i class="fa fa-sitemap fa-fw"></i> 招标管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"> 招标列表</a>
+                            <a href="${pageContext.request.contextPath}/bidding/bidding-list"> 招标列表</a>
                         </li>
                         <li>
-                            <a href="#"> 添加招标公告</a>
+                            <a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>
                         </li>
                         <li>
                             <a href="#"> 标书申请列表</a>

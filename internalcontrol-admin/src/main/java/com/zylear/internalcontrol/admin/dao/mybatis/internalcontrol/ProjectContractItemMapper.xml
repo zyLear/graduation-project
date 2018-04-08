@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectContractItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.ProjectContractItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contract_number" property="contractNumber" jdbcType="VARCHAR" />
+    <result column="item_money" property="itemMoney" jdbcType="DOUBLE" />
+    <result column="finish_day" property="finishDay" jdbcType="DATE" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.ProjectContractItem" extends="BaseResultMap" >
+    <result column="item_content" property="itemContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, contract_number, item_money, finish_day, is_deleted, create_time, last_update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    item_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_project_contract_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_project_contract_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContractItem" >
+    insert into t_project_contract_item (id, contract_number, item_money, 
+      finish_day, is_deleted, create_time, 
+      last_update_time, item_content)
+    values (#{id,jdbcType=INTEGER}, #{contractNumber,jdbcType=VARCHAR}, #{itemMoney,jdbcType=DOUBLE}, 
+      #{finishDay,jdbcType=DATE}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{itemContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContractItem" >
+    insert into t_project_contract_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractNumber != null" >
+        contract_number,
+      </if>
+      <if test="itemMoney != null" >
+        item_money,
+      </if>
+      <if test="finishDay != null" >
+        finish_day,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="itemContent != null" >
+        item_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="contractNumber != null" >
+        #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="itemMoney != null" >
+        #{itemMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="finishDay != null" >
+        #{finishDay,jdbcType=DATE},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemContent != null" >
+        #{itemContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContractItem" >
+    update t_project_contract_item
+    <set >
+      <if test="contractNumber != null" >
+        contract_number = #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="itemMoney != null" >
+        item_money = #{itemMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="finishDay != null" >
+        finish_day = #{finishDay,jdbcType=DATE},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemContent != null" >
+        item_content = #{itemContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContractItem" >
+    update t_project_contract_item
+    set contract_number = #{contractNumber,jdbcType=VARCHAR},
+      item_money = #{itemMoney,jdbcType=DOUBLE},
+      finish_day = #{finishDay,jdbcType=DATE},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      item_content = #{itemContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContractItem" >
+    update t_project_contract_item
+    set contract_number = #{contractNumber,jdbcType=VARCHAR},
+      item_money = #{itemMoney,jdbcType=DOUBLE},
+      finish_day = #{finishDay,jdbcType=DATE},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
