@@ -15,13 +15,13 @@ public class Project {
 
     private Double projectBudget;
 
-    private Byte approvalResult;
+    private Integer projectStatus;
 
     private String approvalComment;
 
     private String filePath;
 
-    private Byte isDeleted;
+    private Boolean isDeleted;
 
     private Date createTime;
 
@@ -77,12 +77,12 @@ public class Project {
         this.projectBudget = projectBudget;
     }
 
-    public Byte getApprovalResult() {
-        return approvalResult;
+    public Integer getProjectStatus() {
+        return projectStatus;
     }
 
-    public void setApprovalResult(Byte approvalResult) {
-        this.approvalResult = approvalResult;
+    public void setProjectStatus(Integer projectStatus) {
+        this.projectStatus = projectStatus;
     }
 
     public String getApprovalComment() {
@@ -101,11 +101,11 @@ public class Project {
         this.filePath = filePath;
     }
 
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

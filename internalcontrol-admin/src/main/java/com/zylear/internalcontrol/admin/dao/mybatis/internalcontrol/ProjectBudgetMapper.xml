@@ -6,7 +6,6 @@
     <result column="project_number" property="projectNumber" jdbcType="VARCHAR" />
     <result column="budget_aspect" property="budgetAspect" jdbcType="VARCHAR" />
     <result column="budget_money" property="budgetMoney" jdbcType="DOUBLE" />
-    <result column="submit_status" property="submitStatus" jdbcType="TINYINT" />
     <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
@@ -15,8 +14,7 @@
     <result column="budget_content" property="budgetContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, project_number, budget_aspect, budget_money, submit_status, is_deleted, create_time, 
-    last_update_time
+    id, project_number, budget_aspect, budget_money, is_deleted, create_time, last_update_time
   </sql>
   <sql id="Blob_Column_List" >
     budget_content
@@ -35,13 +33,11 @@
   </delete>
   <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
     insert into t_project_budget (id, project_number, budget_aspect, 
-      budget_money, submit_status, is_deleted, 
-      create_time, last_update_time, budget_content
-      )
+      budget_money, is_deleted, create_time, 
+      last_update_time, budget_content)
     values (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{budgetAspect,jdbcType=VARCHAR}, 
-      #{budgetMoney,jdbcType=DOUBLE}, #{submitStatus,jdbcType=TINYINT}, #{isDeleted,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{budgetContent,jdbcType=LONGVARCHAR}
-      )
+      #{budgetMoney,jdbcType=DOUBLE}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{budgetContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
     insert into t_project_budget
@@ -57,9 +53,6 @@
       </if>
       <if test="budgetMoney != null" >
         budget_money,
-      </if>
-      <if test="submitStatus != null" >
-        submit_status,
       </if>
       <if test="isDeleted != null" >
         is_deleted,
@@ -87,9 +80,6 @@
       <if test="budgetMoney != null" >
         #{budgetMoney,jdbcType=DOUBLE},
       </if>
-      <if test="submitStatus != null" >
-        #{submitStatus,jdbcType=TINYINT},
-      </if>
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=TINYINT},
       </if>
@@ -116,9 +106,6 @@
       <if test="budgetMoney != null" >
         budget_money = #{budgetMoney,jdbcType=DOUBLE},
       </if>
-      <if test="submitStatus != null" >
-        submit_status = #{submitStatus,jdbcType=TINYINT},
-      </if>
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=TINYINT},
       </if>
@@ -139,7 +126,6 @@
     set project_number = #{projectNumber,jdbcType=VARCHAR},
       budget_aspect = #{budgetAspect,jdbcType=VARCHAR},
       budget_money = #{budgetMoney,jdbcType=DOUBLE},
-      submit_status = #{submitStatus,jdbcType=TINYINT},
       is_deleted = #{isDeleted,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
@@ -151,7 +137,6 @@
     set project_number = #{projectNumber,jdbcType=VARCHAR},
       budget_aspect = #{budgetAspect,jdbcType=VARCHAR},
       budget_money = #{budgetMoney,jdbcType=DOUBLE},
-      submit_status = #{submitStatus,jdbcType=TINYINT},
       is_deleted = #{isDeleted,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}

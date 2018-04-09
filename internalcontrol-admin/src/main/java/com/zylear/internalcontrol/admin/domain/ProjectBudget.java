@@ -11,9 +11,7 @@ public class ProjectBudget {
 
     private Double budgetMoney;
 
-    private Byte submitStatus;
-
-    private Byte isDeleted;
+    private Boolean isDeleted;
 
     private Date createTime;
 
@@ -53,19 +51,11 @@ public class ProjectBudget {
         this.budgetMoney = budgetMoney;
     }
 
-    public Byte getSubmitStatus() {
-        return submitStatus;
-    }
-
-    public void setSubmitStatus(Byte submitStatus) {
-        this.submitStatus = submitStatus;
-    }
-
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
