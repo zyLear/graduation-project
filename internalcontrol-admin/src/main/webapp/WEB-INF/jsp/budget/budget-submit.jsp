@@ -35,38 +35,6 @@
 
             <div class="col-lg-offset-1 col-lg-10">
 
-                <%--<div class="row">--%>
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-body">--%>
-                <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-                <%--<div class="form-group">--%>
-                <%--<label class="control-label col-lg-1 text-right"--%>
-                <%--style="margin-top: 8px;">项目名称:</label>--%>
-                <%--<div class="col-lg-2">--%>
-                <%--<select id="type" name="type" class="form-control">--%>
-                <%--<option value="all">所有</option>--%>
-                <%--<option value="internal_group">内部群</option>--%>
-                <%--<option value="outside_group">外部群</option>--%>
-                <%--</select>--%>
-                <%--</div>--%>
-                <%--<div class="col-lg-2">--%>
-                <%--<button type="button" id="show-project-detail" class="btn btn-primary">点击查看项目详情--%>
-                <%--</button>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-
-
-                <%--<div class="row">--%>
-                <%--<div class="panel panel-info">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<h3 class="panel-title">添加新预算</h3>--%>
-                <%--</div>--%>
-                <%--<div class="panel-body">--%>
-
                 <div class="form-horizontal">
 
                     <div class="form-group">

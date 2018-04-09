@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--C:\Develop\maven-repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar-->
+    <!--E:\maven\repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar-->
+    <!--D:\repo\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar-->
+    <classPathEntry
+            location="C:\Develop\maven-repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar"/>
+    <context id="internal_control" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/internal_control?characterEncoding=UTF-8"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.zylear.internalcontrol.admin.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="false"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol"
+                         targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <table tableName="t_asset" domainObjectName="Asset"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+
+        <table tableName="t_project" domainObjectName="Project"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+
+        <table tableName="t_project_bid" domainObjectName="ProjectBid"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+
+        <table tableName="t_project_bidding" domainObjectName="ProjectBidding"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+
+
+        <table tableName="t_project_budget" domainObjectName="ProjectBudget"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+
+
+        <table tableName="t_project_contract" domainObjectName="ProjectContract"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+
+
+        <table tableName="t_project_contract_item" domainObjectName="ProjectContractItem"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
+    </context>
+
+</generatorConfiguration>
+
+
+
+

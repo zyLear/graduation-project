@@ -13,6 +13,8 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
+          rel="stylesheet">
 
 </head>
 
@@ -31,15 +33,15 @@
         </div>
         <!-- /.row -->
         <div class="row custom-content">
-            <div class="col-lg-offset-2 col-lg-6">
+            <div class="col-lg-offset-1 col-lg-10">
 
-                <div class="form-horizontal">
-
+                <form id="form" class="form-horizontal">
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目编号</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="project-number" placeholder="项目编号">
+                            <input type="text" class="form-control" id="projectNumber" name="projectNumber"
+                                   placeholder="项目编号">
                         </div>
                     </div>
 
@@ -47,7 +49,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目名字</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="project-name" placeholder="项目名字">
+                            <input type="text" class="form-control" id="projectName" name="projectName"
+                                   placeholder="项目名字">
                         </div>
                     </div>
                     <div class="form-group">
@@ -59,7 +62,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">申请部门</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="application-department" placeholder="申请部门">
+                            <input type="text" class="form-control" id="applicationDepartment" placeholder="申请部门">
                         </div>
                     </div>
                     <div class="form-group">
@@ -72,11 +75,18 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目预算</label>
                         <div class="col-sm-7">
-                            <input disabled type="text" class="form-control" id="project-budget" placeholder="项目预算">
+                            <input type="text" class="form-control" id="projectBudget" placeholder="项目预算">
                         </div>
                     </div>
 
-                </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">申请表上传</label>
+                        <div class="col-sm-7">
+                            <input id="filePath" name="filePath" data-show-upload="false" type="file" class="file">
+                        </div>
+                    </div>
+
+                </form>
                 <div style="text-align: center">
                     <button id="save" type="button" class="btn btn-info btn-lg"> 保存</button>
                 </div>
@@ -88,12 +98,26 @@
 
 
     <%@include file="../common/common_bottom_resource.jsp" %>
-
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#save').click(function () {
-                $('#project-budget').removeAttr('disabled');
-                $('#project-name').attr('disabled', "disabled");
+                $.ajax({
+                        url: '${pageContext.request.contextPath}/project/sure-project-application',
+                        type: 'POST',
+                        data: new FormData($('#form')[0]),
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (returndata) {
+                            alert(returndata);
+                        },
+                        error: function (returndata) {
+                            alert(returndata);
+                        }
+                    }
+                )
             });
         })
     </script>
