@@ -56,39 +56,40 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">申请人</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="applicant" placeholder="申请人">
+                            <input type="text" class="form-control" id="applicant" name="applicant" placeholder="申请人">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">申请部门</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="applicationDepartment" placeholder="申请部门">
+                            <input type="text" class="form-control" id="applicationDepartment"
+                                   name="applicationDepartment" placeholder="申请部门">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目描述</label>
                         <div class="col-sm-7">
                             <textarea cols="60" rows="20" class="form-control custom-textarea"
-                                      id="project-content"></textarea>
+                                      id="projectContent" name="projectContent"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目预算</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="projectBudget" placeholder="项目预算">
+                            <input type="text" class="form-control" id="projectBudget" name="projectBudget" placeholder="项目预算">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">申请表上传</label>
                         <div class="col-sm-7">
-                            <input id="filePath" name="filePath" data-show-upload="false" type="file" class="file">
+                            <input id="file" name="file" data-show-upload="false" type="file" class="file">
                         </div>
                     </div>
 
                 </form>
                 <div style="text-align: center">
-                    <button id="save" type="button" class="btn btn-info btn-lg"> 保存</button>
+                    <button id="save" type="button" class="btn btn-info btn-lg"> 保 存</button>
                 </div>
             </div>
         </div>
@@ -110,11 +111,11 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (returndata) {
-                            alert(returndata);
+                        success: function (data) {
+                            alert(data.errorMessage);
                         },
-                        error: function (returndata) {
-                            alert(returndata);
+                        error: function (data) {
+                            alert(data.errorMessage);
                         }
                     }
                 )

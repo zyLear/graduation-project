@@ -60,7 +60,6 @@ public class BiddingManager {
         }
 
 
-        /////
         projectBidding = new ProjectBidding();
         projectBidding.setProjectNumber(projectNumber);
         projectBidding.setBiddingNumber(biddingNumber);
@@ -74,7 +73,6 @@ public class BiddingManager {
         projectBidding.setLastUpdateTime(new Date());
 
         projectBiddingService.insert(projectBidding);
-//        projectBidding.s
 
         return BasePageResult.SUCCESS_RESPONSE;
     }

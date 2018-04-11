@@ -13,13 +13,13 @@ public class ProjectContract {
 
     private Double contractMoney;
 
-    private Byte contractStatus;
+    private Integer contractStatus;
 
     private Date finishDay;
 
     private String filePath;
 
-    private Byte isDeleted;
+    private Boolean isDeleted;
 
     private Date createTime;
 
@@ -67,11 +67,11 @@ public class ProjectContract {
         this.contractMoney = contractMoney;
     }
 
-    public Byte getContractStatus() {
+    public Integer getContractStatus() {
         return contractStatus;
     }
 
-    public void setContractStatus(Byte contractStatus) {
+    public void setContractStatus(Integer contractStatus) {
         this.contractStatus = contractStatus;
     }
 
@@ -91,11 +91,11 @@ public class ProjectContract {
         this.filePath = filePath;
     }
 
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

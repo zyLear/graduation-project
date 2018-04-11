@@ -44,38 +44,38 @@
                enableUpdateByExample="false" enableDeleteByExample="false">
         </table>
 
-        <table tableName="t_project" domainObjectName="Project"
-               enableCountByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false">
-        </table>
+        <!--<table tableName="t_project" domainObjectName="Project"-->
+               <!--enableCountByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
+        <!--</table>-->
 
-        <table tableName="t_project_bid" domainObjectName="ProjectBid"
-               enableCountByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false">
-        </table>
+        <!--<table tableName="t_project_bid" domainObjectName="ProjectBid"-->
+               <!--enableCountByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
+        <!--</table>-->
 
-        <table tableName="t_project_bidding" domainObjectName="ProjectBidding"
-               enableCountByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false">
-        </table>
-
-
-        <table tableName="t_project_budget" domainObjectName="ProjectBudget"
-               enableCountByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false">
-        </table>
+        <!--<table tableName="t_project_bidding" domainObjectName="ProjectBidding"-->
+               <!--enableCountByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
+        <!--</table>-->
 
 
-        <table tableName="t_project_contract" domainObjectName="ProjectContract"
-               enableCountByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false">
-        </table>
+        <!--<table tableName="t_project_budget" domainObjectName="ProjectBudget"-->
+               <!--enableCountByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
+        <!--</table>-->
 
 
-        <table tableName="t_project_contract_item" domainObjectName="ProjectContractItem"
-               enableCountByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false">
-        </table>
+        <!--<table tableName="t_project_contract" domainObjectName="ProjectContract"-->
+               <!--enableCountByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
+        <!--</table>-->
+
+
+        <!--<table tableName="t_project_contract_item" domainObjectName="ProjectContractItem"-->
+               <!--enableCountByExample="false" enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
+        <!--</table>-->
     </context>
 
 </generatorConfiguration>

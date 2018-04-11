@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>预算申请</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
 
@@ -35,44 +35,12 @@
 
             <div class="col-lg-offset-1 col-lg-10">
 
-                <%--<div class="row">--%>
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-body">--%>
-                <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-                <%--<div class="form-group">--%>
-                <%--<label class="control-label col-lg-1 text-right"--%>
-                <%--style="margin-top: 8px;">项目名称:</label>--%>
-                <%--<div class="col-lg-2">--%>
-                <%--<select id="type" name="type" class="form-control">--%>
-                <%--<option value="all">所有</option>--%>
-                <%--<option value="internal_group">内部群</option>--%>
-                <%--<option value="outside_group">外部群</option>--%>
-                <%--</select>--%>
-                <%--</div>--%>
-                <%--<div class="col-lg-2">--%>
-                <%--<button type="button" id="show-project-detail" class="btn btn-primary">点击查看项目详情--%>
-                <%--</button>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-
-
-                <%--<div class="row">--%>
-                <%--<div class="panel panel-info">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<h3 class="panel-title">添加新预算</h3>--%>
-                <%--</div>--%>
-                <%--<div class="panel-body">--%>
-
-                <div class="form-horizontal">
+                <form id="form" class="form-horizontal">
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目编号</label>
                         <div class="col-sm-7">
-                            <select id="project-number" name="type" class="form-control">
+                            <select id="projectNumber" name="projectNumber" class="form-control">
                                 <option value="none">未选择</option>
                                 <option value="internal_group">1111</option>
                                 <option value="outside_group">2222</option>
@@ -84,7 +52,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">预算模块</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="budget-aspect" placeholder="预算模块">
+                            <input type="text" class="form-control" id="budgetAspect" name="budgetAspect"
+                                   placeholder="预算模块">
                         </div>
                     </div>
 
@@ -93,18 +62,22 @@
                         <label class="col-sm-2 control-label">预算描述</label>
                         <div class="col-sm-7">
                             <textarea cols="30" rows="10" class="form-control custom-textarea"
-                                      id="budget-content"></textarea>
+                                      id="budgetContent" name="budgetContent"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">金额</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="budget-money"
+                            <input type="text" class="form-control" id="budgetMoney" name="budgetMoney"
                                    placeholder="金额">
                         </div>
                     </div>
 
+                </form>
+
+                <div class="text-center">
+                    <button id="save" type="button" class="btn btn-info btn-lg"> 保 存</button>
                 </div>
 
                 <%--</div>--%>
@@ -125,60 +98,31 @@
     <!-- /#page-wrapper -->
 
 
-    <%--<div class="modal fade bs-example-modal-lg" id="add-budget-modal" tabindex="-1" role="dialog"--%>
-    <%--aria-labelledby="myModalLabel">--%>
-    <%--<div class="modal-dialog modal-lg" role="document">--%>
-    <%--<div class="modal-content">--%>
-    <%--<div class="modal-header">--%>
-    <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-    <%--<span aria-hidden="true">&times;</span>--%>
-    <%--</button>--%>
-    <%--<h4 class="modal-title" id="modalLabel">添加预算</h4>--%>
-    <%--</div>--%>
-    <%--<div class="modal-body">--%>
-
-    <%--<div class="form-horizontal">--%>
-    <%--<div class="form-group">--%>
-    <%--<label class="col-sm-2 control-label">预算模块</label>--%>
-    <%--<div class="col-sm-7">--%>
-    <%--<input type="text" class="form-control" id="budget-aspect" placeholder="预算模块">--%>
-    <%--</div>--%>
-    <%--</div>--%>
-
-
-    <%--<div class="form-group">--%>
-    <%--<label class="col-sm-2 control-label">预算描述</label>--%>
-    <%--<div class="col-sm-7">--%>
-    <%--<textarea cols="30" rows="10" class="form-control custom-textarea"--%>
-    <%--id="budget-content"></textarea>--%>
-    <%--</div>--%>
-    <%--</div>--%>
-
-    <%--<div class="form-group">--%>
-    <%--<label class="col-sm-2 control-label">金额</label>--%>
-    <%--<div class="col-sm-7">--%>
-    <%--<input type="text" class="form-control" id="budget-money"--%>
-    <%--placeholder="金额">--%>
-    <%--</div>--%>
-    <%--</div>--%>
-
-    <%--</div>--%>
-    <%--<div class="modal-footer">--%>
-    <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
-
-    <%--<button type="button" id="sure-assign" class="btn btn-primary">确定</button>--%>
-    <%--</div>--%>
-    <%--</div>--%>
-    <%--</div>--%>
-    <%--</div>--%>
-    <%--</div>--%>
 </div>
 <!-- /#wrapper -->
 
 <%@include file="../common/common_bottom_resource.jsp" %>
+<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script>
     $(document).ready(function () {
-
+        $('#save').click(function () {
+            $.ajax({
+                    url: '${pageContext.request.contextPath}/budget/sure-budget-application',
+                    type: 'POST',
+                    data: $('#form').serialize(),
+//                    async: false,
+//                    cache: false,
+//                    contentType: false,
+//                    processData: false,
+                    success: function (data) {
+                        alert(data.errorMessage);
+                    },
+                    error: function (data) {
+                        alert('错误');
+                    }
+                }
+            );
+        });
 
     });
 

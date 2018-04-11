@@ -18,9 +18,11 @@ USE `internal_control`;
 -- 导出  表 internal_control.t_asset 结构
 CREATE TABLE IF NOT EXISTS `t_asset` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contract_number` varchar(32) NOT NULL DEFAULT '0',
   `asset_number` varchar(32) NOT NULL,
   `asset_type` varchar(32) NOT NULL,
   `remark` varchar(1024) NOT NULL,
+  `prices` double NOT NULL,
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -33,20 +35,20 @@ CREATE TABLE IF NOT EXISTS `t_asset` (
 -- 导出  表 internal_control.t_project 结构
 CREATE TABLE IF NOT EXISTS `t_project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `number` varchar(32) NOT NULL,
+  `project_number` varchar(32) NOT NULL,
   `project_name` varchar(64) NOT NULL,
   `applicant` varchar(16) NOT NULL,
   `application_department` varchar(16) NOT NULL,
-  `project_description` text NOT NULL,
+  `project_content` text NOT NULL,
   `project_budget` double NOT NULL,
-  `approval_result` tinyint(4) NOT NULL,
-  `approval_comment` varchar(1024) NOT NULL,
+  `project_status` tinyint(4) NOT NULL,
+  `approval_comment` varchar(1024) DEFAULT NULL,
   `file_path` varchar(128) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `number` (`number`)
+  UNIQUE KEY `number` (`project_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -77,11 +79,10 @@ CREATE TABLE IF NOT EXISTS `t_project_bidding` (
   `bidding_number` varchar(32) NOT NULL,
   `project_number` varchar(32) NOT NULL,
   `bidding_name` varchar(32) NOT NULL,
-  `bidding_description` text NOT NULL,
+  `bidding_content` text NOT NULL,
   `prices` double NOT NULL,
   `bidding_status` tinyint(4) NOT NULL,
   `file_path` varchar(128) NOT NULL,
-  `submit_status` tinyint(4) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -97,9 +98,8 @@ CREATE TABLE IF NOT EXISTS `t_project_budget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_number` varchar(32) NOT NULL,
   `budget_aspect` varchar(32) NOT NULL,
-  `budget_description` text NOT NULL,
+  `budget_content` text NOT NULL,
   `budget_money` double NOT NULL,
-  `submit_status` tinyint(4) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -124,7 +124,9 @@ CREATE TABLE IF NOT EXISTS `t_project_contract` (
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_contract_number` (`contract_number`),
+  UNIQUE KEY `unique_contract_name` (`contract_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
