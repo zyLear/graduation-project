@@ -3,15 +3,18 @@
 <mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.AssetMapper" >
   <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.Asset" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contract_number" property="contractNumber" jdbcType="VARCHAR" />
     <result column="asset_number" property="assetNumber" jdbcType="VARCHAR" />
     <result column="asset_type" property="assetType" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="prices" property="prices" jdbcType="DOUBLE" />
     <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, asset_number, asset_type, remark, is_deleted, create_time, last_update_time
+    id, contract_number, asset_number, asset_type, remark, prices, is_deleted, create_time, 
+    last_update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,18 +27,23 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.Asset" >
-    insert into t_asset (id, asset_number, asset_type, 
-      remark, is_deleted, create_time, 
-      last_update_time)
-    values (#{id,jdbcType=INTEGER}, #{assetNumber,jdbcType=VARCHAR}, #{assetType,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP})
+    insert into t_asset (id, contract_number, asset_number, 
+      asset_type, remark, prices, 
+      is_deleted, create_time, last_update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{contractNumber,jdbcType=VARCHAR}, #{assetNumber,jdbcType=VARCHAR}, 
+      #{assetType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{prices,jdbcType=DOUBLE}, 
+      #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.Asset" >
     insert into t_asset
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="contractNumber != null" >
+        contract_number,
       </if>
       <if test="assetNumber != null" >
         asset_number,
@@ -45,6 +53,9 @@
       </if>
       <if test="remark != null" >
         remark,
+      </if>
+      <if test="prices != null" >
+        prices,
       </if>
       <if test="isDeleted != null" >
         is_deleted,
@@ -60,6 +71,9 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="contractNumber != null" >
+        #{contractNumber,jdbcType=VARCHAR},
+      </if>
       <if test="assetNumber != null" >
         #{assetNumber,jdbcType=VARCHAR},
       </if>
@@ -68,6 +82,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prices != null" >
+        #{prices,jdbcType=DOUBLE},
       </if>
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=TINYINT},
@@ -83,6 +100,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.Asset" >
     update t_asset
     <set >
+      <if test="contractNumber != null" >
+        contract_number = #{contractNumber,jdbcType=VARCHAR},
+      </if>
       <if test="assetNumber != null" >
         asset_number = #{assetNumber,jdbcType=VARCHAR},
       </if>
@@ -91,6 +111,9 @@
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="prices != null" >
+        prices = #{prices,jdbcType=DOUBLE},
       </if>
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=TINYINT},
@@ -106,9 +129,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.Asset" >
     update t_asset
-    set asset_number = #{assetNumber,jdbcType=VARCHAR},
+    set contract_number = #{contractNumber,jdbcType=VARCHAR},
+      asset_number = #{assetNumber,jdbcType=VARCHAR},
       asset_type = #{assetType,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
+      prices = #{prices,jdbcType=DOUBLE},
       is_deleted = #{isDeleted,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}

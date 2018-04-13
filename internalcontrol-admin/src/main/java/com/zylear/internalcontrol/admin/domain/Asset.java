@@ -5,13 +5,17 @@ import java.util.Date;
 public class Asset {
     private Integer id;
 
+    private String contractNumber;
+
     private String assetNumber;
 
     private String assetType;
 
     private String remark;
 
-    private Byte isDeleted;
+    private Double prices;
+
+    private Boolean isDeleted;
 
     private Date createTime;
 
@@ -23,6 +27,14 @@ public class Asset {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
     public String getAssetNumber() {
@@ -49,11 +61,19 @@ public class Asset {
         this.remark = remark;
     }
 
-    public Byte getIsDeleted() {
+    public Double getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Double prices) {
+        this.prices = prices;
+    }
+
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

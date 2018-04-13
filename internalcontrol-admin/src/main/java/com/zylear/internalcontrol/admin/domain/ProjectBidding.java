@@ -13,11 +13,11 @@ public class ProjectBidding {
 
     private Double prices;
 
-    private Byte biddingStatus;
+    private Integer biddingStatus;
 
     private String filePath;
 
-    private Byte isDeleted;
+    private Boolean isDeleted;
 
     private Date createTime;
 
@@ -65,11 +65,11 @@ public class ProjectBidding {
         this.prices = prices;
     }
 
-    public Byte getBiddingStatus() {
+    public Integer getBiddingStatus() {
         return biddingStatus;
     }
 
-    public void setBiddingStatus(Byte biddingStatus) {
+    public void setBiddingStatus(Integer biddingStatus) {
         this.biddingStatus = biddingStatus;
     }
 
@@ -81,11 +81,11 @@ public class ProjectBidding {
         this.filePath = filePath;
     }
 
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

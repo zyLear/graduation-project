@@ -8,7 +8,7 @@
     <result column="applicant" property="applicant" jdbcType="VARCHAR" />
     <result column="application_department" property="applicationDepartment" jdbcType="VARCHAR" />
     <result column="project_budget" property="projectBudget" jdbcType="DOUBLE" />
-    <result column="approval_result" property="approvalResult" jdbcType="TINYINT" />
+    <result column="project_status" property="projectStatus" jdbcType="TINYINT" />
     <result column="approval_comment" property="approvalComment" jdbcType="VARCHAR" />
     <result column="file_path" property="filePath" jdbcType="VARCHAR" />
     <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
@@ -20,7 +20,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, project_number, project_name, applicant, application_department, project_budget, 
-    approval_result, approval_comment, file_path, is_deleted, create_time, last_update_time
+    project_status, approval_comment, file_path, is_deleted, create_time, last_update_time
   </sql>
   <sql id="Blob_Column_List" >
     project_content
@@ -40,12 +40,12 @@
   <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.Project" >
     insert into t_project (id, project_number, project_name, 
       applicant, application_department, project_budget, 
-      approval_result, approval_comment, file_path, 
+      project_status, approval_comment, file_path, 
       is_deleted, create_time, last_update_time, 
       project_content)
     values (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
       #{applicant,jdbcType=VARCHAR}, #{applicationDepartment,jdbcType=VARCHAR}, #{projectBudget,jdbcType=DOUBLE}, 
-      #{approvalResult,jdbcType=TINYINT}, #{approvalComment,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{projectStatus,jdbcType=TINYINT}, #{approvalComment,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
       #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
       #{projectContent,jdbcType=LONGVARCHAR})
   </insert>
@@ -70,8 +70,8 @@
       <if test="projectBudget != null" >
         project_budget,
       </if>
-      <if test="approvalResult != null" >
-        approval_result,
+      <if test="projectStatus != null" >
+        project_status,
       </if>
       <if test="approvalComment != null" >
         approval_comment,
@@ -111,8 +111,8 @@
       <if test="projectBudget != null" >
         #{projectBudget,jdbcType=DOUBLE},
       </if>
-      <if test="approvalResult != null" >
-        #{approvalResult,jdbcType=TINYINT},
+      <if test="projectStatus != null" >
+        #{projectStatus,jdbcType=TINYINT},
       </if>
       <if test="approvalComment != null" >
         #{approvalComment,jdbcType=VARCHAR},
@@ -152,8 +152,8 @@
       <if test="projectBudget != null" >
         project_budget = #{projectBudget,jdbcType=DOUBLE},
       </if>
-      <if test="approvalResult != null" >
-        approval_result = #{approvalResult,jdbcType=TINYINT},
+      <if test="projectStatus != null" >
+        project_status = #{projectStatus,jdbcType=TINYINT},
       </if>
       <if test="approvalComment != null" >
         approval_comment = #{approvalComment,jdbcType=VARCHAR},
@@ -183,7 +183,7 @@
       applicant = #{applicant,jdbcType=VARCHAR},
       application_department = #{applicationDepartment,jdbcType=VARCHAR},
       project_budget = #{projectBudget,jdbcType=DOUBLE},
-      approval_result = #{approvalResult,jdbcType=TINYINT},
+      project_status = #{projectStatus,jdbcType=TINYINT},
       approval_comment = #{approvalComment,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
       is_deleted = #{isDeleted,jdbcType=TINYINT},
@@ -199,7 +199,7 @@
       applicant = #{applicant,jdbcType=VARCHAR},
       application_department = #{applicationDepartment,jdbcType=VARCHAR},
       project_budget = #{projectBudget,jdbcType=DOUBLE},
-      approval_result = #{approvalResult,jdbcType=TINYINT},
+      project_status = #{projectStatus,jdbcType=TINYINT},
       approval_comment = #{approvalComment,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
       is_deleted = #{isDeleted,jdbcType=TINYINT},

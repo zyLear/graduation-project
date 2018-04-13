@@ -11,7 +11,7 @@ public class ProjectContractItem {
 
     private Date finishDay;
 
-    private Byte isDeleted;
+    private Boolean isDeleted;
 
     private Date createTime;
 
@@ -51,11 +51,11 @@ public class ProjectContractItem {
         this.finishDay = finishDay;
     }
 
-    public Byte getIsDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 
@@ -81,5 +81,14 @@ public class ProjectContractItem {
 
     public void setItemContent(String itemContent) {
         this.itemContent = itemContent;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ProjectContractItem{" +
+                "itemMoney=" + itemMoney +
+                ", itemContent='" + itemContent + '\'' +
+                '}';
     }
 }
