@@ -18,14 +18,14 @@
     <result column="contract_content" property="contractContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, bid_number, contract_number, contract_name, contract_money, contract_status, 
+    id, bid_number, contract_number, contract_name, contract_money, contract_status,
     finish_day, file_path, is_deleted, create_time, last_update_time
   </sql>
   <sql id="Blob_Column_List" >
     contract_content
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -36,15 +36,16 @@
     delete from t_project_contract
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
-    insert into t_project_contract (id, bid_number, contract_number, 
-      contract_name, contract_money, contract_status, 
-      finish_day, file_path, is_deleted, 
+  <insert useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+          id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectContract" >
+    insert into t_project_contract (id, bid_number, contract_number,
+      contract_name, contract_money, contract_status,
+      finish_day, file_path, is_deleted,
       create_time, last_update_time, contract_content
       )
-    values (#{id,jdbcType=INTEGER}, #{bidNumber,jdbcType=VARCHAR}, #{contractNumber,jdbcType=VARCHAR}, 
-      #{contractName,jdbcType=VARCHAR}, #{contractMoney,jdbcType=DOUBLE}, #{contractStatus,jdbcType=TINYINT}, 
-      #{finishDay,jdbcType=DATE}, #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=INTEGER}, #{bidNumber,jdbcType=VARCHAR}, #{contractNumber,jdbcType=VARCHAR},
+      #{contractName,jdbcType=VARCHAR}, #{contractMoney,jdbcType=DOUBLE}, #{contractStatus,jdbcType=TINYINT},
+      #{finishDay,jdbcType=DATE}, #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT},
       #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{contractContent,jdbcType=LONGVARCHAR}
       )
   </insert>

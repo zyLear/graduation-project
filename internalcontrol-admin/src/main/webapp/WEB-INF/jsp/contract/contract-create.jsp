@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>创建合同</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
@@ -27,7 +27,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">立项申请</h1>
+                <h1 class="page-header">创建合同</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -40,17 +40,29 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目编号</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="projectNumber" name="projectNumber"
-                                   placeholder="项目编号">
+                            <select id="projectNumber" name="projectNumber" class="form-control">
+                                <option value="none">未选择</option>
+                                <option value="internal_group">1111</option>
+                                <option value="outside_group">2222</option>
+                            </select>
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">项目名字</label>
+                        <label class="col-sm-2 control-label">合同编号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="contractNumber" name="contractNumber"
+                                   placeholder="合同编号">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">je</label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="projectName" name="projectName"
-                                   placeholder="项目名字">
+                                   placeholder="合同名字">
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,27 +79,36 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">项目描述</label>
+                        <label class="col-sm-2 control-label">合同内容</label>
                         <div class="col-sm-7">
                             <textarea cols="60" rows="20" class="form-control custom-textarea"
                                       id="projectContent" name="projectContent"></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">项目预算</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="projectBudget" name="projectBudget"
-                                   placeholder="项目预算">
+
+
+                    <div id="itemsPanel">
+                        <div name="item" class="form-group">
+                            <label class="col-sm-2 control-label">合同项</label>
+                            <div class="col-sm-7">
+                                <textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" placeholder="金额">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-info " onclick="addItem()"> 增加新项</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">项目预算</label>
+                        <label class="col-sm-2 control-label">总金额</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="a" placeholder="a">
+                            <input disabled type="text" class="form-control" id="contractMoney" name="contractMoney"
+                                   placeholder="总金额">
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">申请表上传</label>
@@ -110,22 +131,31 @@
     <%@include file="../common/common_bottom_resource.jsp" %>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
     <script>
+
         $(document).ready(function () {
             $('#save').click(function () {
 
-//                var test = new Array();
-//                var object = new Object();
-//
-//                object.itemMoney = 100;
-//                object.itemContent = 'content';
-//                test.push(object);
-//                test.push(object);
-//                test.push(object);
-//
+                var items = new Array();
+
+                $('#item').each(function () {
+                    var object = new Object();
+                    object.itemMoney = $(this).find('.input').val();
+                    object.itemContent = $(this).find('.textarea').val();
+                });
+                var object = new Object();
+                object.itemMoney = 100;
+                object.itemContent = 'content';
+
+                items.push(object);
+                items.push(object);
+                items.push(object);
+
                 var param = new FormData($('#form')[0]);
-//                param.append('items', JSON.stringify(test));
+                param.append('items', JSON.stringify(items));
+
+
                 $.ajax({
-                        url: '${pageContext.request.contextPath}/project/sure-project-application',
+                        url: '${pageContext.request.contextPath}/project/sure-contract-create',
                         type: 'POST',
                         data: param,
                         async: false,
@@ -141,7 +171,30 @@
                     }
                 )
             });
-        })
+        });
+
+
+        addItem = function () {
+            var html = '  <div name="item" class="form-group">' +
+                '<label class="col-sm-2 control-label">合同项</label>' +
+                '<div class="col-sm-7">' +
+                '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
+                '</div>' +
+                '<div class="col-sm-2">' +
+                '<input type="text" class="form-control" placeholder="金额">' +
+                '</div>' +
+                '<div class="col-sm-1">' +
+                '<button type="button" class="btn btn-info " onclick="deleteItem(this)"> 删除项</button>' +
+                '</div>' +
+                '</div>';
+            $('#itemsPanel').append(html);
+        };
+
+        deleteItem = function ($this) {
+            $($this).parent().parent().remove();
+        };
+
+
     </script>
 
 </div>

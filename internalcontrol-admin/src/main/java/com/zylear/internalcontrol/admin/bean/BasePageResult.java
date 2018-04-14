@@ -15,6 +15,9 @@ public class BasePageResult {
     public static final BasePageResult FILE_EXIST_RESPONSE = new BasePageResult(3, "file exist");
     public static final BasePageResult ID_EXIST_RESPONSE= new BasePageResult(4, "id exist");
 
+    public static final BasePageResult OVERSPEND_RESPONSE= new BasePageResult(5, "overspend");
+
+
 
 
     public BasePageResult() {

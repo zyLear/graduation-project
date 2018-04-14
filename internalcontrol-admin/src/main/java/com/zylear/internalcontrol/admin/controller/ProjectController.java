@@ -3,8 +3,10 @@ package com.zylear.internalcontrol.admin.controller;
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.bean.PageResult;
 import com.zylear.internalcontrol.admin.bean.TestViewBean;
+import com.zylear.internalcontrol.admin.domain.ProjectContractItem;
 import com.zylear.internalcontrol.admin.manager.ProjectManager;
 import com.zylear.internalcontrol.admin.service.ProjectService;
+import com.zylear.internalcontrol.admin.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by xiezongyu on 2018/4/6.
@@ -55,7 +58,7 @@ public class ProjectController {
                                                  @RequestParam("projectBudget") Double projectBudget,
                                                  @RequestParam("file") MultipartFile file
     ) {
-
+//        System.out.println("aa" + JsonUtil.parseJsonToList(items, ProjectContractItem.class));
         return projectManager.saveProjectApplication(projectNumber, projectName, applicant,
                 applicationDepartment, projectContent, projectBudget, file);
     }

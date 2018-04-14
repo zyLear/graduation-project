@@ -30,20 +30,21 @@ public class ContractController {
 
     @RequestMapping("/contract-create")
     public ModelAndView contractCreatePage() {
-        return new ModelAndView("bidding/bidding-create");
+        return new ModelAndView("contract/contract-create");
     }
 
     @ResponseBody
     @RequestMapping("/sure-contract-create")
     public BasePageResult sureContractCreate(@RequestParam("bidNumber") String bidNumber,
-                                                 @RequestParam("contractNumber") String contractNumber,
-                                                 @RequestParam("contractName") String contractName,
-                                                 @RequestParam("contractContent") String contractContent,
-                                                 @RequestParam("contractMoney") Double contractMoney,
-                                                 @RequestParam("file") MultipartFile file
+                                             @RequestParam("contractNumber") String contractNumber,
+                                             @RequestParam("contractName") String contractName,
+                                             @RequestParam("contractContent") String contractContent,
+                                             @RequestParam("contractMoney") Double contractMoney,
+                                             @RequestParam("file") MultipartFile file,
+                                             @RequestParam("items") String items
     ) {
 
-        return contractManager.saveContract(bidNumber, contractNumber, contractName, contractContent, contractMoney, file);
+        return contractManager.saveContract(bidNumber, contractNumber, contractName, contractContent, contractMoney, file, items);
     }
 
 

@@ -29,10 +29,10 @@ public class AssetController {
 //        return new ModelAndView("bidding/bidding-list-page");
 //    }
 //
-//    @RequestMapping("/contract-create")
-//    public ModelAndView contractCreatePage() {
-//        return new ModelAndView("bidding/bidding-create");
-//    }
+    @RequestMapping("/add-asset")
+    public ModelAndView contractCreatePage() {
+        return new ModelAndView("asset/add-asset");
+    }
 
     @ResponseBody
     @RequestMapping("/sure-add-asset")
