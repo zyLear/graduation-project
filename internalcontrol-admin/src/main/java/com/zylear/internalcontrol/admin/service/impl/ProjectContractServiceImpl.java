@@ -17,24 +17,23 @@ public class ProjectContractServiceImpl implements ProjectContractService {
 
     @Override
     public void insert(ProjectContract projectContract) {
-
+        projectContractMapper.insert(projectContract);
     }
 
     @Override
     public ProjectContract findByContractName(String contractName) {
-        return null;
+        return projectContractMapper.findByContractName(contractName);
     }
 
     @Override
     public ProjectContract findByContractNumber(String contractNumber) {
-        return null;
+        return projectContractMapper.findByContractNumber(contractNumber);
     }
 
     @Override
     public ProjectContract findByFilePath(String filePath) {
-        return null;
+        return projectContractMapper.findByFilePath(filePath);
     }
-
 
 
     @Autowired

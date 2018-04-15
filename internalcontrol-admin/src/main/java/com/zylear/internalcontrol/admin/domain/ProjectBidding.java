@@ -19,6 +19,10 @@ public class ProjectBidding {
 
     private Boolean isDeleted;
 
+    private Date biddingStartTime;
+
+    private Date biddingEndTime;
+
     private Date createTime;
 
     private Date lastUpdateTime;
@@ -87,6 +91,22 @@ public class ProjectBidding {
 
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public Date getBiddingStartTime() {
+        return biddingStartTime;
+    }
+
+    public void setBiddingStartTime(Date biddingStartTime) {
+        this.biddingStartTime = biddingStartTime;
+    }
+
+    public Date getBiddingEndTime() {
+        return biddingEndTime;
+    }
+
+    public void setBiddingEndTime(Date biddingEndTime) {
+        this.biddingEndTime = biddingEndTime;
     }
 
     public Date getCreateTime() {

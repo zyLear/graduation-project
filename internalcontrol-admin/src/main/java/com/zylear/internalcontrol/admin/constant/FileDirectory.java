@@ -8,5 +8,6 @@ public class FileDirectory {
     public static final String PROJECT_FILE_DIRECTORY = "project\\";
     public static final String BIDDING_FILE_DIRECTORY = "bidding\\";
     public static final String CONTRACT_FILE_DIRECTORY = "contract\\";
+    public static final String BID_FILE_DIRECTORY = "bid\\";
 
 }

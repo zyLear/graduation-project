@@ -9,5 +9,5 @@ public interface ProjectBudgetService {
 
     void insert(ProjectBudget projectBudget);
 
-    ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect);
+//    ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect);
 }

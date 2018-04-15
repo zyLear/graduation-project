@@ -1,6 +1,7 @@
 package com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol;
 
 import com.zylear.internalcontrol.admin.domain.ProjectContract;
+import org.apache.ibatis.annotations.Param;
 
 public interface ProjectContractMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +17,11 @@ public interface ProjectContractMapper {
     int updateByPrimaryKeyWithBLOBs(ProjectContract record);
 
     int updateByPrimaryKey(ProjectContract record);
+
+
+    ProjectContract findByContractName(@Param("contractName") String contractName);
+
+    ProjectContract findByContractNumber(@Param("contractNumber")String contractNumber);
+
+    ProjectContract findByFilePath(@Param("filePath")String filePath);
 }

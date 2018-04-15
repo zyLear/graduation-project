@@ -35,8 +35,8 @@ public class ContractManager {
     private ProjectContractItemService projectContractItemService;
 
     @Transactional(value = DataSourceInternalControlConfig.TX_MANAGER)
-    public BasePageResult saveContract(String bidNumber, String contractNumber, String contractName, String contractContent, Double contractMoney, MultipartFile file, String items) {
-        ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
+    public BasePageResult saveContract(String bidNumber, String contractNumber, String contractName, String contractContent, MultipartFile file, String items) {
+
         List<ProjectContractItem> projectContractItems;
         try {
             projectContractItems = JsonUtil.parseJsonToList(items, ProjectContractItem.class);
@@ -50,7 +50,8 @@ public class ContractManager {
             return BasePageResult.ERROR_RESPONSE;
         }
 
-
+        ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
+//        System.out.println("test:"+projectContract.getCreateTime());
         if (projectContract != null) {
             return BasePageResult.ID_EXIST_RESPONSE;
         }

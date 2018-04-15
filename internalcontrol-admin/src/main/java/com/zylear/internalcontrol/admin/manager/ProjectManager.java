@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xiezongyu on 2018/4/9.
@@ -70,6 +71,29 @@ public class ProjectManager {
         return BasePageResult.SUCCESS_RESPONSE;
     }
 
+    public BasePageResult<Project> queryProjects(Integer projectStatus) {
+        BasePageResult<Project> response = BasePageResult.getSuccessResponse();
+        response.setData(projectService.findByStatus(projectStatus));
+        return response;
+    }
+
+    public BasePageResult<Project> sureApproval(String projectNumber, Integer projectStatus, String approvalComment) {
+
+        Project project = projectService.findByProjectNumber(projectNumber);
+        if (project == null) {
+            return BasePageResult.PROJECT_NO_EXIST_RESPONSE;
+        }
+        if (!ProjectStatus.in_approval.getValue().equals(project.getProjectStatus())) {
+            return BasePageResult.ERROR_RESPONSE;
+        }
+        Project needUpdateProject = new Project();
+        needUpdateProject.setId(project.getId());
+        needUpdateProject.setProjectStatus(projectStatus);
+        needUpdateProject.setApprovalComment(approvalComment);
+        projectService.update(needUpdateProject);
+        return BasePageResult.SUCCESS_RESPONSE;
+    }
+
 
     @Autowired
     public void setFilePathPrefix(String filePathPrefix) {
@@ -80,4 +104,6 @@ public class ProjectManager {
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }
+
+
 }

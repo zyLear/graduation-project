@@ -293,6 +293,24 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+
+
+                <li>
+                    <a href="#"><i class="fa fa-sitemap fa-fw"></i> 投标管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/bid/bidding-list"> 招标列表</a>
+                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>--%>
+                        <%--</li>--%>
+                        <%--<li>--%>
+                            <%--<a href="#"> 标书申请列表</a>--%>
+                        <%--</li>--%>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
                 <li>
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> 合同管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -300,7 +318,7 @@
                             <a href="#"> 合同列表</a>
                         </li>
                         <li>
-                            <a href="#"> 新订合同</a>
+                            <a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
