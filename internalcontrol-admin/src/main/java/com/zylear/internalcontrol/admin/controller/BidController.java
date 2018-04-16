@@ -4,6 +4,7 @@ import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.bean.BiddingViewBean;
 import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.bean.PageResult;
+import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.manager.BidManager;
 import com.zylear.internalcontrol.admin.manager.BiddingManager;
 import com.zylear.internalcontrol.admin.service.ProjectBidService;
@@ -77,6 +78,15 @@ public class BidController {
         PageParam pageParam = new PageParam(limit, offset);
         return biddingManager.getBiddingListPageResult(pageParam);
     }
+
+
+    @ResponseBody
+    @RequestMapping("/get-projects")
+    public BasePageResult<ProjectBid> getProjectBidList(@RequestParam("bidStatus") Integer bidStatus) {
+//        return projectManager.queryProjects(projectStatus);
+        return bidManager.queryProjectBids(bidStatus);
+    }
+
 
     @Autowired
     public void setBiddingManager(BiddingManager biddingManager) {

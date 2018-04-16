@@ -24,7 +24,7 @@ public class AssetManager {
     private AssetService assetService;
     private ProjectContractService projectContractService;
 
-    public BasePageResult addAsset(String contractNumber, String assetNumber, String assetType, String remark, Double prices, Integer count) {
+    public BasePageResult addAsset(String contractNumber, String assetNumber, String assetType, String remark, Double prices/*, Integer count*/) {
 
         ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
         if (projectContract == null) {
@@ -43,9 +43,9 @@ public class AssetManager {
         asset.setCreateTime(new Date());
         asset.setLastUpdateTime(new Date());
 
-        for (int i = 0; i < count; i++) {
+//        for (int i = 0; i < count; i++) {
             assetService.insert(asset);
-        }
+//        }
         return BasePageResult.SUCCESS_RESPONSE;
     }
 

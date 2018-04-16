@@ -4,6 +4,7 @@ import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.domain.ProjectBidding;
+import com.zylear.internalcontrol.admin.enums.BidStatus;
 import com.zylear.internalcontrol.admin.enums.BiddingStatus;
 import com.zylear.internalcontrol.admin.service.ProjectBidService;
 import com.zylear.internalcontrol.admin.service.ProjectBiddingService;
@@ -71,7 +72,7 @@ public class BidManager {
         projectBid.setBidCompany(bidCompany);
         projectBid.setBidContent(bidContent);
         projectBid.setBidPrices(bidPrices);
-        projectBid.setBidStatus(0);
+        projectBid.setBidStatus(BidStatus.bided.getValue());
         projectBid.setFilePath(FileDirectory.BID_FILE_DIRECTORY + file.getOriginalFilename());
         projectBid.setIsDeleted(false);
         projectBid.setCreateTime(new Date());
@@ -79,6 +80,12 @@ public class BidManager {
         projectBidService.insert(projectBid);
 
         return BasePageResult.SUCCESS_RESPONSE;
+    }
+
+    public BasePageResult<ProjectBid> queryProjectBids(Integer bidStatus) {
+        BasePageResult<ProjectBid> response = BasePageResult.getSuccessResponse();
+//        response.setData(projectService.findByStatus(bidStatus));
+        return response;
     }
 
 
@@ -101,5 +108,6 @@ public class BidManager {
     public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
         this.projectBiddingService = projectBiddingService;
     }
+
 
 }

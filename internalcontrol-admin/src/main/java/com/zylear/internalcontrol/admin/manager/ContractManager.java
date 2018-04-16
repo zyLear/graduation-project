@@ -85,7 +85,7 @@ public class ContractManager {
         projectContract.setContractName(contractName);
         projectContract.setContractContent(contractContent);
         projectContract.setContractMoney(money);
-        projectContract.setContractStatus(ContractStatus.editing.getValue());
+        projectContract.setContractStatus(ContractStatus.effective.getValue());
         projectContract.setFilePath(FileDirectory.CONTRACT_FILE_DIRECTORY + file.getOriginalFilename());
         projectContract.setIsDeleted(false);
         projectContract.setCreateTime(new Date());

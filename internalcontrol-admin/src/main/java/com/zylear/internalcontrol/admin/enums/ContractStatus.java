@@ -5,10 +5,10 @@ package com.zylear.internalcontrol.admin.enums;
  */
 public enum ContractStatus {
     unknown(-1),
-    editing(0),
+//    editing(0),
     effective(1),
     finish(2),
-    cancle(3);
+    cancel(3);
 
     private Integer value;
 
