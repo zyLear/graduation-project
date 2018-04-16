@@ -19,10 +19,10 @@ public class ProjectBudgetServiceImpl implements ProjectBudgetService {
         projectBudgetMapper.insert(projectBudget);
     }
 
-    @Override
-    public ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect) {
-        return null;
-    }
+//    @Override
+//    public ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect) {
+//        return null;
+//    }
 
     @Autowired
     public void setProjectBudgetMapper(ProjectBudgetMapper projectBudgetMapper) {

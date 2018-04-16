@@ -1,11 +1,12 @@
 package com.zylear.internalcontrol.admin.util;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,14 +21,39 @@ public class JsonUtil {
     public static <T> List<T> parseJsonToList(String jsonString, Class<T> clazz) {
         List<T> list;
         try {
-            list = gson.fromJson(jsonString, new TypeToken<List<T>>() {
-            }.getType());
+            Type type = com.google.gson.internal.$Gson$Types.newParameterizedTypeWithOwner(null, ArrayList.class, clazz);
+            list = gson.fromJson(jsonString, type);
         } catch (JsonSyntaxException e) {
             logger.info("parseJsonToList error. string:{}", jsonString);
             throw new RuntimeException(e);
         }
         return list;
+
+//        List<T> list = new ArrayList<>();
+//        JsonParser parser = new JsonParser();
+//        JsonArray jsonarray = parser.parse(jsonString).getAsJsonArray();
+//        for (JsonElement element : jsonarray) {
+//            list.add(gson.fromJson(element, clazz));
+//        }
+//        return list;
     }
+
+ /*   Type type = com.google.gson.internal.$Gson$Types.newParameterizedTypeWithOwner(null, ArrayList.class, clas);
+    List<T> list = gson.fromJson(json, type);
+    需要Gson 2.2.4以上的版本
+
+    另外一种方法是：
+
+    public static <T> List<T> jsonToBeanList(String json, Class<T> t) {
+        List<T> list = new ArrayList<>();
+        JsonParser parser = new JsonParser();
+        JsonArray jsonarray = parser.parse(json).getAsJsonArray();
+        for (JsonElement element : jsonarray
+                ) {
+            list.add(gson.fromJson(element, t));
+        }
+        return list;
+    }*/
 
 
 }

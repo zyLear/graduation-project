@@ -3,6 +3,7 @@ package com.zylear.internalcontrol.admin.controller;
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.bean.PageResult;
 import com.zylear.internalcontrol.admin.bean.TestViewBean;
+import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectContractItem;
 import com.zylear.internalcontrol.admin.manager.ProjectManager;
 import com.zylear.internalcontrol.admin.service.ProjectService;
@@ -47,6 +48,17 @@ public class ProjectController {
         return new ModelAndView("project/project-application");
     }
 
+    @RequestMapping("/project-approval")
+    public ModelAndView approval() {
+        return new ModelAndView("project/project-approval");
+    }
+
+    @ResponseBody
+    @RequestMapping("/get-projects")
+    public BasePageResult<Project> getProjectList(@RequestParam("projectStatus") Integer projectStatus) {
+        return projectManager.queryProjects(projectStatus);
+    }
+
 
     @ResponseBody
     @RequestMapping("/sure-project-application")
@@ -58,10 +70,19 @@ public class ProjectController {
                                                  @RequestParam("projectBudget") Double projectBudget,
                                                  @RequestParam("file") MultipartFile file
     ) {
-//        System.out.println("aa" + JsonUtil.parseJsonToList(items, ProjectContractItem.class));
         return projectManager.saveProjectApplication(projectNumber, projectName, applicant,
                 applicationDepartment, projectContent, projectBudget, file);
     }
+
+    @ResponseBody
+    @RequestMapping("/sure-project-approval")
+    public BasePageResult<Project> sureApproval(@RequestParam("projectNumber") String projectNumber,
+                                                @RequestParam("projectStatus") Integer projectStatus,
+                                                @RequestParam("approvalComment") String approvalComment
+    ) {
+        return projectManager.sureApproval(projectNumber, projectStatus, approvalComment);
+    }
+
 
 //    @RequestMapping("/test")
 //    public ModelAndView test(HttpServletResponse response) {

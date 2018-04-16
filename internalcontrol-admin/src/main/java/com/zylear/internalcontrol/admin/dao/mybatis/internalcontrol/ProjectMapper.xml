@@ -1,210 +1,257 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectMapper" >
-  <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.Project" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="project_number" property="projectNumber" jdbcType="VARCHAR" />
-    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
-    <result column="applicant" property="applicant" jdbcType="VARCHAR" />
-    <result column="application_department" property="applicationDepartment" jdbcType="VARCHAR" />
-    <result column="project_budget" property="projectBudget" jdbcType="DOUBLE" />
-    <result column="project_status" property="projectStatus" jdbcType="TINYINT" />
-    <result column="approval_comment" property="approvalComment" jdbcType="VARCHAR" />
-    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
-    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.Project" extends="BaseResultMap" >
-    <result column="project_content" property="projectContent" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, project_number, project_name, applicant, application_department, project_budget, 
-    project_status, approval_comment, file_path, is_deleted, create_time, last_update_time
-  </sql>
-  <sql id="Blob_Column_List" >
-    project_content
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_project
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_project
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.Project" >
-    insert into t_project (id, project_number, project_name, 
-      applicant, application_department, project_budget, 
-      project_status, approval_comment, file_path, 
-      is_deleted, create_time, last_update_time, 
-      project_content)
-    values (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
-      #{applicant,jdbcType=VARCHAR}, #{applicationDepartment,jdbcType=VARCHAR}, #{projectBudget,jdbcType=DOUBLE}, 
-      #{projectStatus,jdbcType=TINYINT}, #{approvalComment,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
-      #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{projectContent,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.Project" >
-    insert into t_project
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="projectNumber != null" >
-        project_number,
-      </if>
-      <if test="projectName != null" >
-        project_name,
-      </if>
-      <if test="applicant != null" >
-        applicant,
-      </if>
-      <if test="applicationDepartment != null" >
-        application_department,
-      </if>
-      <if test="projectBudget != null" >
-        project_budget,
-      </if>
-      <if test="projectStatus != null" >
-        project_status,
-      </if>
-      <if test="approvalComment != null" >
-        approval_comment,
-      </if>
-      <if test="filePath != null" >
-        file_path,
-      </if>
-      <if test="isDeleted != null" >
-        is_deleted,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time,
-      </if>
-      <if test="projectContent != null" >
-        project_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="projectNumber != null" >
-        #{projectNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="projectName != null" >
-        #{projectName,jdbcType=VARCHAR},
-      </if>
-      <if test="applicant != null" >
-        #{applicant,jdbcType=VARCHAR},
-      </if>
-      <if test="applicationDepartment != null" >
-        #{applicationDepartment,jdbcType=VARCHAR},
-      </if>
-      <if test="projectBudget != null" >
-        #{projectBudget,jdbcType=DOUBLE},
-      </if>
-      <if test="projectStatus != null" >
-        #{projectStatus,jdbcType=TINYINT},
-      </if>
-      <if test="approvalComment != null" >
-        #{approvalComment,jdbcType=VARCHAR},
-      </if>
-      <if test="filePath != null" >
-        #{filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null" >
-        #{isDeleted,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null" >
-        #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="projectContent != null" >
-        #{projectContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.Project" >
-    update t_project
-    <set >
-      <if test="projectNumber != null" >
-        project_number = #{projectNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="projectName != null" >
-        project_name = #{projectName,jdbcType=VARCHAR},
-      </if>
-      <if test="applicant != null" >
-        applicant = #{applicant,jdbcType=VARCHAR},
-      </if>
-      <if test="applicationDepartment != null" >
-        application_department = #{applicationDepartment,jdbcType=VARCHAR},
-      </if>
-      <if test="projectBudget != null" >
-        project_budget = #{projectBudget,jdbcType=DOUBLE},
-      </if>
-      <if test="projectStatus != null" >
-        project_status = #{projectStatus,jdbcType=TINYINT},
-      </if>
-      <if test="approvalComment != null" >
-        approval_comment = #{approvalComment,jdbcType=VARCHAR},
-      </if>
-      <if test="filePath != null" >
-        file_path = #{filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null" >
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="projectContent != null" >
-        project_content = #{projectContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.Project" >
-    update t_project
-    set project_number = #{projectNumber,jdbcType=VARCHAR},
-      project_name = #{projectName,jdbcType=VARCHAR},
-      applicant = #{applicant,jdbcType=VARCHAR},
-      application_department = #{applicationDepartment,jdbcType=VARCHAR},
-      project_budget = #{projectBudget,jdbcType=DOUBLE},
-      project_status = #{projectStatus,jdbcType=TINYINT},
-      approval_comment = #{approvalComment,jdbcType=VARCHAR},
-      file_path = #{filePath,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      project_content = #{projectContent,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.Project" >
-    update t_project
-    set project_number = #{projectNumber,jdbcType=VARCHAR},
-      project_name = #{projectName,jdbcType=VARCHAR},
-      applicant = #{applicant,jdbcType=VARCHAR},
-      application_department = #{applicationDepartment,jdbcType=VARCHAR},
-      project_budget = #{projectBudget,jdbcType=DOUBLE},
-      project_status = #{projectStatus,jdbcType=TINYINT},
-      approval_comment = #{approvalComment,jdbcType=VARCHAR},
-      file_path = #{filePath,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectMapper">
+    <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.Project">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_number" property="projectNumber" jdbcType="VARCHAR"/>
+        <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+        <result column="applicant" property="applicant" jdbcType="VARCHAR"/>
+        <result column="application_department" property="applicationDepartment" jdbcType="VARCHAR"/>
+        <result column="project_budget" property="projectBudget" jdbcType="DOUBLE"/>
+        <result column="project_status" property="projectStatus" jdbcType="TINYINT"/>
+        <result column="approval_comment" property="approvalComment" jdbcType="VARCHAR"/>
+        <result column="file_path" property="filePath" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.Project" extends="BaseResultMap">
+        <result column="project_content" property="projectContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, project_number, project_name, applicant, application_department, project_budget,
+        project_status, approval_comment, file_path, is_deleted, create_time, last_update_time
+    </sql>
+    <sql id="Blob_Column_List">
+        project_content
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_project
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM t_project
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.Project">
+        INSERT INTO t_project (id, project_number, project_name,
+                               applicant, application_department, project_budget,
+                               project_status, approval_comment, file_path,
+                               is_deleted, create_time, last_update_time,
+                               project_content)
+        VALUES (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR},
+                                        #{applicant,jdbcType=VARCHAR}, #{applicationDepartment,jdbcType=VARCHAR},
+                                        #{projectBudget,jdbcType=DOUBLE},
+                                        #{projectStatus,jdbcType=TINYINT}, #{approvalComment,jdbcType=VARCHAR},
+                                        #{filePath,jdbcType=VARCHAR},
+                                        #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastUpdateTime,jdbcType=TIMESTAMP},
+                #{projectContent,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.Project">
+        insert into t_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="projectNumber != null">
+                project_number,
+            </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="applicant != null">
+                applicant,
+            </if>
+            <if test="applicationDepartment != null">
+                application_department,
+            </if>
+            <if test="projectBudget != null">
+                project_budget,
+            </if>
+            <if test="projectStatus != null">
+                project_status,
+            </if>
+            <if test="approvalComment != null">
+                approval_comment,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time,
+            </if>
+            <if test="projectContent != null">
+                project_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="projectNumber != null">
+                #{projectNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null">
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="applicant != null">
+                #{applicant,jdbcType=VARCHAR},
+            </if>
+            <if test="applicationDepartment != null">
+                #{applicationDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="projectBudget != null">
+                #{projectBudget,jdbcType=DOUBLE},
+            </if>
+            <if test="projectStatus != null">
+                #{projectStatus,jdbcType=TINYINT},
+            </if>
+            <if test="approvalComment != null">
+                #{approvalComment,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="projectContent != null">
+                #{projectContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.Project">
+        update t_project
+        <set>
+            <if test="projectNumber != null">
+                project_number = #{projectNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null">
+                project_name = #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="applicant != null">
+                applicant = #{applicant,jdbcType=VARCHAR},
+            </if>
+            <if test="applicationDepartment != null">
+                application_department = #{applicationDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="projectBudget != null">
+                project_budget = #{projectBudget,jdbcType=DOUBLE},
+            </if>
+            <if test="projectStatus != null">
+                project_status = #{projectStatus,jdbcType=TINYINT},
+            </if>
+            <if test="approvalComment != null">
+                approval_comment = #{approvalComment,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="projectContent != null">
+                project_content = #{projectContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.Project">
+        UPDATE t_project
+        SET project_number         = #{projectNumber,jdbcType=VARCHAR},
+            project_name           = #{projectName,jdbcType=VARCHAR},
+            applicant              = #{applicant,jdbcType=VARCHAR},
+            application_department = #{applicationDepartment,jdbcType=VARCHAR},
+            project_budget         = #{projectBudget,jdbcType=DOUBLE},
+            project_status         = #{projectStatus,jdbcType=TINYINT},
+            approval_comment       = #{approvalComment,jdbcType=VARCHAR},
+            file_path              = #{filePath,jdbcType=VARCHAR},
+            is_deleted             = #{isDeleted,jdbcType=TINYINT},
+            create_time            = #{createTime,jdbcType=TIMESTAMP},
+            last_update_time       = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            project_content        = #{projectContent,jdbcType=LONGVARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.Project">
+        UPDATE t_project
+        SET project_number         = #{projectNumber,jdbcType=VARCHAR},
+            project_name           = #{projectName,jdbcType=VARCHAR},
+            applicant              = #{applicant,jdbcType=VARCHAR},
+            application_department = #{applicationDepartment,jdbcType=VARCHAR},
+            project_budget         = #{projectBudget,jdbcType=DOUBLE},
+            project_status         = #{projectStatus,jdbcType=TINYINT},
+            approval_comment       = #{approvalComment,jdbcType=VARCHAR},
+            file_path              = #{filePath,jdbcType=VARCHAR},
+            is_deleted             = #{isDeleted,jdbcType=TINYINT},
+            create_time            = #{createTime,jdbcType=TIMESTAMP},
+            last_update_time       = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="findByFilePath" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project
+        WHERE is_deleted = 0
+        AND file_path = #{filePath,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
+
+    <select id="findByProjectName" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project
+        WHERE is_deleted = 0
+        AND project_name = #{projectName,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
+    <select id="findByProjectNumber" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project
+        WHERE is_deleted = 0
+        AND project_number = #{projectNumber,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
+    <update id="updateStatus">
+        UPDATE t_project
+        SET project_status = #{projectStatus,jdbcType=TINYINT}
+        WHERE project_number = #{projectNumber,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findByStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project
+        WHERE is_deleted = 0
+        AND project_status = #{projectStatus,jdbcType=TINYINT}
+    </select>
+
 </mapper>

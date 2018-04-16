@@ -1,184 +1,206 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectBidMapper" >
-  <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.ProjectBid" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="bid_number" property="bidNumber" jdbcType="VARCHAR" />
-    <result column="bidding_number" property="biddingNumber" jdbcType="VARCHAR" />
-    <result column="bid_company" property="bidCompany" jdbcType="VARCHAR" />
-    <result column="bid_prices" property="bidPrices" jdbcType="DOUBLE" />
-    <result column="bid_status" property="bidStatus" jdbcType="TINYINT" />
-    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
-    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.ProjectBid" extends="BaseResultMap" >
-    <result column="bid_content" property="bidContent" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, bid_number, bidding_number, bid_company, bid_prices, bid_status, file_path, is_deleted, 
-    create_time, last_update_time
-  </sql>
-  <sql id="Blob_Column_List" >
-    bid_content
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_project_bid
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_project_bid
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid" >
-    insert into t_project_bid (id, bid_number, bidding_number, 
-      bid_company, bid_prices, bid_status, 
-      file_path, is_deleted, create_time, 
-      last_update_time, bid_content)
-    values (#{id,jdbcType=INTEGER}, #{bidNumber,jdbcType=VARCHAR}, #{biddingNumber,jdbcType=VARCHAR}, 
-      #{bidCompany,jdbcType=VARCHAR}, #{bidPrices,jdbcType=DOUBLE}, #{bidStatus,jdbcType=TINYINT}, 
-      #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{bidContent,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid" >
-    insert into t_project_bid
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="bidNumber != null" >
-        bid_number,
-      </if>
-      <if test="biddingNumber != null" >
-        bidding_number,
-      </if>
-      <if test="bidCompany != null" >
-        bid_company,
-      </if>
-      <if test="bidPrices != null" >
-        bid_prices,
-      </if>
-      <if test="bidStatus != null" >
-        bid_status,
-      </if>
-      <if test="filePath != null" >
-        file_path,
-      </if>
-      <if test="isDeleted != null" >
-        is_deleted,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time,
-      </if>
-      <if test="bidContent != null" >
-        bid_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="bidNumber != null" >
-        #{bidNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="biddingNumber != null" >
-        #{biddingNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="bidCompany != null" >
-        #{bidCompany,jdbcType=VARCHAR},
-      </if>
-      <if test="bidPrices != null" >
-        #{bidPrices,jdbcType=DOUBLE},
-      </if>
-      <if test="bidStatus != null" >
-        #{bidStatus,jdbcType=TINYINT},
-      </if>
-      <if test="filePath != null" >
-        #{filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null" >
-        #{isDeleted,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null" >
-        #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bidContent != null" >
-        #{bidContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid" >
-    update t_project_bid
-    <set >
-      <if test="bidNumber != null" >
-        bid_number = #{bidNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="biddingNumber != null" >
-        bidding_number = #{biddingNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="bidCompany != null" >
-        bid_company = #{bidCompany,jdbcType=VARCHAR},
-      </if>
-      <if test="bidPrices != null" >
-        bid_prices = #{bidPrices,jdbcType=DOUBLE},
-      </if>
-      <if test="bidStatus != null" >
-        bid_status = #{bidStatus,jdbcType=TINYINT},
-      </if>
-      <if test="filePath != null" >
-        file_path = #{filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null" >
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="bidContent != null" >
-        bid_content = #{bidContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid" >
-    update t_project_bid
-    set bid_number = #{bidNumber,jdbcType=VARCHAR},
-      bidding_number = #{biddingNumber,jdbcType=VARCHAR},
-      bid_company = #{bidCompany,jdbcType=VARCHAR},
-      bid_prices = #{bidPrices,jdbcType=DOUBLE},
-      bid_status = #{bidStatus,jdbcType=TINYINT},
-      file_path = #{filePath,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      bid_content = #{bidContent,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid" >
-    update t_project_bid
-    set bid_number = #{bidNumber,jdbcType=VARCHAR},
-      bidding_number = #{biddingNumber,jdbcType=VARCHAR},
-      bid_company = #{bidCompany,jdbcType=VARCHAR},
-      bid_prices = #{bidPrices,jdbcType=DOUBLE},
-      bid_status = #{bidStatus,jdbcType=TINYINT},
-      file_path = #{filePath,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectBidMapper">
+    <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.ProjectBid">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="bid_number" property="bidNumber" jdbcType="VARCHAR"/>
+        <result column="bidding_number" property="biddingNumber" jdbcType="VARCHAR"/>
+        <result column="bid_company" property="bidCompany" jdbcType="VARCHAR"/>
+        <result column="bid_prices" property="bidPrices" jdbcType="DOUBLE"/>
+        <result column="bid_status" property="bidStatus" jdbcType="TINYINT"/>
+        <result column="file_path" property="filePath" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.ProjectBid"
+               extends="BaseResultMap">
+        <result column="bid_content" property="bidContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, bid_number, bidding_number, bid_company, bid_prices, bid_status, file_path, is_deleted,
+        create_time, last_update_time
+    </sql>
+    <sql id="Blob_Column_List">
+        bid_content
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_project_bid
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM t_project_bid
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid">
+        INSERT INTO t_project_bid (id, bid_number, bidding_number,
+                                   bid_company, bid_prices, bid_status,
+                                   file_path, is_deleted, create_time,
+                                   last_update_time, bid_content)
+        VALUES (#{id,jdbcType=INTEGER}, #{bidNumber,jdbcType=VARCHAR}, #{biddingNumber,jdbcType=VARCHAR},
+                                        #{bidCompany,jdbcType=VARCHAR}, #{bidPrices,jdbcType=DOUBLE},
+                                        #{bidStatus,jdbcType=TINYINT},
+                                        #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT},
+                                        #{createTime,jdbcType=TIMESTAMP},
+                                        #{lastUpdateTime,jdbcType=TIMESTAMP}, #{bidContent,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid">
+        insert into t_project_bid
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bidNumber != null">
+                bid_number,
+            </if>
+            <if test="biddingNumber != null">
+                bidding_number,
+            </if>
+            <if test="bidCompany != null">
+                bid_company,
+            </if>
+            <if test="bidPrices != null">
+                bid_prices,
+            </if>
+            <if test="bidStatus != null">
+                bid_status,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time,
+            </if>
+            <if test="bidContent != null">
+                bid_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bidNumber != null">
+                #{bidNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="biddingNumber != null">
+                #{biddingNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bidCompany != null">
+                #{bidCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="bidPrices != null">
+                #{bidPrices,jdbcType=DOUBLE},
+            </if>
+            <if test="bidStatus != null">
+                #{bidStatus,jdbcType=TINYINT},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bidContent != null">
+                #{bidContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid">
+        update t_project_bid
+        <set>
+            <if test="bidNumber != null">
+                bid_number = #{bidNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="biddingNumber != null">
+                bidding_number = #{biddingNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bidCompany != null">
+                bid_company = #{bidCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="bidPrices != null">
+                bid_prices = #{bidPrices,jdbcType=DOUBLE},
+            </if>
+            <if test="bidStatus != null">
+                bid_status = #{bidStatus,jdbcType=TINYINT},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bidContent != null">
+                bid_content = #{bidContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid">
+        UPDATE t_project_bid
+        SET bid_number       = #{bidNumber,jdbcType=VARCHAR},
+            bidding_number   = #{biddingNumber,jdbcType=VARCHAR},
+            bid_company      = #{bidCompany,jdbcType=VARCHAR},
+            bid_prices       = #{bidPrices,jdbcType=DOUBLE},
+            bid_status       = #{bidStatus,jdbcType=TINYINT},
+            file_path        = #{filePath,jdbcType=VARCHAR},
+            is_deleted       = #{isDeleted,jdbcType=TINYINT},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            bid_content      = #{bidContent,jdbcType=LONGVARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid">
+        UPDATE t_project_bid
+        SET bid_number       = #{bidNumber,jdbcType=VARCHAR},
+            bidding_number   = #{biddingNumber,jdbcType=VARCHAR},
+            bid_company      = #{bidCompany,jdbcType=VARCHAR},
+            bid_prices       = #{bidPrices,jdbcType=DOUBLE},
+            bid_status       = #{bidStatus,jdbcType=TINYINT},
+            file_path        = #{filePath,jdbcType=VARCHAR},
+            is_deleted       = #{isDeleted,jdbcType=TINYINT},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findByBidNumber" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_bid
+        WHERE is_deleted=0
+        AND bid_number = #{bidNumber,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
+    <select id="findByFilePath" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_bid
+        WHERE is_deleted=0
+        AND file_path = #{filePath,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
 </mapper>

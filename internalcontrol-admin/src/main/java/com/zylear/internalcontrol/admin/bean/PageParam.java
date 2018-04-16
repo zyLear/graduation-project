@@ -5,7 +5,7 @@ package com.zylear.internalcontrol.admin.bean;
  */
 public class PageParam {
     private Integer pageSize;
-    private Integer offSet;
+    private Integer offset;
 
     public Integer getPageSize() {
         return pageSize;
@@ -15,24 +15,24 @@ public class PageParam {
         this.pageSize = pageSize;
     }
 
-    public Integer getOffSet() {
-        return offSet;
+    public Integer getOffset() {
+        return offset;
     }
 
-    public void setOffSet(Integer offSet) {
-        this.offSet = offSet;
+    public void setOffset(Integer offset) {
+        this.offset = offset;
     }
 
     public PageParam(Integer pageSize, Integer offSet) {
         this.pageSize = pageSize;
-        this.offSet = offSet;
+        this.offset = offSet;
     }
 
     @Override
     public String toString() {
         return "PageParam{" +
                 "pageSize=" + pageSize +
-                ", offSet=" + offSet +
+                ", offset=" + offset +
                 '}';
     }
 }

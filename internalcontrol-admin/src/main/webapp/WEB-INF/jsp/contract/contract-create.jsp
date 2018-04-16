@@ -38,9 +38,9 @@
                 <form id="form" class="form-horizontal">
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">项目编号</label>
+                        <label class="col-sm-2 control-label">标书编号</label>
                         <div class="col-sm-7">
-                            <select id="projectNumber" name="projectNumber" class="form-control">
+                            <select id="bidNumber" name="bidNumber" class="form-control">
                                 <option value="none">未选择</option>
                                 <option value="internal_group">1111</option>
                                 <option value="outside_group">2222</option>
@@ -59,48 +59,60 @@
 
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">je</label>
+                        <label class="col-sm-2 control-label">合同名称</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="projectName" name="projectName"
-                                   placeholder="合同名字">
+                            <input type="text" class="form-control" id="contractName" name="contractName"
+                                   placeholder="合同名称">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">申请人</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="applicant" name="applicant" placeholder="申请人">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">申请部门</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="applicationDepartment"
-                                   name="applicationDepartment" placeholder="申请部门">
-                        </div>
-                    </div>
+                    <%--<div class="form-group">--%>
+                    <%--<label class="col-sm-2 control-label">申请人</label>--%>
+                    <%--<div class="col-sm-7">--%>
+                    <%--<input type="text" class="form-control" id="applicant" name="applicant" placeholder="申请人">--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div class="form-group">--%>
+                    <%--<label class="col-sm-2 control-label">申请部门</label>--%>
+                    <%--<div class="col-sm-7">--%>
+                    <%--<input type="text" class="form-control" id="applicationDepartment"--%>
+                    <%--name="applicationDepartment" placeholder="申请部门">--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">合同内容</label>
                         <div class="col-sm-7">
-                            <textarea cols="60" rows="20" class="form-control custom-textarea"
-                                      id="projectContent" name="projectContent"></textarea>
+                            <textarea cols="60" rows="14" class="form-control custom-textarea"
+                                      id="contractContent" name="contractContent"></textarea>
                         </div>
                     </div>
 
 
-                    <div id="itemsPanel">
-                        <div name="item" class="form-group">
-                            <label class="col-sm-2 control-label">合同项</label>
-                            <div class="col-sm-7">
-                                <textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" placeholder="金额">
-                            </div>
-                            <div class="col-sm-1">
-                                <button type="button" class="btn btn-info " onclick="addItem()"> 增加新项</button>
-                            </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">合同项面板</h3>
                         </div>
+                        <div class="panel-body" id="itemsPanel">
+
+                            <div name="item" class="form-group">
+                                <label class="col-sm-2 control-label">合同项</label>
+                                <div class="col-sm-7">
+                                    <textarea cols="60" rows="3" class="form-control custom-textarea"
+                                              placeholder="金额"></textarea>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" placeholder="金额">
+                                    <button type="button" class="btn btn-info custom-button" onclick="addItem()"> 增加新项
+                                    </button>
+                                </div>
+                                <%--<div class="col-sm-1">--%>
+
+                                <%--</div>--%>
+                            </div>
+
+                        </div>
+                        <%--panel body --%>
                     </div>
+                    <%--panel --%>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">总金额</label>
@@ -137,25 +149,26 @@
 
                 var items = new Array();
 
-                $('#item').each(function () {
+                $('[name="item"]').each(function () {
                     var object = new Object();
-                    object.itemMoney = $(this).find('.input').val();
-                    object.itemContent = $(this).find('.textarea').val();
+                    object.itemMoney = $(this).find('input').val();
+                    object.itemContent = $(this).find('textarea').val();
+                    items.push(object);
                 });
-                var object = new Object();
-                object.itemMoney = 100;
-                object.itemContent = 'content';
-
-                items.push(object);
-                items.push(object);
-                items.push(object);
+//                var object = new Object();
+//                object.itemMoney = 100;
+//                object.itemContent = 'content';
+//
+//                items.push(object);
+//                items.push(object);
+//                items.push(object);
 
                 var param = new FormData($('#form')[0]);
                 param.append('items', JSON.stringify(items));
 
 
                 $.ajax({
-                        url: '${pageContext.request.contextPath}/project/sure-contract-create',
+                        url: '${pageContext.request.contextPath}/contract/sure-contract-create',
                         type: 'POST',
                         data: param,
                         async: false,
@@ -182,9 +195,7 @@
                 '</div>' +
                 '<div class="col-sm-2">' +
                 '<input type="text" class="form-control" placeholder="金额">' +
-                '</div>' +
-                '<div class="col-sm-1">' +
-                '<button type="button" class="btn btn-info " onclick="deleteItem(this)"> 删除项</button>' +
+                '<button type="button" class="btn btn-info custom-button" onclick="deleteItem(this)"> 删除项</button>' +
                 '</div>' +
                 '</div>';
             $('#itemsPanel').append(html);

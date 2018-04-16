@@ -6,6 +6,8 @@ import com.zylear.internalcontrol.admin.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by xiezongyu on 2018/4/9.
  */
@@ -16,17 +18,17 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project findByFilePath(String filePath) {
-        return null;
+        return projectMapper.findByFilePath(filePath);
     }
 
     @Override
     public Project findByProjectName(String projectName) {
-        return null;
+        return projectMapper.findByProjectName(projectName);
     }
 
     @Override
     public Project findByProjectNumber(String projectNumber) {
-        return null;
+        return projectMapper.findByProjectNumber(projectNumber);
     }
 
     @Override
@@ -34,6 +36,20 @@ public class ProjectServiceImpl implements ProjectService {
         projectMapper.insert(project);
     }
 
+    @Override
+    public void updateStatus(String projectNumber, Integer status) {
+        projectMapper.updateStatus(projectNumber, status);
+    }
+
+    @Override
+    public List<Project> findByStatus(Integer projectStatus) {
+        return projectMapper.findByStatus(projectStatus);
+    }
+
+    @Override
+    public void update(Project needUpdateProject) {
+        projectMapper.updateByPrimaryKeySelective(needUpdateProject);
+    }
 
 
     @Autowired

@@ -5,6 +5,7 @@ import com.zylear.internalcontrol.admin.manager.BiddingManager;
 import com.zylear.internalcontrol.admin.manager.ContractManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,13 +40,15 @@ public class ContractController {
                                              @RequestParam("contractNumber") String contractNumber,
                                              @RequestParam("contractName") String contractName,
                                              @RequestParam("contractContent") String contractContent,
-                                             @RequestParam("contractMoney") Double contractMoney,
                                              @RequestParam("file") MultipartFile file,
                                              @RequestParam("items") String items
     ) {
 
-        return contractManager.saveContract(bidNumber, contractNumber, contractName, contractContent, contractMoney, file, items);
+        return contractManager.saveContract(bidNumber, contractNumber, contractName, contractContent, file, items);
     }
 
-
+    @Autowired
+    public void setContractManager(ContractManager contractManager) {
+        this.contractManager = contractManager;
+    }
 }

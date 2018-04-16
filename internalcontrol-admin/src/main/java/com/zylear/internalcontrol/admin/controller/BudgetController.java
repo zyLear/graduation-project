@@ -3,6 +3,7 @@ package com.zylear.internalcontrol.admin.controller;
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.bean.PageResult;
 import com.zylear.internalcontrol.admin.bean.TestViewBean;
+import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 import com.zylear.internalcontrol.admin.manager.BudgetManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by xiezongyu on 2018/4/8.
@@ -45,12 +47,9 @@ public class BudgetController {
     @ResponseBody
     @RequestMapping("/sure-budget-application")
     public BasePageResult sureBudgetApplication(@RequestParam("projectNumber") String projectNumber,
-                                                @RequestParam("budgetAspect") String budgetAspect,
-                                                @RequestParam("budgetContent") String budgetContent,
-                                                @RequestParam("budgetMoney") Double budgetMoney
+                                                @RequestParam("items") String items
     ) {
-
-        return budgetManager.saveBudget(projectNumber, budgetAspect, budgetContent, budgetMoney);
+        return budgetManager.saveBudget(projectNumber, items);
     }
 
 

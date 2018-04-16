@@ -1,9 +1,8 @@
 package com.zylear.internalcontrol.admin.controller;
 
-import com.zylear.internalcontrol.admin.bean.BasePageResult;
-import com.zylear.internalcontrol.admin.bean.PageResult;
-import com.zylear.internalcontrol.admin.bean.TestViewBean;
+import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.manager.BiddingManager;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by xiezongyu on 2018/4/8.
@@ -38,16 +38,25 @@ public class BiddingController {
     }
 
     @ResponseBody
-    @RequestMapping("/sure-bidding-create")
-    public BasePageResult sureProjectApplication(@RequestParam("projectNumber") String projectNumber,
-                                                 @RequestParam("biddingNumber") String biddingNumber,
-                                                 @RequestParam("biddingName") String biddingName,
-                                                 @RequestParam("biddingContent") String biddingContent,
-                                                 @RequestParam("prices") Double prices,
-                                                 @RequestParam("file") MultipartFile file
-    ) {
+    @RequestMapping("/get-bidding-list")
+    public PageResult<BiddingViewBean> getBiddingList(@Param("limit") Integer pageSize,
+                                                      @Param("offset") Integer offset) {
+        PageParam pageParam = new PageParam(pageSize, offset);
+        return biddingManager.getBiddingListPageResult(pageParam);
+    }
 
-        return biddingManager.saveBidding(projectNumber, biddingNumber, biddingName, biddingContent, prices, file);
+    @ResponseBody
+    @RequestMapping("/sure-bidding-create")
+    public BasePageResult saveBidding(@RequestParam("projectNumber") String projectNumber,
+                                      @RequestParam("biddingNumber") String biddingNumber,
+                                      @RequestParam("biddingName") String biddingName,
+                                      @RequestParam("biddingContent") String biddingContent,
+                                      @RequestParam("biddingStartTime") Long biddingStartTime,
+                                      @RequestParam("biddingEndTime") Long biddingEndTime,
+                                      @RequestParam("prices") Double prices,
+                                      @RequestParam("file") MultipartFile file) {
+        return biddingManager.saveBidding(projectNumber, biddingNumber, biddingName,
+                new Date(biddingStartTime), new Date(biddingEndTime), biddingContent, prices, file);
     }
 
 

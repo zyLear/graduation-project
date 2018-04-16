@@ -82,4 +82,13 @@ public class ProjectBudget {
     public void setBudgetContent(String budgetContent) {
         this.budgetContent = budgetContent;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectBudget{" +
+                "budgetAspect='" + budgetAspect + '\'' +
+                ", budgetMoney=" + budgetMoney +
+                ", budgetContent='" + budgetContent + '\'' +
+                '}';
+    }
 }

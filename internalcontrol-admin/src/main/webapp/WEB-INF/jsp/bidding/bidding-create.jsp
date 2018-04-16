@@ -15,6 +15,8 @@
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
           rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
 </head>
 
 <body>
@@ -42,9 +44,7 @@
                         <label class="col-sm-2 control-label">项目编号</label>
                         <div class="col-sm-7">
                             <select id="projectNumber" name="projectNumber" class="form-control">
-                                <option value="none">未选择</option>
-                                <option value="internal_group">1111</option>
-                                <option value="outside_group">2222</option>
+                                <option value="-1">未选择</option>
                             </select>
                         </div>
                     </div>
@@ -66,6 +66,23 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开始时间</label>
+                        <div class="col-sm-7">
+                            <input readonly type="text" class="form-control"
+                                   id="biddingStartTime" <%--name="biddingStartTime"--%>
+                                   placeholder="开始时间">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">结束时间</label>
+                        <div class="col-sm-7">
+                            <input readonly type="text" class="form-control"
+                                   id="biddingEndTime" <%--name="biddingEndTime"--%>
+                                   placeholder="结束时间">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">招标内容</label>
@@ -74,6 +91,7 @@
                                       id="biddingContent" name="biddingContent"></textarea>
                         </div>
                     </div>
+
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">招标价格</label>
@@ -121,25 +139,59 @@
 <%@include file="../common/common_bottom_resource.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script>
+
+
     $(document).ready(function () {
+
+        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + projectStatusEnum.bidding);
+
         $('#save').click(function () {
+            var param = new FormData($('#form')[0]);
+            param.append('biddingStartTime', new Date($('#biddingStartTime').val()).getTime());
+            param.append('biddingEndTime', new Date($('#biddingEndTime').val()).getTime());
+
             $.ajax({
-                    url: '${pageContext.request.contextPath}/bidding/sure-bidding-create',
-                    type: 'POST',
-                    data: new FormData($('#form')[0]),
-                    async: false,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        alert(data.errorMessage);
-                    },
-                    error: function (data) {
-                        alert(data.errorMessage);
-                    }
+                url: '${pageContext.request.contextPath}/bidding/sure-bidding-create',
+                type: 'POST',
+                data: param,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    alert(data.errorMessage);
+                },
+                error: function (data) {
+                    alert(data.errorMessage);
                 }
-            )
+            });
+        });
+
+        $('#biddingStartTime').datetimepicker({
+            //language:  'fr',
+            language: 'zh-CN',//显示中文
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+
+        $('#biddingEndTime').datetimepicker({
+            //language:  'fr',
+            language: 'zh-CN',//显示中文
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
         });
     })
 </script>
