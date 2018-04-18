@@ -84,7 +84,7 @@ public class BidManager {
 
     public BasePageResult<ProjectBid> queryProjectBids(Integer bidStatus) {
         BasePageResult<ProjectBid> response = BasePageResult.getSuccessResponse();
-//        response.setData(projectService.findByStatus(bidStatus));
+        response.setData(projectBidService.findByStatus(bidStatus));
         return response;
     }
 

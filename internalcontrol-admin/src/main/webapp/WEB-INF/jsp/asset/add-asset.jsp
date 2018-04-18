@@ -43,8 +43,6 @@
                         <div class="col-sm-7">
                             <select id="contractNumber" name="contractNumber" class="form-control">
                                 <option value="none">未选择</option>
-                                <option value="internal_group">1111</option>
-                                <option value="outside_group">2222</option>
                             </select>
                         </div>
                     </div>
@@ -84,11 +82,11 @@
                     </div>
 
                     <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-2 control-label">单价</label>--%>
-                        <%--<div class="col-sm-7">--%>
-                            <%--<input type="text" class="form-control" id="count" name="prices"--%>
-                                   <%--placeholder="数量">--%>
-                        <%--</div>--%>
+                    <%--<label class="col-sm-2 control-label">单价</label>--%>
+                    <%--<div class="col-sm-7">--%>
+                    <%--<input type="text" class="form-control" id="count" name="prices"--%>
+                    <%--placeholder="数量">--%>
+                    <%--</div>--%>
                     <%--</div>--%>
 
                 </form>
@@ -119,10 +117,12 @@
 <!-- /#wrapper -->
 
 <%@include file="../common/common_bottom_resource.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#contractNumber').initContracts('${pageContext.request.contextPath}/contract/get-contracts?contractStatus=' + ContractStatusEnum.effective);
+
         $('#save').click(function () {
             $.ajax({
                 url: '${pageContext.request.contextPath}/asset/sure-add-asset',

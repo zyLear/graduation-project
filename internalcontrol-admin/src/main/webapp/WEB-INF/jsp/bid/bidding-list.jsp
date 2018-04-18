@@ -79,9 +79,9 @@
         $(document).ready(function () {
 
 
-            $('#add-budget').click(function () {
-                $('#add-budget-modal').modal('show');
-            });
+//            $('#add-budget').click(function () {
+//                $('#add-budget-modal').modal('show');
+//            });
 
             var oTable = new TableInit();
             oTable.Init();
@@ -152,17 +152,23 @@
                         field: 'biddingStatus',
                         title: '招标状态',
                         formatter: function (value, row, index) {
-                            return value;
+                            return formatBiddingStatus(value);
                         }
                     }, {
                         field: 'biddingStartTime',
-                        title: '招标开始时间'
+                        title: '招标开始时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
                     }, {
                         field: 'biddingEndTime',
-                        title: '招标结束时间'
+                        title: '招标结束时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
                     }, {
                         field: 'biddingNumber',
-                        title: '标书名称',
+                        title: '操作',
                         formatter: function (value, row, index) {
                             return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info">投标</button>';
                         }

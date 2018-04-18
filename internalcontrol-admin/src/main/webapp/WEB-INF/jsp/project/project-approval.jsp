@@ -96,14 +96,13 @@
 <!-- /#wrapper -->
 
 <%@include file="../common/common_bottom_resource.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script>
     $(document).ready(function () {
 
         initApprovalResult();
 
-        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + projectStatusEnum.in_approval);
+        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.in_approval);
 
         $('#save').click(function () {
             $.ajax({
@@ -132,9 +131,9 @@
 
     function initApprovalResult() {
         var html = '<option value="-1">未选择</option>' +
-            '<option value="' + projectStatusEnum.budgeting + '">同意立项</option>' +
-            '<option value="' + projectStatusEnum.pending + '">待定</option>' +
-            '<option value="' + projectStatusEnum.cancel + '">不同意立项</option>';
+            '<option value="' + ProjectStatusEnum.budgeting + '">同意立项</option>' +
+            '<option value="' + ProjectStatusEnum.pending + '">待定</option>' +
+            '<option value="' + ProjectStatusEnum.cancel + '">不同意立项</option>';
         $('#projectStatus').html(html);
     }
 

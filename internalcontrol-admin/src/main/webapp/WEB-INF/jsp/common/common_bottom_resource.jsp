@@ -18,6 +18,10 @@
 <!-- Custom Theme JavaScript -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/sb-admin-2.min.js"></script>
 
+<%-- Custom JavaScript --%>
+<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
+
+
+
 <script src="${pageContext.request.contextPath}/resources/dist/js/html5shiv.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dist/js/respond.min.js"></script>
-

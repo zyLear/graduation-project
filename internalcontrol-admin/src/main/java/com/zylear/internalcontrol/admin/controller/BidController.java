@@ -81,9 +81,8 @@ public class BidController {
 
 
     @ResponseBody
-    @RequestMapping("/get-projects")
+    @RequestMapping("/get-bids")
     public BasePageResult<ProjectBid> getProjectBidList(@RequestParam("bidStatus") Integer bidStatus) {
-//        return projectManager.queryProjects(projectStatus);
         return bidManager.queryProjectBids(bidStatus);
     }
 

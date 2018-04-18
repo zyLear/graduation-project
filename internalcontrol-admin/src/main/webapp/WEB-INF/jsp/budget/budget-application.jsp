@@ -120,11 +120,10 @@
 <!-- /#wrapper -->
 
 <%@include file="../common/common_bottom_resource.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script>
     $(document).ready(function () {
 
-        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + projectStatusEnum.budgeting);
+        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.budgeting);
 
         $('#save').click(function () {
 

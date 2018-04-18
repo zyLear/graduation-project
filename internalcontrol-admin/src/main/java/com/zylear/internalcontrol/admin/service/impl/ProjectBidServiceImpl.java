@@ -6,6 +6,8 @@ import com.zylear.internalcontrol.admin.service.ProjectBidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by xiezongyu on 2018/4/15.
  */
@@ -27,6 +29,11 @@ public class ProjectBidServiceImpl implements ProjectBidService {
     @Override
     public ProjectBid findByFilePath(String filePath) {
         return projectBidMapper.findByFilePath(filePath);
+    }
+
+    @Override
+    public List<ProjectBid> findByStatus(Integer bidStatus) {
+        return projectBidMapper.findByStatus(bidStatus);
     }
 
     @Autowired

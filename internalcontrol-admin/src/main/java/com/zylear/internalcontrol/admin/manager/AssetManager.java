@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.manager;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.domain.Asset;
 import com.zylear.internalcontrol.admin.domain.ProjectContract;
@@ -30,10 +31,15 @@ public class AssetManager {
         if (projectContract == null) {
             return BasePageResult.ERROR_RESPONSE;
         }
+
+        Asset asset = assetService.findByAssetNumber(assetNumber);
+        if (asset != null) {
+            return BasePageResult.ID_EXIST_RESPONSE;
+        }
         //calculate the all money of the contarct
         // if (projectContract.getContractMoney()<count*ass)
 
-        Asset asset = new Asset();
+        asset = new Asset();
         asset.setContractNumber(contractNumber);
         asset.setAssetNumber(assetNumber);
         asset.setAssetType(assetType);
@@ -44,7 +50,7 @@ public class AssetManager {
         asset.setLastUpdateTime(new Date());
 
 //        for (int i = 0; i < count; i++) {
-            assetService.insert(asset);
+        assetService.insert(asset);
 //        }
         return BasePageResult.SUCCESS_RESPONSE;
     }

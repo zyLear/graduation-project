@@ -1,22 +1,22 @@
 package com.zylear.internalcontrol.admin.enums;
 
 /**
- * Created by xiezongyu on 2018/4/11.
+ * Created by xiezongyu on 2018/4/10.
  */
-public enum ContractStatus {
+public enum BidStatus {
     unknown(-1),
-//    editing(0),
-    effective(0),
-    finish(1),
-    cancel(2);
+    bided(0),
+    winning(1),
+    unsuccessful(2);
 
     private Integer value;
 
-    ContractStatus(Integer value) {
+    BidStatus(Integer value){
         this.value = value;
     }
 
     public Integer getValue() {
         return value;
     }
+
 }

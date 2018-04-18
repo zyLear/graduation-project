@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>添加招标公告</title>
+    <title>创建标书</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
@@ -129,11 +129,10 @@
 <!-- /#wrapper -->
 
 <%@include file="../common/common_bottom_resource.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script>
 
-    <%--$('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + projectStatusEnum.bidding);--%>
+    <%--$('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.bidding);--%>
 
     $(document).ready(function () {
         $('#save').click(function () {

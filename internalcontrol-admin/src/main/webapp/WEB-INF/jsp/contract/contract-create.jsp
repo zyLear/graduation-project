@@ -145,6 +145,9 @@
     <script>
 
         $(document).ready(function () {
+
+            $('#bidNumber').initBids('${pageContext.request.contextPath}/bid/get-bids?bidStatus=' + BidStatusEnum.winning);
+
             $('#save').click(function () {
 
                 var items = new Array();

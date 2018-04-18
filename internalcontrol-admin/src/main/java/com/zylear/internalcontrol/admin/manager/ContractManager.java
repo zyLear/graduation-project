@@ -4,6 +4,7 @@ import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.config.DataSourceInternalControlConfig;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.controller.BiddingController;
+import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.domain.ProjectContract;
 import com.zylear.internalcontrol.admin.domain.ProjectContractItem;
 import com.zylear.internalcontrol.admin.enums.ContractStatus;
@@ -105,6 +106,17 @@ public class ContractManager {
 
     }
 
+    public BasePageResult<ProjectContract> queryProjectContracts(Integer contractStatus) {
+
+        BasePageResult<ProjectContract> response = BasePageResult.getSuccessResponse();
+        response.setData(projectContractService.findByStatus(contractStatus));
+        return response;
+    }
+
+
+
+
+
     @Autowired
     public void setProjectContractService(ProjectContractService projectContractService) {
         this.projectContractService = projectContractService;
@@ -119,4 +131,6 @@ public class ContractManager {
     public void setFilePathPrefix(String filePathPrefix) {
         this.filePathPrefix = filePathPrefix;
     }
+
+
 }

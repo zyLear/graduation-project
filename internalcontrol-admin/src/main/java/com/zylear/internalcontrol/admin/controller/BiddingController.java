@@ -29,7 +29,7 @@ public class BiddingController {
 
     @RequestMapping("/bidding-list")
     public ModelAndView biddingListPage() {
-        return new ModelAndView("bidding/bidding-list-page");
+        return new ModelAndView("bidding/bidding-list");
     }
 
     @RequestMapping("/bidding-create")
@@ -39,9 +39,16 @@ public class BiddingController {
 
     @ResponseBody
     @RequestMapping("/get-bidding-list")
-    public PageResult<BiddingViewBean> getBiddingList(@Param("limit") Integer pageSize,
+    public PageResult<BiddingViewBean> getBiddingList(@Param("limit") Integer limit,
                                                       @Param("offset") Integer offset) {
-        PageParam pageParam = new PageParam(pageSize, offset);
+        if (offset == null) {
+            offset = 0;
+        }
+        if (limit == null || limit > 100) {
+            limit = 10;
+        }
+        System.out.println();
+        PageParam pageParam = new PageParam(limit, offset);
         return biddingManager.getBiddingListPageResult(pageParam);
     }
 

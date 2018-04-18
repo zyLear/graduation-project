@@ -1,6 +1,8 @@
 package com.zylear.internalcontrol.admin.controller;
 
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
+import com.zylear.internalcontrol.admin.domain.ProjectBid;
+import com.zylear.internalcontrol.admin.domain.ProjectContract;
 import com.zylear.internalcontrol.admin.manager.BiddingManager;
 import com.zylear.internalcontrol.admin.manager.ContractManager;
 import org.slf4j.Logger;
@@ -26,7 +28,7 @@ public class ContractController {
 
     @RequestMapping("/contract-list")
     public ModelAndView contractListPage() {
-        return new ModelAndView("bidding/bidding-list-page");
+        return new ModelAndView("bidding/bidding-list");
     }
 
     @RequestMapping("/contract-create")
@@ -46,6 +48,13 @@ public class ContractController {
 
         return contractManager.saveContract(bidNumber, contractNumber, contractName, contractContent, file, items);
     }
+
+    @ResponseBody
+    @RequestMapping("/get-contracts")
+    public BasePageResult<ProjectContract> getProjectBidList(@RequestParam("contractStatus") Integer contractStatus) {
+        return contractManager.queryProjectContracts(contractStatus);
+    }
+
 
     @Autowired
     public void setContractManager(ContractManager contractManager) {

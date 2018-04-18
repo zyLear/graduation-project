@@ -3,6 +3,8 @@ package com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol;
 import com.zylear.internalcontrol.admin.domain.ProjectContract;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ProjectContractMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -24,4 +26,6 @@ public interface ProjectContractMapper {
     ProjectContract findByContractNumber(@Param("contractNumber")String contractNumber);
 
     ProjectContract findByFilePath(@Param("filePath")String filePath);
+
+    List<ProjectContract> findByStatus(@Param("contractStatus") Integer contractStatus);
 }
