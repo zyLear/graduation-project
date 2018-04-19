@@ -31,4 +31,7 @@ public interface ProjectBiddingMapper {
     List<ProjectBidding> findByPageParam(@Param("pageParam") PageParam pageParam);
 
     Integer getTotal();
+
+    void updateStatus(@Param("biddingNumber") Integer biddingNumber,
+                      @Param("biddingStatus") Integer biddingStatus);
 }

@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.service.impl;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectBidMapper;
 import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.service.ProjectBidService;
@@ -34,6 +35,11 @@ public class ProjectBidServiceImpl implements ProjectBidService {
     @Override
     public List<ProjectBid> findByStatus(Integer bidStatus) {
         return projectBidMapper.findByStatus(bidStatus);
+    }
+
+    @Override
+    public List<ProjectBid> findByPageParam(PageParam pageParam) {
+        return projectBidMapper.findByPageParam(pageParam);
     }
 
     @Autowired

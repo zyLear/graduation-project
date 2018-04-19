@@ -132,19 +132,13 @@
                          }*/
                     }, {
                         field: 'biddingNumber',
-                        title: '标书编号'
+                        title: '招标编号'
                     }, {
                         field: 'biddingName',
-                        title: '标书名称'
-                    }, {
-                        field: 'biddingNumber',
-                        title: '标书编号'
-                    }, {
-                        field: 'biddingName',
-                        title: '标书名称'
-                    }, {
+                        title: '招标名称'
+                    },{
                         field: 'id',
-                        title: '标书内容',
+                        title: '招标内容',
                         formatter: function (value, row, index) {
                             return '点击查看';
                         }
@@ -170,7 +164,18 @@
                         field: 'biddingNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
-                            return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info">投标</button>';
+                            var html = "";
+                            if (row.biddingStatus == BiddingStatusEnum.close) {
+                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
+                            } else if(row.biddingStatus == BiddingStatusEnum.open) {
+                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                            } else {
+                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+                            }
+                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+                            return html;
                         }
                     }]
                 });
@@ -188,6 +193,39 @@
             };
             return oTableInit;
         };
+
+
+        showBid = function (value) {
+            alert(value);
+        };
+
+
+        changeBiddingStatus = function (number, status) {
+            var text;
+            if (BiddingStatusEnum.open == status) {
+                text = '确定启动投标吗？';
+            } else {
+                text = '确定停止投标吗？';
+            }
+            if (confirm(text)) {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/bidding/change-bidding-status',
+                    type: 'POST',
+                    data: {
+                        "biddingNumber": number,
+                        "biddingStatus": status
+                    },
+                    success: function (data) {
+                        alert(data.errorMessage);
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        alert('错误');
+                    }
+
+                });
+            }
+        }
 
 
     </script>

@@ -239,7 +239,7 @@
         LIMIT 1
     </select>
 
-    <select id="findByPageParam" resultMap="BaseResultMap" >
+    <select id="findByPageParam" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_project_bidding
@@ -251,6 +251,12 @@
         SELECT count(*)
         FROM t_project_bidding
         WHERE is_deleted = 0
+    </select>
+
+    <select id="updateStatus">
+        UPDATE t_project_bidding
+        SET bidding_status = #{biddingStatus,jdbcType=TINYINT}
+        WHERE bidding_number = #{biddingNumber,jdbcType=VARCHAR}
     </select>
 
 </mapper>

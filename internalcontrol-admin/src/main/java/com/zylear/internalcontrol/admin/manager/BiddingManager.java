@@ -1,9 +1,6 @@
 package com.zylear.internalcontrol.admin.manager;
 
-import com.zylear.internalcontrol.admin.bean.BasePageResult;
-import com.zylear.internalcontrol.admin.bean.BiddingViewBean;
-import com.zylear.internalcontrol.admin.bean.PageParam;
-import com.zylear.internalcontrol.admin.bean.PageResult;
+import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectBidding;
@@ -124,6 +121,13 @@ public class BiddingManager {
         return biddingViewBean;
     }
 
+    public BasePageResult changeBiddingStatus(Integer biddingNumber, Integer biddingStatus) {
+        projectBiddingService.updateStatus(biddingNumber, biddingStatus);
+        return BasePageResult.SUCCESS_RESPONSE;
+    }
+
+
+
 
     @Autowired
     public void setFilePathPrefix(String filePathPrefix) {
@@ -139,6 +143,7 @@ public class BiddingManager {
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }
+
 
 
 }

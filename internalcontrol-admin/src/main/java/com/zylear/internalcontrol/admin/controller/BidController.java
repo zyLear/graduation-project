@@ -1,9 +1,6 @@
 package com.zylear.internalcontrol.admin.controller;
 
-import com.zylear.internalcontrol.admin.bean.BasePageResult;
-import com.zylear.internalcontrol.admin.bean.BiddingViewBean;
-import com.zylear.internalcontrol.admin.bean.PageParam;
-import com.zylear.internalcontrol.admin.bean.PageResult;
+import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.manager.BidManager;
 import com.zylear.internalcontrol.admin.manager.BiddingManager;
@@ -36,6 +33,12 @@ public class BidController {
     public ModelAndView biddingListPage() {
         return new ModelAndView("bid/bidding-list");
     }
+
+    @RequestMapping("/bid-list")
+    public ModelAndView bidListPage() {
+        return new ModelAndView("bid/bid-list");
+    }
+
 
     @RequestMapping("/bid-create")
     public ModelAndView bidCreate(@Param("biddingNumber") String biddingNumber) {
@@ -79,6 +82,21 @@ public class BidController {
         return biddingManager.getBiddingListPageResult(pageParam);
     }
 
+
+    @ResponseBody
+    @RequestMapping("/get-bid-list")
+    public PageResult<BidViewBean> getBidList(@Param("limit") Integer limit,
+                                              @Param("offset") Integer offset) {
+        if (offset == null) {
+            offset = 0;
+        }
+        if (limit == null || limit > 100) {
+            limit = 10;
+        }
+        System.out.println();
+        PageParam pageParam = new PageParam(limit, offset);
+        return bidManager.getBidListPageResult(pageParam);
+    }
 
     @ResponseBody
     @RequestMapping("/get-bids")
