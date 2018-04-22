@@ -210,9 +210,11 @@
         LIMIT 1
     </select>
 
-    <select id="findByContractNumber" resultMap="BaseResultMap">
+    <select id="findByContractNumber" resultMap="ResultMapWithBLOBs">
         SELECT
         <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
         FROM t_project_contract
         WHERE is_deleted=0
         AND contract_number = #{contractNumber,jdbcType=VARCHAR}
@@ -227,5 +229,35 @@
         AND file_path = #{filePath,jdbcType=VARCHAR}
         LIMIT 1
     </select>
+
+    <select id="findByStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_contract
+        WHERE is_deleted = 0
+        AND contract_status = #{contractStatus,jdbcType=TINYINT}
+    </select>
+
+    <select id="findByPageParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_contract
+        WHERE is_deleted = 0
+        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_project_contract
+        WHERE is_deleted = 0
+    </select>
+
+    <update id="updateStatusAndFinishDay">
+        UPDATE t_project_contract
+        SET contract_status = #{contractStatus,jdbcType=TINYINT},
+            finish_day      = #{date,jdbcType=DATE}
+        WHERE contract_number = #{contractNumber,jdbcType=VARCHAR}
+    </update>
+
 
 </mapper>

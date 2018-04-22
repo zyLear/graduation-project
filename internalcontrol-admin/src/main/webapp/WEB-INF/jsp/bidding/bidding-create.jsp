@@ -137,7 +137,6 @@
 <!-- /#wrapper -->
 
 <%@include file="../common/common_bottom_resource.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/dist/js/common-custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
@@ -146,7 +145,7 @@
 
     $(document).ready(function () {
 
-        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + projectStatusEnum.bidding);
+        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.bidding);
 
         $('#save').click(function () {
             var param = new FormData($('#form')[0]);

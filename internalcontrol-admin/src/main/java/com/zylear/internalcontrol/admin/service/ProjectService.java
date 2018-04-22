@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.service;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.domain.Project;
 
 import java.util.List;
@@ -21,4 +22,9 @@ public interface ProjectService {
     List<Project> findByStatus(Integer projectStatus);
 
     void update(Project needUpdateProject);
+
+
+    List<Project> findByPageParam(PageParam pageParam);
+
+    Integer getTotal();
 }

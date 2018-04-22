@@ -78,7 +78,8 @@
                                 <span class="pull-right text-muted">40% Complete</span>
                             </p>
                             <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                                     <span class="sr-only">40% Complete (success)</span>
                                 </div>
                             </div>
@@ -94,7 +95,8 @@
                                 <span class="pull-right text-muted">20% Complete</span>
                             </p>
                             <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 20%">
                                     <span class="sr-only">20% Complete</span>
                                 </div>
                             </div>
@@ -110,7 +112,8 @@
                                 <span class="pull-right text-muted">60% Complete</span>
                             </p>
                             <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 60%">
                                     <span class="sr-only">60% Complete (warning)</span>
                                 </div>
                             </div>
@@ -126,7 +129,8 @@
                                 <span class="pull-right text-muted">80% Complete</span>
                             </p>
                             <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 80%">
                                     <span class="sr-only">80% Complete (danger)</span>
                                 </div>
                             </div>
@@ -258,10 +262,10 @@
                 </li>
 
                 <%--<li>--%>
-                    <%--<a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>--%>
+                <%--<a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>--%>
                 <%--</li>--%>
                 <%--<li>--%>
-                    <%--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>--%>
+                <%--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>--%>
                 <%--</li>--%>
                 <li>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
@@ -272,9 +276,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>--%>
+                        <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -288,7 +292,7 @@
                             <a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>
                         </li>
                         <li>
-                            <a href="#"> 标书申请列表</a>
+                            <a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -302,10 +306,10 @@
                             <a href="${pageContext.request.contextPath}/bid/bidding-list"> 招标列表</a>
                         </li>
                         <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>--%>
+                        <%--<a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>--%>
                         <%--</li>--%>
                         <%--<li>--%>
-                            <%--<a href="#"> 标书申请列表</a>--%>
+                        <%--<a href="#"> 标书申请列表</a>--%>
                         <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -315,7 +319,7 @@
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> 合同管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"> 合同列表</a>
+                            <a href="${pageContext.request.contextPath}/contract/contract-list"> 合同列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>
@@ -331,7 +335,7 @@
                             <a href="#"> 资产列表</a>
                         </li>
                         <li>
-                            <a href="#"> 资产入库</a>
+                            <a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

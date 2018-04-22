@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.service.impl;
 
+import com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.AssetMapper;
 import com.zylear.internalcontrol.admin.domain.Asset;
 import com.zylear.internalcontrol.admin.manager.AssetManager;
 import com.zylear.internalcontrol.admin.service.AssetService;
@@ -11,16 +12,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AssetServiceImpl implements AssetService {
-    private AssetManager assetManager;
+
+    private AssetMapper assetMapper;
 
     @Override
     public void insert(Asset asset) {
-
+        assetMapper.insert(asset);
     }
+
+    @Override
+    public Asset findByAssetNumber(String assetNumber) {
+        return assetMapper.findByAssetNumber(assetNumber);
+    }
+
     @Autowired
-    public void setAssetManager(AssetManager assetManager) {
-        this.assetManager = assetManager;
+    public void setAssetMapper(AssetMapper assetMapper) {
+        this.assetMapper = assetMapper;
     }
-
-
 }

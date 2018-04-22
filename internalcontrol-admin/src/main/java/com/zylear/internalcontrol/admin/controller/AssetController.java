@@ -40,11 +40,11 @@ public class AssetController {
                                              @RequestParam("assetNumber") String assetNumber,
                                              @RequestParam("assetType") String assetType,
                                              @RequestParam("remark") String remark,
-                                             @RequestParam("prices") Double prices,
-                                             @RequestParam("count") Integer count
+                                             @RequestParam("prices") Double prices/*,
+                                             @RequestParam("count") Integer count*/
     ) {
 
-        return assetManager.addAsset(contractNumber, assetNumber, assetType, remark, prices, count);
+        return assetManager.addAsset(contractNumber, assetNumber, assetType, remark, prices/*, count*/);
     }
 
 

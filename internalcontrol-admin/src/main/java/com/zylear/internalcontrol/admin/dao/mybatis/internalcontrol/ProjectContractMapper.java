@@ -1,7 +1,11 @@
 package com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.domain.ProjectContract;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 public interface ProjectContractMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,7 +25,17 @@ public interface ProjectContractMapper {
 
     ProjectContract findByContractName(@Param("contractName") String contractName);
 
-    ProjectContract findByContractNumber(@Param("contractNumber")String contractNumber);
+    ProjectContract findByContractNumber(@Param("contractNumber") String contractNumber);
 
-    ProjectContract findByFilePath(@Param("filePath")String filePath);
+    ProjectContract findByFilePath(@Param("filePath") String filePath);
+
+    List<ProjectContract> findByStatus(@Param("contractStatus") Integer contractStatus);
+
+    List<ProjectContract> findByPageParam(@Param("pageParam") PageParam pageParam);
+
+    Integer getTotal();
+
+    void updateStatusAndFinishDay(@Param("contractNumber") String contractNumber,
+                                  @Param("contractStatus") Integer contractStatus,
+                                  @Param("date") Date date);
 }

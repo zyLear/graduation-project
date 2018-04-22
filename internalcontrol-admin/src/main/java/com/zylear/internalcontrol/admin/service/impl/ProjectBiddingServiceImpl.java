@@ -52,6 +52,11 @@ public class ProjectBiddingServiceImpl implements ProjectBiddingService {
         return projectBiddingMapper.findByPageParam(pageParam);
     }
 
+    @Override
+    public void updateStatus(String biddingNumber, Integer biddingStatus) {
+        projectBiddingMapper.updateStatus(biddingNumber, biddingStatus);
+    }
+
     @Autowired
     public void setProjectBiddingMapper(ProjectBiddingMapper projectBiddingMapper) {
         this.projectBiddingMapper = projectBiddingMapper;

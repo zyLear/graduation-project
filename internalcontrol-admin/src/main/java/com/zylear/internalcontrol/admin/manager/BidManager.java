@@ -1,9 +1,14 @@
 package com.zylear.internalcontrol.admin.manager;
 
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
+import com.zylear.internalcontrol.admin.bean.BidViewBean;
+import com.zylear.internalcontrol.admin.bean.PageParam;
+import com.zylear.internalcontrol.admin.bean.PageResult;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
+import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.domain.ProjectBidding;
+import com.zylear.internalcontrol.admin.enums.BidStatus;
 import com.zylear.internalcontrol.admin.enums.BiddingStatus;
 import com.zylear.internalcontrol.admin.service.ProjectBidService;
 import com.zylear.internalcontrol.admin.service.ProjectBiddingService;
@@ -18,7 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xiezongyu on 2018/4/15.
@@ -57,7 +64,7 @@ public class BidManager {
         }
 
         do {
-            bidNumber = DateUtil.formatToYMD(new Date()) + "_" + RandomUtils.nextInt(1000000, 10000000);
+            bidNumber = DateUtil.formatToYMDCompact(new Date()) + "_" + RandomUtils.nextInt(1000000, 10000000);
             projectBid = projectBidService.findByBidNumber(bidNumber);
         } while (projectBid != null && retryCount-- > 0);
 
@@ -71,7 +78,7 @@ public class BidManager {
         projectBid.setBidCompany(bidCompany);
         projectBid.setBidContent(bidContent);
         projectBid.setBidPrices(bidPrices);
-        projectBid.setBidStatus(0);
+        projectBid.setBidStatus(BidStatus.bided.getValue());
         projectBid.setFilePath(FileDirectory.BID_FILE_DIRECTORY + file.getOriginalFilename());
         projectBid.setIsDeleted(false);
         projectBid.setCreateTime(new Date());
@@ -80,6 +87,55 @@ public class BidManager {
 
         return BasePageResult.SUCCESS_RESPONSE;
     }
+
+    public BasePageResult<ProjectBid> queryProjectBids(Integer bidStatus) {
+        BasePageResult<ProjectBid> response = BasePageResult.getSuccessResponse();
+        response.setData(projectBidService.findByStatus(bidStatus));
+        return response;
+    }
+
+
+    public PageResult<BidViewBean> getBidListPageResult(PageParam pageParam) {
+        PageResult<BidViewBean> pageResult = new PageResult<>();
+        List<ProjectBid> projectBids = projectBidService.findByPageParam(pageParam);
+        pageResult.setTotal(projectBiddingService.getTotal());
+        pageResult.setRows(toBidViewBean(projectBids));
+        return pageResult;
+    }
+
+    private List<BidViewBean> toBidViewBean(List<ProjectBid> projectBids) {
+        List<BidViewBean> list = new ArrayList<>(projectBids.size());
+        for (ProjectBid bid : projectBids) {
+            ProjectBidding projectBidding = projectBiddingService.findByBiddingNumber(bid.getBiddingNumber());
+            if (projectBidding == null) {
+                continue;
+            }
+            Project project = projectService.findByProjectNumber(projectBidding.getProjectNumber());
+            if (project == null) {
+                continue;
+            }
+
+            BidViewBean viewBean = new BidViewBean();
+            viewBean.setProjectNumber(project.getProjectNumber());
+            viewBean.setProjectName(project.getProjectName());
+            viewBean.setBiddingNumber(projectBidding.getBiddingNumber());
+            viewBean.setBiddingName(projectBidding.getBiddingName());
+            viewBean.setBidNumber(bid.getBidNumber());
+            viewBean.setBidCompany(bid.getBidCompany());
+            viewBean.setBiddingStatus(projectBidding.getBiddingStatus());
+            viewBean.setBidStatus(bid.getBidStatus());
+            viewBean.setBidPrices(bid.getBidPrices());
+            viewBean.setId(bid.getId());
+            viewBean.setFilePath(bid.getFilePath());
+            list.add(viewBean);
+        }
+        return list;
+    }
+
+
+    /* <foreach collection="msgIds" open="(" close=")" separator="," index="index" item="msgId">
+            #{msgId, jdbcType=INTEGER}
+        </foreach>*/
 
 
     @Autowired
@@ -101,5 +157,6 @@ public class BidManager {
     public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
         this.projectBiddingService = projectBiddingService;
     }
+
 
 }

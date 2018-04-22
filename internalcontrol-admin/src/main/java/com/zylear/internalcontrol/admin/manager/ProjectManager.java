@@ -1,6 +1,6 @@
 package com.zylear.internalcontrol.admin.manager;
 
-import com.zylear.internalcontrol.admin.bean.BasePageResult;
+import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.controller.ProjectController;
 import com.zylear.internalcontrol.admin.domain.Project;
@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -92,6 +93,31 @@ public class ProjectManager {
         needUpdateProject.setApprovalComment(approvalComment);
         projectService.update(needUpdateProject);
         return BasePageResult.SUCCESS_RESPONSE;
+    }
+
+    public PageResult<ProjectViewBean> getProjectListPageResult(PageParam pageParam) {
+        PageResult<ProjectViewBean> pageResult = new PageResult<>();
+        List<Project> projects = projectService.findByPageParam(pageParam);
+        pageResult.setTotal(projectService.getTotal());
+        pageResult.setRows(toProjectViewBean(projects));
+        return pageResult;
+    }
+
+    private List<ProjectViewBean> toProjectViewBean(List<Project> projects) {
+        List<ProjectViewBean> list = new ArrayList<>(projects.size());
+        for (Project project : projects) {
+            ProjectViewBean projectViewBean = new ProjectViewBean();
+            projectViewBean.setId(project.getId());
+            projectViewBean.setProjectName(project.getProjectName());
+            projectViewBean.setProjectNumber(project.getProjectNumber());
+            projectViewBean.setApplicant(project.getApplicant());
+            projectViewBean.setApplicationDepartment(project.getApplicationDepartment());
+            projectViewBean.setProjectBudget(project.getProjectBudget());
+            projectViewBean.setFilePath(project.getFilePath());
+            projectViewBean.setProjectStatus(project.getProjectStatus());
+            list.add(projectViewBean);
+        }
+        return list;
     }
 
 

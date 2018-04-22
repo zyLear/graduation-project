@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.service.impl;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectMapper;
 import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.service.ProjectService;
@@ -49,6 +50,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void update(Project needUpdateProject) {
         projectMapper.updateByPrimaryKeySelective(needUpdateProject);
+    }
+
+    @Override
+    public List<Project> findByPageParam(PageParam pageParam) {
+        return projectMapper.findByPageParam(pageParam);
+    }
+
+    @Override
+    public Integer getTotal() {
+        return projectMapper.getTotal();
     }
 
 

@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,36 +38,32 @@
         <div class="row custom-content">
 
 
-            <div class="col-lg-offset-1 col-lg-10">
-                <%--<div class="panel panel-info">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<h3 class="panel-title">预算详情</h3>--%>
-                <%--</div>--%>
-                <%--<div class="panel-body">--%>
-                <%--<div class="row">--%>
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-body">--%>
-                <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-                <%--<div class="form-group">--%>
-                <%--<label class="control-label col-lg-1 text-right"--%>
-                <%--style="margin-top: 8px;">项目名称:</label>--%>
-                <%--<div class="col-lg-2">--%>
-                <%--<select id="type" name="type" class="form-control">--%>
-                <%--<option value="all">所有</option>--%>
-                <%--<option value="internal_group">内部群</option>--%>
-                <%--<option value="outside_group">外部群</option>--%>
-                <%--</select>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
+            <%--<div class="panel panel-info">--%>
+            <%--<div class="panel-heading">--%>
+            <%--<h3 class="panel-title">预算详情</h3>--%>
+            <%--</div>--%>
+            <%--<div class="panel-body">--%>
+            <%--<div class="row">--%>
+            <%--<div class="panel panel-default">--%>
+            <%--<div class="panel-body">--%>
+            <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
+            <%--<div class="form-group">--%>
+            <%--<label class="control-label col-lg-1 text-right"--%>
+            <%--style="margin-top: 8px;">项目名称:</label>--%>
+            <%--<div class="col-lg-2">--%>
+            <%--<select id="type" name="type" class="form-control">--%>
+            <%--<option value="all">所有</option>--%>
+            <%--<option value="internal_group">内部群</option>--%>
+            <%--<option value="outside_group">外部群</option>--%>
+            <%--</select>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
 
-                <table id="table"></table>
-
-            </div>
-            <%-- col-lg-6 --%>
+            <table id="table"></table>
 
 
         </div>
@@ -80,9 +79,9 @@
         $(document).ready(function () {
 
 
-            $('#add-budget').click(function () {
-                $('#add-budget-modal').modal('show');
-            });
+//            $('#add-budget').click(function () {
+//                $('#add-budget-modal').modal('show');
+//            });
 
             var oTable = new TableInit();
             oTable.Init();
@@ -95,7 +94,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table').bootstrapTable({
-                    url: '${pageContext.request.contextPath}/budget/budget-detail',         //请求后台的URL（*）
+                    url: '${pageContext.request.contextPath}/bidding/get-bidding-list',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
                     striped: true,                      //是否显示行间隔色
@@ -133,39 +132,50 @@
                          }*/
                     }, {
                         field: 'biddingNumber',
-                        title: '标书编号'
+                        title: '招标编号'
                     }, {
                         field: 'biddingName',
-                        title: '标书名称'
-                    }, {
-                        field: 'biddingNumber',
-                        title: '标书编号'
-                    }, {
-                        field: 'biddingName',
-                        title: '标书名称'
+                        title: '招标名称'
                     }, {
                         field: 'id',
-                        title: '标书内容',
-                        formatter:function (value, row, index) {
+                        title: '招标内容',
+                        formatter: function (value, row, index) {
                             return '点击查看';
                         }
                     }, {
                         field: 'biddingStatus',
                         title: '招标状态',
-                        formatter:function (value, row, index) {
-                            return value;
+                        formatter: function (value, row, index) {
+                            return formatBiddingStatus(value);
                         }
-                    },{
+                    }, {
                         field: 'biddingStartTime',
-                        title: '招标开始时间'
-                    },{
+                        title: '招标开始时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
+                    }, {
                         field: 'biddingEndTime',
-                        title: '招标结束时间'
+                        title: '招标结束时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
                     }, {
                         field: 'biddingNumber',
-                        title: '标书名称',
+                        title: '操作',
                         formatter: function (value, row, index) {
-                            return '操作：' + value;
+                            var html = "";
+                            if (row.biddingStatus == BiddingStatusEnum.close) {
+                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
+                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
+                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                            } else {
+                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+                            }
+                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+                            return html;
                         }
                     }]
                 });
@@ -183,6 +193,40 @@
             };
             return oTableInit;
         };
+
+
+        showBid = function (value) {
+            alert(value);
+        };
+
+
+        changeBiddingStatus = function (number, status) {
+            var text;
+            if (BiddingStatusEnum.open == status) {
+                text = '确定启动投标吗？';
+            } else {
+                text = '确定停止投标吗？';
+            }
+            if (confirm(text)) {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/bidding/change-bidding-status',
+                    type: 'POST',
+                    data: {
+                        "biddingNumber": number,
+                        "biddingStatus": status
+                    },
+                    success: function (data) {
+                        alert(data.errorMessage);
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        alert('网络错误');
+                    }
+                });
+            }
+        }
+
+
     </script>
 
 </div>

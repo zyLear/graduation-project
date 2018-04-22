@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>招标列表</title>
+    <title>合同列表</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/css/bootstrap-table.min.css"
@@ -27,43 +30,14 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">招标列表</h1>
+                <h1 class="page-header">合同列表</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
         <div class="row custom-content">
 
-
-            <%--<div class="col-lg-offset-1 col-lg-10">--%>
-            <%--<div class="panel panel-info">--%>
-            <%--<div class="panel-heading">--%>
-            <%--<h3 class="panel-title">预算详情</h3>--%>
-            <%--</div>--%>
-            <%--<div class="panel-body">--%>
-            <%--<div class="row">--%>
-            <%--<div class="panel panel-default">--%>
-            <%--<div class="panel-body">--%>
-            <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-            <%--<div class="form-group">--%>
-            <%--<label class="control-label col-lg-1 text-right"--%>
-            <%--style="margin-top: 8px;">项目名称:</label>--%>
-            <%--<div class="col-lg-2">--%>
-            <%--<select id="type" name="type" class="form-control">--%>
-            <%--<option value="all">所有</option>--%>
-            <%--<option value="internal_group">内部群</option>--%>
-            <%--<option value="outside_group">外部群</option>--%>
-            <%--</select>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-
             <table id="table"></table>
-            <%--</div>--%>
-            <%-- col-lg-6 --%>
 
 
         </div>
@@ -94,7 +68,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table').bootstrapTable({
-                    url: '${pageContext.request.contextPath}/bid/get-bidding-list',         //请求后台的URL（*）
+                    url: '${pageContext.request.contextPath}/contract/get-contract-list',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
                     striped: true,                      //是否显示行间隔色
@@ -119,56 +93,61 @@
                     showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
-                    columns: [/*{
-                     checkbox: true
-                     },*/ {
+                    columns: [{
+                        field: 'contractNumber',
+                        title: '合同编号'
+                    }, {
+                        field: 'contractName',
+                        title: '合同名称'
+                    }, {
                         field: 'projectNumber',
                         title: '项目编号'
                     }, {
                         field: 'projectName',
-                        title: '项目名称'/*,
-                         formatter: function (value, row, index) {
-                         value
-                         }*/
+                        title: '项目名称'
                     }, {
-                        field: 'biddingNumber',
-                        title: '招标编号'
+                        field: 'bidNumber',
+                        title: '标书编号'
                     }, {
-                        field: 'biddingName',
-                        title: '招标名称'
+                        field: 'bidCompany',
+                        title: '投标公司'
                     }, {
                         field: 'id',
-                        title: '招标内容',
+                        title: '合同内容',
                         formatter: function (value, row, index) {
                             return '点击查看';
                         }
                     }, {
-                        field: 'biddingStatus',
-                        title: '招标状态',
+                        field: 'contractStatus',
+                        title: '合同状态',
                         formatter: function (value, row, index) {
-                            return formatBiddingStatus(value);
+                            return formatContractStatus(value);
                         }
                     }, {
-                        field: 'biddingStartTime',
-                        title: '招标开始时间',
+                        field: 'finishDay',
+                        title: '完成日期',
                         formatter: function (value, row, index) {
-                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                            if (value == null) {
+                                return '--';
+                            } else {
+                                return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                            }
                         }
                     }, {
-                        field: 'biddingEndTime',
-                        title: '招标结束时间',
-                        formatter: function (value, row, index) {
-                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
-                        }
-                    }, {
-                        field: 'biddingNumber',
+                        field: 'contractNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
-                            if(row.biddingStatus==BiddingStatusEnum.open) {
-                                return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info">投标</button>';
-                            }else {
-                                return '<button disabled="disabled" type="button" class="btn btn-info"> 无操作 </button>';
-                            }
+//                            if (row.biddingStatus == BiddingStatusEnum.close) {
+//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
+//                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
+//                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
+//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+//                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+//                            } else {
+//                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+//                            }
+                            var html = '<button onclick="editContractItems(\'' + value + '\')" type="button" class="btn btn-info">编辑合同项</button>';
+                            return html;
                         }
                     }]
                 });
@@ -187,12 +166,44 @@
             return oTableInit;
         };
 
-        bid = function (data) {
-//            alert(id);
-            if (confirm('确定要投标吗?')) {
-                window.location.href = '${pageContext.request.contextPath}/bid/bid-create?biddingNumber=' + data;
-            }
-        }
+
+        showBid = function (value) {
+            alert(value);
+        };
+
+        editContractItems = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/contract/edit-items?contractNumber=' + value;
+        };
+
+
+        <%--changeBiddingStatus = function (number, status) {--%>
+        <%--//            var text;--%>
+        <%--//            if (BiddingStatusEnum.open == status) {--%>
+        <%--//                text = '确定启动投标吗？';--%>
+        <%--//            } else {--%>
+        <%--//                text = '确定停止投标吗？';--%>
+        <%--//            }--%>
+        <%--//            if (confirm(text)) {--%>
+        <%--$.ajax({--%>
+        <%--url: '${pageContext.request.contextPath}/contract/change-bidding-status',--%>
+        <%--type: 'POST',--%>
+        <%--data: {--%>
+        <%--"biddingNumber": number,--%>
+        <%--"biddingStatus": status--%>
+        <%--},--%>
+        <%--success: function (data) {--%>
+        <%--alert(data.errorMessage);--%>
+        <%--window.location.reload();--%>
+        <%--},--%>
+        <%--error: function (data) {--%>
+        <%--alert('网络错误');--%>
+        <%--}--%>
+
+        <%--});--%>
+        <%--//            }--%>
+        <%--}--%>
+
+
     </script>
 
 </div>

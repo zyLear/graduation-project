@@ -203,4 +203,20 @@
         LIMIT 1
     </select>
 
+    <select id="findByStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_bid
+        WHERE is_deleted=0
+        AND bid_status = #{bidStatus,jdbcType=TINYINT}
+    </select>
+
+    <select id="findByPageParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_bid
+        WHERE is_deleted = 0
+        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+    </select>
+
 </mapper>
