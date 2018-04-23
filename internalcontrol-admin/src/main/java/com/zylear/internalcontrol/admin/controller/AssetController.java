@@ -1,8 +1,12 @@
 package com.zylear.internalcontrol.admin.controller;
 
+import com.zylear.internalcontrol.admin.bean.AssetViewBean;
 import com.zylear.internalcontrol.admin.bean.BasePageResult;
+import com.zylear.internalcontrol.admin.bean.PageParam;
+import com.zylear.internalcontrol.admin.bean.PageResult;
 import com.zylear.internalcontrol.admin.manager.AssetManager;
 import com.zylear.internalcontrol.admin.manager.ContractManager;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,26 @@ public class AssetController {
         return new ModelAndView("asset/add-asset");
     }
 
+    @RequestMapping("/asset-list")
+    public ModelAndView biddingListPage() {
+        return new ModelAndView("asset/asset-list");
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/get-bidding-list")
+    public PageResult<AssetViewBean> getBiddingList(@Param("limit") Integer limit,
+                                                    @Param("offset") Integer offset) {
+        if (offset == null) {
+            offset = 0;
+        }
+        if (limit == null || limit > 100) {
+            limit = 10;
+        }
+        PageParam pageParam = new PageParam(limit, offset);
+        return assetManager.getAssetListPageResult(pageParam);
+    }
+
     @ResponseBody
     @RequestMapping("/sure-add-asset")
     public BasePageResult sureContractCreate(@RequestParam("contractNumber") String contractNumber,
@@ -46,6 +70,9 @@ public class AssetController {
 
         return assetManager.addAsset(contractNumber, assetNumber, assetType, remark, prices/*, count*/);
     }
+
+
+
 
 
     @Autowired

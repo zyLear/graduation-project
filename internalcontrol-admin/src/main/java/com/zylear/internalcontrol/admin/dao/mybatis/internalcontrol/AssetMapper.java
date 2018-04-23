@@ -1,7 +1,10 @@
 package com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.domain.Asset;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AssetMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +21,8 @@ public interface AssetMapper {
 
 
     Asset findByAssetNumber(@Param("assetNumber") String assetNumber);
+
+    Integer getTotal();
+
+    List<Asset> findByPageParam(@Param("pageParam") PageParam pageParam);
 }

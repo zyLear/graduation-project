@@ -23,6 +23,7 @@ public class BasePageResult<T> {
     public static final BasePageResult PROJECT_NO_EXIST_RESPONSE = new BasePageResult(6, "project no exist");
     public static final BasePageResult BIDDING_NO_EXIST_RESPONSE = new BasePageResult(7, "bidding no exist");
     public static final BasePageResult BID_NO_EXIST_RESPONSE = new BasePageResult(8, "bid no exist");
+    public static final BasePageResult CONTRACT_NO_EXIST_RESPONSE = new BasePageResult(9, "contract no exist");
 
 
 
