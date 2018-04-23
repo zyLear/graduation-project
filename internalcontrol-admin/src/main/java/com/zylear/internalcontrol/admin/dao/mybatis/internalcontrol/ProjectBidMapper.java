@@ -29,4 +29,18 @@ public interface ProjectBidMapper {
     List<ProjectBid> findByStatus(@Param("bidStatus") Integer bidStatus);
 
     List<ProjectBid> findByPageParam(@Param("pageParam") PageParam pageParam);
+
+    List<ProjectBid> findByNumberAndPageParam(@Param("biddingNumber") String biddingNumber,
+                                              @Param("pageParam") PageParam pageParam);
+
+    Integer getTotal();
+
+    Integer getTotalByBiddingNumber(@Param("biddingNumber") String biddingNumber);
+
+    void updateStatusByBidNumber(@Param("bidNumber")String bidNumber,
+                                 @Param("bidStatus")Integer bidStatus);
+
+    void updateStatusByBiddingNumber(@Param("biddingNumber")String biddingNumber,
+                                     @Param("bidStatus")Integer bidStatus);
+
 }

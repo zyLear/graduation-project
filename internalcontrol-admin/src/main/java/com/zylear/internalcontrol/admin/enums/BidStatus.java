@@ -7,11 +7,12 @@ public enum BidStatus {
     unknown(-1),
     bided(0),
     winning(1),
-    unsuccessful(2);
+    unsuccessful(2),
+    contracted(3);
 
     private Integer value;
 
-    BidStatus(Integer value){
+    BidStatus(Integer value) {
         this.value = value;
     }
 

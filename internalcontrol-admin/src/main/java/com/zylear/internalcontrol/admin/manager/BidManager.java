@@ -4,6 +4,7 @@ import com.zylear.internalcontrol.admin.bean.BasePageResult;
 import com.zylear.internalcontrol.admin.bean.BidViewBean;
 import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.bean.PageResult;
+import com.zylear.internalcontrol.admin.config.DataSourceInternalControlConfig;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectBid;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -94,11 +96,41 @@ public class BidManager {
         return response;
     }
 
+    @Transactional(value = DataSourceInternalControlConfig.TX_MANAGER)
+    public BasePageResult sureChooseBid(String bidNumber) {
+
+        ProjectBid bid = projectBidService.findByBidNumber(bidNumber);
+        if (bid == null) {
+            return BasePageResult.BID_NO_EXIST_RESPONSE;
+        }
+        ProjectBidding bidding = projectBiddingService.findByBiddingNumber(bid.getBiddingNumber());
+        if (bidding == null) {
+            return BasePageResult.BIDDING_NO_EXIST_RESPONSE;
+        }
+        if (!BiddingStatus.open.getValue().equals(bidding.getBiddingStatus())) {
+            return BasePageResult.ERROR_RESPONSE;
+        }
+
+        projectBidService.updateStatusByBiddingNumber(bid.getBiddingNumber(), BidStatus.unsuccessful.getValue());
+        projectBidService.updateStatusByBidNumber(bidNumber, BidStatus.winning.getValue());
+        projectBiddingService.updateStatus(bidding.getBiddingNumber(), BiddingStatus.finish.getValue());
+        return BasePageResult.SUCCESS_RESPONSE;
+    }
+
+
+    public PageResult<BidViewBean> getCustomBidListPageResult(String biddingNumber, PageParam pageParam) {
+        PageResult<BidViewBean> pageResult = new PageResult<>();
+        List<ProjectBid> projectBids = projectBidService.findByNumberAndPageParam(biddingNumber, pageParam);
+        pageResult.setTotal(projectBidService.getTotalByBiddingNumber(biddingNumber));
+        pageResult.setRows(toBidViewBean(projectBids));
+        return pageResult;
+    }
+
 
     public PageResult<BidViewBean> getBidListPageResult(PageParam pageParam) {
         PageResult<BidViewBean> pageResult = new PageResult<>();
         List<ProjectBid> projectBids = projectBidService.findByPageParam(pageParam);
-        pageResult.setTotal(projectBiddingService.getTotal());
+        pageResult.setTotal(projectBidService.getTotal());
         pageResult.setRows(toBidViewBean(projectBids));
         return pageResult;
     }
@@ -133,6 +165,8 @@ public class BidManager {
     }
 
 
+
+
     /* <foreach collection="msgIds" open="(" close=")" separator="," index="index" item="msgId">
             #{msgId, jdbcType=INTEGER}
         </foreach>*/
@@ -157,6 +191,4 @@ public class BidManager {
     public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
         this.projectBiddingService = projectBiddingService;
     }
-
-
 }

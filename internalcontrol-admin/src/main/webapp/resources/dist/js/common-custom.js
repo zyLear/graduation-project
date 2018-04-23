@@ -18,6 +18,7 @@ BidStatusEnum.unknown = -1;
 BidStatusEnum.bided = 0;
 BidStatusEnum.winning = 1;
 BidStatusEnum.unsuccessful = 2;
+BidStatusEnum.contracted = 3;
 
 
 var ContractStatusEnum = function () {
@@ -114,6 +115,19 @@ $.fn.initContracts = function (url) {
     );
 };
 
+function formatBidStatus(value) {
+    switch (value) {
+        case BidStatusEnum.bided:
+            return '投标成功';
+        case BidStatusEnum.winning:
+            return '中标';
+        case BidStatusEnum.unsuccessful:
+            return '未中标';
+        case BidStatusEnum.contracted:
+            return '已签合同';
+    }
+}
+
 function formatBiddingStatus(value) {
     if (BiddingStatusEnum.close == value) {
         return '未开始';
@@ -123,6 +137,7 @@ function formatBiddingStatus(value) {
         return '已结束';
     }
 }
+
 
 function formatContractStatus(value) {
     if (ContractStatusEnum.cancel == value) {

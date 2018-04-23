@@ -44,8 +44,8 @@
                     <div class="form-group form-horizontal">
                         <label class="control-label col-xs-2">标书编号</label>
                         <div class="col-xs-2">
-                            <select id="biddingNumber" class="form-control selectpicker" data-header="Select type">
-                                <option value="none">未选择</option>
+                            <select disabled="disabled" class="form-control selectpicker" data-header="Select type">
+                                <option value="none">${biddingNumber}</option>
                             </select>
                         </div>
                         <%--<label class="control-label col-xs-2" for="filter_resource_type">Excluded Thumb Status:</label>--%>
@@ -143,7 +143,7 @@
                     }, {
                         field: 'bidCompany',
                         title: '投标公司'
-                    },{
+                    }, {
                         field: 'id',
                         title: '标书内容',
                         formatter: function (value, row, index) {
@@ -153,7 +153,7 @@
                         field: 'bidStatus',
                         title: '标书状态',
                         formatter: function (value, row, index) {
-                            return formatBiddingStatus(value);
+                            return formatBidStatus(value);
                         }
                     }, {
                         field: 'bidPrices',
@@ -165,20 +165,22 @@
                             return value;
                         }
                     }, {
-                        field: 'biddingNumber',
+                        field: 'bidNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.close) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
-                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                            if (row.biddingStatus == BiddingStatusEnum.open) {
+                                html += '<button onclick="sureChoseBid(\'' + value + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">此标书中标</button>';
+//                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
+//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+//                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
                             } else {
                                 html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
                             }
-                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+//                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+
+
                             return html;
                         }
                     }]
@@ -188,6 +190,7 @@
             //得到查询的参数
             oTableInit.queryParams = function (params) {
                 var temp = {
+                    biddingNumber: ${biddingNumber},
                     limit: params.limit,   //页面大小
                     offset: params.offset  //页码
 //                departmentname: $("#txt_search_departmentname").val(),
@@ -199,37 +202,58 @@
         };
 
 
-        showBid = function (value) {
-            alert(value);
-        };
-
-
-        changeBiddingStatus = function (number, status) {
-            var text;
-            if (BiddingStatusEnum.open == status) {
-                text = '确定启动投标吗？';
-            } else {
-                text = '确定停止投标吗？';
-            }
-            if (confirm(text)) {
+        sureChoseBid = function (value) {
+            if (confirm('你确定')) {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/bidding/change-bidding-status',
+                    url: '${pageContext.request.contextPath}/bid/sure-choose-bid',
                     type: 'POST',
                     data: {
-                        "biddingNumber": number,
-                        "biddingStatus": status
+                        "bidNumber": value
                     },
                     success: function (data) {
                         alert(data.errorMessage);
                         window.location.reload();
                     },
                     error: function (data) {
-                        alert('网络错误');
+                        alert('错误');
                     }
-
                 });
             }
-        }
+
+        };
+
+
+        //        showBid = function (value) {
+        //            alert(value);
+        //        };
+
+
+        <%--changeBiddingStatus = function (number, status) {--%>
+        <%--var text;--%>
+        <%--if (BiddingStatusEnum.open == status) {--%>
+        <%--text = '确定启动投标吗？';--%>
+        <%--} else {--%>
+        <%--text = '确定停止投标吗？';--%>
+        <%--}--%>
+        <%--if (confirm(text)) {--%>
+        <%--$.ajax({--%>
+        <%--url: '${pageContext.request.contextPath}/bidding/change-bidding-status',--%>
+        <%--type: 'POST',--%>
+        <%--data: {--%>
+        <%--"biddingNumber": number,--%>
+        <%--"biddingStatus": status--%>
+        <%--},--%>
+        <%--success: function (data) {--%>
+        <%--alert(data.errorMessage);--%>
+        <%--window.location.reload();--%>
+        <%--},--%>
+        <%--error: function (data) {--%>
+        <%--alert('错误');--%>
+        <%--}--%>
+
+        <%--});--%>
+        <%--}--%>
+        <%--}--%>
 
 
     </script>

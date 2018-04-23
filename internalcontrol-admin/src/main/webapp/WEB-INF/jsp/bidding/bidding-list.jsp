@@ -196,7 +196,10 @@
 
 
         showBid = function (value) {
-            alert(value);
+
+            window.location.href = '${pageContext.request.contextPath}/bid/custom-bid-list?biddingNumber=' + value;
+
+//            alert(value);
         };
 
 

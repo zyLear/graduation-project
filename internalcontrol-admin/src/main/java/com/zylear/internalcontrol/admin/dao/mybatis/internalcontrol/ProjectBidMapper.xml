@@ -219,4 +219,41 @@
         LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
     </select>
 
+    <select id="findByNumberAndPageParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_bid
+        WHERE is_deleted = 0
+        AND bidding_number = #{biddingNumber,jdbcType=VARCHAR}
+        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_project_bid
+        WHERE is_deleted = 0
+    </select>
+
+
+    <select id="getTotalByBiddingNumber" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_project_bid
+        WHERE is_deleted = 0
+              AND bidding_number = #{biddingNumber,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateStatusByBidNumber">
+        UPDATE t_project_bid
+        SET bid_status = #{bidStatus,jdbcType=TINYINT}
+        WHERE is_deleted = 0
+              AND bid_number = #{bidNumber,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateStatusByBiddingNumber">
+        UPDATE t_project_bid
+        SET bid_status = #{bidStatus,jdbcType=TINYINT}
+        WHERE is_deleted = 0
+              AND bidding_number = #{biddingNumber,jdbcType=VARCHAR}
+    </update>
+
 </mapper>
