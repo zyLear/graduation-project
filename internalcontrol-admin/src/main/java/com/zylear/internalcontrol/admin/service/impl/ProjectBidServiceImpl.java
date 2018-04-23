@@ -42,6 +42,21 @@ public class ProjectBidServiceImpl implements ProjectBidService {
         return projectBidMapper.findByPageParam(pageParam);
     }
 
+    @Override
+    public List<ProjectBid> findByNumberAndPageParam(String biddingNumber, PageParam pageParam) {
+        return projectBidMapper.findByNumberAndPageParam(biddingNumber, pageParam);
+    }
+
+    @Override
+    public Integer getTotal() {
+        return projectBidMapper.getTotal();
+    }
+
+    @Override
+    public Integer getTotalByBiddingNumber(String biddingNumber) {
+        return projectBidMapper.getTotalByBiddingNumber(biddingNumber);
+    }
+
     @Autowired
     public void setProjectBidMapper(ProjectBidMapper projectBidMapper) {
         this.projectBidMapper = projectBidMapper;

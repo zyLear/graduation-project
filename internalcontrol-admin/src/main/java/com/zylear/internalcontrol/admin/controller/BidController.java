@@ -39,6 +39,14 @@ public class BidController {
         return new ModelAndView("bid/bid-list");
     }
 
+    @RequestMapping("/custom-bid-list")
+    public ModelAndView customBidListPage(@Param("biddingNumber") String biddingNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("bid/custom-bid-list");
+        modelAndView.addObject("biddingNumber", biddingNumber);
+        return modelAndView;
+    }
+
 
     @RequestMapping("/bid-create")
     public ModelAndView bidCreate(@Param("biddingNumber") String biddingNumber) {
@@ -56,6 +64,13 @@ public class BidController {
                                         @RequestParam("bidPrices") Double bidPrices,
                                         @RequestParam("file") MultipartFile file) {
         return bidManager.saveBid(biddingNumber, bidCompany, bidContent, bidPrices, file);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/sure-chose-bid")
+    public BasePageResult sureChoseBid(@RequestParam("bidNumber") String bidNumber) {
+        return bidManager.sureChoseBid(bidNumber);
     }
 
 //    public BasePageResult sureProjectApplication(@RequestParam("projectNumber") String projectNumber,
@@ -77,7 +92,6 @@ public class BidController {
         if (limit == null || limit > 100) {
             limit = 10;
         }
-        System.out.println();
         PageParam pageParam = new PageParam(limit, offset);
         return biddingManager.getBiddingListPageResult(pageParam);
     }
@@ -102,6 +116,22 @@ public class BidController {
     @RequestMapping("/get-bids")
     public BasePageResult<ProjectBid> getProjectBidList(@RequestParam("bidStatus") Integer bidStatus) {
         return bidManager.queryProjectBids(bidStatus);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/get-custom-bid-list")
+    public PageResult<BidViewBean> getCustomBidList(@Param("biddingNumber") String biddingNumber,
+                                                    @Param("limit") Integer limit,
+                                                    @Param("offset") Integer offset) {
+        if (offset == null) {
+            offset = 0;
+        }
+        if (limit == null || limit > 100) {
+            limit = 10;
+        }
+        PageParam pageParam = new PageParam(limit, offset);
+        return bidManager.getCustomBidListPageResult(biddingNumber, pageParam);
     }
 
 

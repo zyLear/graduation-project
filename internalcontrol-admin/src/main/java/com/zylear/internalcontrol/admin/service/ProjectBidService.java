@@ -19,4 +19,10 @@ public interface ProjectBidService {
     List<ProjectBid> findByStatus(Integer bidStatus);
 
     List<ProjectBid> findByPageParam(PageParam pageParam);
+
+    List<ProjectBid> findByNumberAndPageParam(String biddingNumber, PageParam pageParam);
+
+    Integer getTotal();
+
+    Integer getTotalByBiddingNumber(String biddingNumber);
 }

@@ -94,11 +94,25 @@ public class BidManager {
         return response;
     }
 
+    public BasePageResult sureChoseBid(String bidNumber) {
+
+        return BasePageResult.SUCCESS_RESPONSE;
+    }
+
+
+    public PageResult<BidViewBean> getCustomBidListPageResult(String biddingNumber, PageParam pageParam) {
+        PageResult<BidViewBean> pageResult = new PageResult<>();
+        List<ProjectBid> projectBids = projectBidService.findByNumberAndPageParam(biddingNumber, pageParam);
+        pageResult.setTotal(projectBidService.getTotalByBiddingNumber(biddingNumber));
+        pageResult.setRows(toBidViewBean(projectBids));
+        return pageResult;
+    }
+
 
     public PageResult<BidViewBean> getBidListPageResult(PageParam pageParam) {
         PageResult<BidViewBean> pageResult = new PageResult<>();
         List<ProjectBid> projectBids = projectBidService.findByPageParam(pageParam);
-        pageResult.setTotal(projectBiddingService.getTotal());
+        pageResult.setTotal(projectBidService.getTotal());
         pageResult.setRows(toBidViewBean(projectBids));
         return pageResult;
     }
@@ -133,6 +147,8 @@ public class BidManager {
     }
 
 
+
+
     /* <foreach collection="msgIds" open="(" close=")" separator="," index="index" item="msgId">
             #{msgId, jdbcType=INTEGER}
         </foreach>*/
@@ -157,6 +173,4 @@ public class BidManager {
     public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
         this.projectBiddingService = projectBiddingService;
     }
-
-
 }

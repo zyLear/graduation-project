@@ -26,4 +26,5 @@ public interface ProjectBiddingService {
     List<ProjectBidding> findByPageParam(PageParam pageParam);
 
     void updateStatus(Integer biddingNumber, Integer biddingStatus);
+
 }
