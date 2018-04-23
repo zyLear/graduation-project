@@ -79,7 +79,6 @@ public class BiddingManager {
     }
 
     public PageResult<BiddingViewBean> getBiddingListPageResult(PageParam pageParam) {
-
         PageResult<BiddingViewBean> pageResult = new PageResult<>();
         List<ProjectBidding> projectBiddings = projectBiddingService.findByPageParam(pageParam);
         pageResult.setTotal(projectBiddingService.getTotal());
@@ -121,7 +120,7 @@ public class BiddingManager {
         return biddingViewBean;
     }
 
-    public BasePageResult changeBiddingStatus(Integer biddingNumber, Integer biddingStatus) {
+    public BasePageResult changeBiddingStatus(String biddingNumber, Integer biddingStatus) {
         projectBiddingService.updateStatus(biddingNumber, biddingStatus);
         return BasePageResult.SUCCESS_RESPONSE;
     }

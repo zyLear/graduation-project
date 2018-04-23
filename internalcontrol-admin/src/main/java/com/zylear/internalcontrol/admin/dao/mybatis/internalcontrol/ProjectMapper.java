@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.domain.Project;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,8 @@ public interface ProjectMapper {
                       @Param("projectStatus")Integer status);
 
     List<Project> findByStatus(@Param("projectStatus")Integer projectStatus);
+
+    List<Project> findByPageParam(@Param("pageParam") PageParam pageParam);
+
+    Integer getTotal();
 }

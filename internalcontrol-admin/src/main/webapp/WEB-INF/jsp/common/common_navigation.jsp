@@ -276,9 +276,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>--%>
+                        <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -319,7 +319,7 @@
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> 合同管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"> 合同列表</a>
+                            <a href="${pageContext.request.contextPath}/contract/contract-list"> 合同列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>

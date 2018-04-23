@@ -64,7 +64,7 @@ public class BidManager {
         }
 
         do {
-            bidNumber = DateUtil.formatToYMD(new Date()) + "_" + RandomUtils.nextInt(1000000, 10000000);
+            bidNumber = DateUtil.formatToYMDCompact(new Date()) + "_" + RandomUtils.nextInt(1000000, 10000000);
             projectBid = projectBidService.findByBidNumber(bidNumber);
         } while (projectBid != null && retryCount-- > 0);
 

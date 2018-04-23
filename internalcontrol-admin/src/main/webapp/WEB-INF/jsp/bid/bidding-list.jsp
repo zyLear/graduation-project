@@ -164,7 +164,11 @@
                         field: 'biddingNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
-                            return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info">投标</button>';
+                            if(row.biddingStatus==BiddingStatusEnum.open) {
+                                return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info">投标</button>';
+                            }else {
+                                return '<button disabled="disabled" type="button" class="btn btn-info"> 无操作 </button>';
+                            }
                         }
                     }]
                 });

@@ -25,8 +25,8 @@ var ContractStatusEnum = function () {
 
 ContractStatusEnum.unknown = -1;
 ContractStatusEnum.effective = 0;
-ContractStatusEnum.finish = 2;
-ContractStatusEnum.cancel = 3;
+ContractStatusEnum.finish = 1;
+ContractStatusEnum.cancel = 2;
 
 var BiddingStatusEnum = function () {
 };
@@ -56,7 +56,7 @@ $.fn.initProjects = function (url) {
                 }
             },
             error: function (data) {
-                alert('错误');
+                alert('网络错误');
             }
         }
     );
@@ -82,7 +82,7 @@ $.fn.initBids = function (url) {
                 }
             },
             error: function (data) {
-                alert('错误');
+                alert('网络错误');
             }
         }
     );
@@ -108,22 +108,48 @@ $.fn.initContracts = function (url) {
                 }
             },
             error: function (data) {
-                alert('错误');
+                alert('网络错误');
             }
         }
     );
 };
 
 function formatBiddingStatus(value) {
-    if (BiddingStatusEnum.close==value) {
+    if (BiddingStatusEnum.close == value) {
         return '未开始';
-    }else if (BiddingStatusEnum.open==value){
+    } else if (BiddingStatusEnum.open == value) {
         return '招标中';
-    }else if (BiddingStatusEnum.finish==value){
+    } else if (BiddingStatusEnum.finish == value) {
         return '已结束';
     }
-
 }
+
+function formatContractStatus(value) {
+    if (ContractStatusEnum.cancel == value) {
+        return '已取消';
+    } else if (ContractStatusEnum.effective == value) {
+        return '进行中';
+    } else if (ContractStatusEnum.finish == value) {
+        return '已完成';
+    }
+}
+
+
+function formatProjectStatus(value) {
+    switch (value) {
+        case ProjectStatusEnum.in_approval:
+            return '审批中';
+        case ProjectStatusEnum.budgeting:
+            return '预算中';
+        case ProjectStatusEnum.bidding:
+            return '招标中';
+        case ProjectStatusEnum.cancel:
+            return '项目取消';
+        case ProjectStatusEnum.pending:
+            return '待定,项目入库';
+    }
+}
+
 
 Date.prototype.format = function (fmt) { //author:  so
     var o = {

@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>标书列表</title>
+    <title>合同列表</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/css/bootstrap-table.min.css"
@@ -30,39 +30,12 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">招标列表</h1>
+                <h1 class="page-header">合同列表</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
         <div class="row custom-content">
-
-
-            <div class="panel panel-default">
-                <%--<div class="panel-heading">Filter</div>--%>
-                <div class="panel-body">
-                    <div class="form-group form-horizontal">
-                        <label class="control-label col-xs-2">标书编号</label>
-                        <div class="col-xs-2">
-                            <select id="biddingNumber" class="form-control selectpicker" data-header="Select type">
-                                <option value="none">未选择</option>
-                            </select>
-                        </div>
-                        <%--<label class="control-label col-xs-2" for="filter_resource_type">Excluded Thumb Status:</label>--%>
-                        <%--<div class="col-xs-2">--%>
-                        <%--<select id="filter_thumb_status" name="thumbStatus" class="form-control selectpicker" data-header="Select Status">--%>
-                        <%--<option  data-subtext="" selected="selected" value="none">None</option>--%>
-                        <%--<option  data-subtext="" value="2">Thumbs Up</option>--%>
-                        <%--<option  data-subtext="" value="3">Thumbs Down</option>--%>
-                        <%--</select>--%>
-                        <%--</div>--%>
-                        <%--<div class="col-sm-4" style="text-align:left;">--%>
-                        <%--<button type="button" style="margin-left:50px" id="btn_query" class="btn btn-default">Query</button>--%>
-                        <%--</div>--%>
-                    </div>
-                </div>
-            </div>
-
 
             <table id="table"></table>
 
@@ -95,7 +68,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table').bootstrapTable({
-                    url: '${pageContext.request.contextPath}/bid/get-custom-bid-list',         //请求后台的URL（*）
+                    url: '${pageContext.request.contextPath}/contract/get-contract-list',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
                     striped: true,                      //是否显示行间隔色
@@ -120,65 +93,60 @@
                     showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
-                    columns: [/*{
-                     checkbox: true
-                     },*/ {
+                    columns: [{
+                        field: 'contractNumber',
+                        title: '合同编号'
+                    }, {
+                        field: 'contractName',
+                        title: '合同名称'
+                    }, {
                         field: 'projectNumber',
                         title: '项目编号'
                     }, {
                         field: 'projectName',
-                        title: '项目名称'/*,
-                         formatter: function (value, row, index) {
-                         value
-                         }*/
-                    }, {
-                        field: 'biddingNumber',
-                        title: '招标编号'
-                    }, {
-                        field: 'biddingName',
-                        title: '招标名称'
+                        title: '项目名称'
                     }, {
                         field: 'bidNumber',
                         title: '标书编号'
                     }, {
                         field: 'bidCompany',
                         title: '投标公司'
-                    },{
+                    }, {
                         field: 'id',
-                        title: '标书内容',
+                        title: '合同内容',
                         formatter: function (value, row, index) {
                             return '点击查看';
                         }
                     }, {
-                        field: 'bidStatus',
-                        title: '标书状态',
+                        field: 'contractStatus',
+                        title: '合同状态',
                         formatter: function (value, row, index) {
-                            return formatBiddingStatus(value);
+                            return formatContractStatus(value);
                         }
                     }, {
-                        field: 'bidPrices',
-                        title: '投标价格'
-                    }, {
-                        field: 'filePath',
-                        title: '投标文件',
+                        field: 'finishDay',
+                        title: '完成日期',
                         formatter: function (value, row, index) {
-                            return value;
+                            if (value == null) {
+                                return '--';
+                            } else {
+                                return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                            }
                         }
                     }, {
-                        field: 'biddingNumber',
+                        field: 'contractNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
-                            var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.close) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
-                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
-                            } else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
-                            }
-                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+//                            if (row.biddingStatus == BiddingStatusEnum.close) {
+//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
+//                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
+//                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
+//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+//                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+//                            } else {
+//                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+//                            }
+                            var html = '<button onclick="editContractItems(\'' + value + '\')" type="button" class="btn btn-info">编辑合同项</button>';
                             return html;
                         }
                     }]
@@ -203,33 +171,37 @@
             alert(value);
         };
 
+        editContractItems = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/contract/edit-items?contractNumber=' + value;
+        };
 
-        changeBiddingStatus = function (number, status) {
-            var text;
-            if (BiddingStatusEnum.open == status) {
-                text = '确定启动投标吗？';
-            } else {
-                text = '确定停止投标吗？';
-            }
-            if (confirm(text)) {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/bidding/change-bidding-status',
-                    type: 'POST',
-                    data: {
-                        "biddingNumber": number,
-                        "biddingStatus": status
-                    },
-                    success: function (data) {
-                        alert(data.errorMessage);
-                        window.location.reload();
-                    },
-                    error: function (data) {
-                        alert('网络错误');
-                    }
 
-                });
-            }
-        }
+        <%--changeBiddingStatus = function (number, status) {--%>
+        <%--//            var text;--%>
+        <%--//            if (BiddingStatusEnum.open == status) {--%>
+        <%--//                text = '确定启动投标吗？';--%>
+        <%--//            } else {--%>
+        <%--//                text = '确定停止投标吗？';--%>
+        <%--//            }--%>
+        <%--//            if (confirm(text)) {--%>
+        <%--$.ajax({--%>
+        <%--url: '${pageContext.request.contextPath}/contract/change-bidding-status',--%>
+        <%--type: 'POST',--%>
+        <%--data: {--%>
+        <%--"biddingNumber": number,--%>
+        <%--"biddingStatus": status--%>
+        <%--},--%>
+        <%--success: function (data) {--%>
+        <%--alert(data.errorMessage);--%>
+        <%--window.location.reload();--%>
+        <%--},--%>
+        <%--error: function (data) {--%>
+        <%--alert('网络错误');--%>
+        <%--}--%>
+
+        <%--});--%>
+        <%--//            }--%>
+        <%--}--%>
 
 
     </script>

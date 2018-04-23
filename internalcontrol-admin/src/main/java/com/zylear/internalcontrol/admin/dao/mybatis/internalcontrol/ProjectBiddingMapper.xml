@@ -253,10 +253,11 @@
         WHERE is_deleted = 0
     </select>
 
-    <select id="updateStatus">
+    <update id="updateStatus">
         UPDATE t_project_bidding
         SET bidding_status = #{biddingStatus,jdbcType=TINYINT}
         WHERE bidding_number = #{biddingNumber,jdbcType=VARCHAR}
-    </select>
+    </update>
+
 
 </mapper>

@@ -152,7 +152,7 @@
                         alert(data.errorMessage);
                     },
                     error: function (data) {
-                        alert('错误');
+                        alert('网络错误');
                     }
                 }
             );

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>创建合同</title>
+    <title>编辑合同项</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
@@ -27,7 +28,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">创建合同</h1>
+                <h1 class="page-header">编辑合同项</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -45,10 +46,8 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">标书编号</label>
                                 <div class="col-sm-9">
-                                    <select id="bidNumber" name="bidNumber" class="form-control">
-                                        <option value="none">未选择</option>
-                                        <option value="internal_group">1111</option>
-                                        <option value="outside_group">2222</option>
+                                    <select readonly id="bidNumber" name="bidNumber" class="form-control">
+                                        <option value="none">${contract.bidNumber}</option>
                                     </select>
                                 </div>
                             </div>
@@ -57,8 +56,9 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">合同编号</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="contractNumber" name="contractNumber"
-                                           placeholder="合同编号">
+                                    <input readonly type="text" class="form-control" id="contractNumber"
+                                           name="contractNumber"
+                                           value="${contract.contractNumber}" placeholder="合同编号">
                                 </div>
                             </div>
 
@@ -66,16 +66,18 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">合同名称</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="contractName" name="contractName"
-                                           placeholder="合同名称">
+                                    <input readonly type="text" class="form-control" id="contractName"
+                                           name="contractName"
+                                           value="${contract.contractName}" placeholder="合同名称">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">合同内容</label>
                                 <div class="col-sm-9">
-                            <textarea cols="60" rows="14" class="form-control custom-textarea"
-                                      id="contractContent" name="contractContent"></textarea>
+                            <textarea readonly cols="60" rows="14" class="form-control custom-textarea"
+                                      id="contractContent"
+                                      name="contractContent">${contract.contractContent}</textarea>
                                 </div>
                             </div>
 
@@ -83,16 +85,16 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">总金额</label>
                                 <div class="col-sm-9">
-                                    <input disabled type="text" class="form-control" id="contractMoney"
-                                           name="contractMoney"
+                                    <input readonly disabled type="text" class="form-control" id="contractMoney"
+                                           value="${contract.contractMoney}" name="contractMoney"
                                            placeholder="总金额">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">申请表上传</label>
+                                <label class="col-sm-2 control-label">申请表</label>
                                 <div class="col-sm-9">
-                                    <input id="file" name="file" data-show-upload="false" type="file" class="file">
+                                    <a> ${contract.filePath}</a>
                                 </div>
                             </div>
 
@@ -109,22 +111,32 @@
                             <h3 class="panel-title">合同项面板</h3>
                         </div>
                         <div class="panel-body" id="itemsPanel">
-                            <div name="item" class="form-group">
-                                <label class="col-sm-2 control-label">合同项</label>
-                                <div class="col-sm-7">
-                                    <textarea cols="60" rows="3" class="form-control custom-textarea"
-                                              placeholder="合同项描述"></textarea>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" placeholder="金额">
-                                    <button type="button" class="btn btn-info custom-button" onclick="addItem()"> 增加新项
-                                    </button>
-                                </div>
-                                <%--<div class="col-sm-1">--%>
+                            <c:forEach items="${contract.items}" var="item">
+                                <div name="item" class="form-group">
+                                    <label class="col-sm-2 control-label">合同项</label>
+                                    <div class="col-sm-7">
+                                    <textarea readonly cols="60" rows="3" class="form-control custom-textarea"
+                                              placeholder="合同项描述"> ${item.itemContent}</textarea>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input readonly value="${item.itemMoney}" type="text" class="form-control"
+                                               placeholder="金额">
+                                        <c:choose>
+                                            <c:when test="${empty item.finishDay}">
+                                                <button type="button" class="btn btn-info custom-button"
+                                                        onclick="sureFinish(${item.itemId})">
+                                                    确定完成
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                完成时间：${item.finishDay}
+                                            </c:otherwise>
+                                        </c:choose>
 
-                                <%--</div>--%>
-                            </div>
 
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                         <%--panel body --%>
                     </div>
@@ -133,9 +145,9 @@
                 <%--<div class="col-lg-6 form-horizontal">--%>
 
             </form>
-            <div style="text-align: center">
-                <button id="save" type="button" class="btn btn-info btn-lg"> 保 存</button>
-            </div>
+            <%--<div style="text-align: center">--%>
+            <%--<button id="save" type="button" class="btn btn-info btn-lg"> 保 存</button>--%>
+            <%--</div>--%>
 
         </div>
         <!-- /.row -->
@@ -149,7 +161,6 @@
 
         $(document).ready(function () {
 
-            $('#bidNumber').initBids('${pageContext.request.contextPath}/bid/get-bids?bidStatus=' + BidStatusEnum.winning);
 
             $('#save').click(function () {
 
@@ -193,23 +204,40 @@
         });
 
 
-        addItem = function () {
-            var html = '  <div name="item" class="form-group">' +
-                '<label class="col-sm-2 control-label">合同项</label>' +
-                '<div class="col-sm-7">' +
-                '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
-                '</div>' +
-                '<div class="col-sm-2">' +
-                '<input type="text" class="form-control" placeholder="金额">' +
-                '<button type="button" class="btn btn-info custom-button" onclick="deleteItem(this)"> 删除项</button>' +
-                '</div>' +
-                '</div>';
-            $('#itemsPanel').append(html);
+        sureFinish = function (id) {
+//            var html = '  <div name="item" class="form-group">' +
+//                '<label class="col-sm-2 control-label">合同项</label>' +
+//                '<div class="col-sm-7">' +
+//                '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
+//                '</div>' +
+//                '<div class="col-sm-2">' +
+//                '<input readonly type="text" class="form-control" placeholder="金额">' +
+//                '<button type="button" class="btn btn-info custom-button" onclick="deleteItem(this)"> 删除项</button>' +
+//                '</div>' +
+//                '</div>';
+//            $('#itemsPanel').append(html);
+
+            if (confirm('确定完成此合同项吗？')) {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/contract/sure-finish-item',
+                    type: 'POST',
+                    data: {
+                        "itemId": id
+                    },
+                    success: function (data) {
+                        alert(data.errorMessage);
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        alert('网络错误');
+                    }
+                });
+            }
         };
 
-        deleteItem = function ($this) {
-            $($this).parent().parent().remove();
-        };
+        //        deleteItem = function ($this) {
+        //            $($this).parent().parent().remove();
+        //        };
 
 
     </script>

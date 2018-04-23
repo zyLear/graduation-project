@@ -1,15 +1,12 @@
 package com.zylear.internalcontrol.admin.manager;
 
-import com.zylear.internalcontrol.admin.bean.BasePageResult;
+import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.config.DataSourceInternalControlConfig;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
-import com.zylear.internalcontrol.admin.controller.BiddingController;
-import com.zylear.internalcontrol.admin.domain.ProjectBid;
-import com.zylear.internalcontrol.admin.domain.ProjectContract;
-import com.zylear.internalcontrol.admin.domain.ProjectContractItem;
+import com.zylear.internalcontrol.admin.domain.*;
 import com.zylear.internalcontrol.admin.enums.ContractStatus;
-import com.zylear.internalcontrol.admin.service.ProjectContractItemService;
-import com.zylear.internalcontrol.admin.service.ProjectContractService;
+import com.zylear.internalcontrol.admin.service.*;
+import com.zylear.internalcontrol.admin.util.DateUtil;
 import com.zylear.internalcontrol.admin.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by xiezongyu on 2018/4/11.
@@ -34,6 +30,9 @@ public class ContractManager {
     private String filePathPrefix;
     private ProjectContractService projectContractService;
     private ProjectContractItemService projectContractItemService;
+    private ProjectBidService projectBidService;
+    private ProjectBiddingService projectBiddingService;
+    private ProjectService projectService;
 
     @Transactional(value = DataSourceInternalControlConfig.TX_MANAGER)
     public BasePageResult saveContract(String bidNumber, String contractNumber, String contractName, String contractContent, MultipartFile file, String items) {
@@ -113,8 +112,102 @@ public class ContractManager {
         return response;
     }
 
+    public PageResult<ContractViewBean> getContractListPageResult(PageParam pageParam) {
+        PageResult<ContractViewBean> pageResult = new PageResult<>();
+        List<ProjectContract> contracts = projectContractService.findByPageParam(pageParam);
+        pageResult.setTotal(projectContractService.getTotal());
+        pageResult.setRows(toContractViewBean(contracts));
+        return pageResult;
+    }
+
+    private List<ContractViewBean> toContractViewBean(List<ProjectContract> contracts) {
+        List<ContractViewBean> list = new ArrayList<>(contracts.size());
+        Map<String, ProjectBidding> biddingMap = new HashMap<>();
+        Map<String, Project> projectMap = new HashMap<>();
+        for (ProjectContract contract : contracts) {
+            ProjectBid bid = projectBidService.findByBidNumber(contract.getBidNumber());
+            if (bid == null) {
+                continue;
+            }
+            ProjectBidding projectBidding = biddingMap.get(bid.getBiddingNumber());
+            if (projectBidding == null) {
+                projectBidding = projectBiddingService.findByBiddingNumber(bid.getBiddingNumber());
+                if (projectBidding == null) {
+                    continue;
+                }
+                biddingMap.put(bid.getBiddingNumber(), projectBidding);
+            }
+
+            Project project = projectMap.get(projectBidding.getProjectNumber());
+            if (project == null) {
+                project = projectService.findByProjectNumber(projectBidding.getProjectNumber());
+                if (project == null) {
+                    continue;
+                }
+                projectMap.put(projectBidding.getProjectNumber(), project);
+            }
+            ContractViewBean contractViewBean = new ContractViewBean();
+            contractViewBean.setBidNumber(bid.getBidNumber());
+            contractViewBean.setBidCompany(bid.getBidCompany());
+            contractViewBean.setProjectName(project.getProjectName());
+            contractViewBean.setProjectNumber(project.getProjectNumber());
+            contractViewBean.setContractNumber(contract.getContractNumber());
+            contractViewBean.setContractName(contract.getContractName());
+            contractViewBean.setContractMoney(contract.getContractMoney());
+            contractViewBean.setContractStatus(contract.getContractStatus());
+            contractViewBean.setFinishDay(contract.getFinishDay());
+            contractViewBean.setFilePath(contract.getFilePath());
+            list.add(contractViewBean);
+        }
+        return list;
+    }
 
 
+    public ContractViewBean findContractViewBean(String contractNumber) {
+
+        ProjectContract contract = projectContractService.findByContractNumber(contractNumber);
+        if (contract == null) {
+            return null;
+        }
+        ContractViewBean contractViewBean = new ContractViewBean();
+        contractViewBean.setContractNumber(contract.getContractNumber());
+        contractViewBean.setContractName(contract.getContractName());
+        contractViewBean.setBidNumber(contract.getBidNumber());
+        contractViewBean.setContractContent(contract.getContractContent());
+        contractViewBean.setContractStatus(contract.getContractStatus());
+        contractViewBean.setFinishDay(contract.getFinishDay());
+        contractViewBean.setFilePath(contract.getFilePath());
+        List<ProjectContractItem> items = projectContractItemService.findByContractNumber(contractNumber);
+        List<ContractItemViewbean> itemViewbeans = new ArrayList<>(items.size());
+        for (ProjectContractItem item : items) {
+            ContractItemViewbean itemViewbean = new ContractItemViewbean();
+            itemViewbean.setItemId(item.getId());
+            itemViewbean.setItemContent(item.getItemContent());
+            itemViewbean.setItemMoney(item.getItemMoney());
+            if (item.getFinishDay() != null) {
+                itemViewbean.setFinishDay(DateUtil.formatToYMD(item.getFinishDay()));
+            }
+            itemViewbeans.add(itemViewbean);
+        }
+        contractViewBean.setItems(itemViewbeans);
+        return contractViewBean;
+
+    }
+
+    @Transactional(value = DataSourceInternalControlConfig.TX_MANAGER)
+    public BasePageResult sureFinishItem(Integer itemId) {
+
+        ProjectContractItem item = projectContractItemService.findById(itemId);
+        if (item == null) {
+            return BasePageResult.ERROR_RESPONSE;
+        }
+        projectContractItemService.updateFinishDay(itemId, new Date());
+        Integer count = projectContractItemService.findUnfinishCount(itemId);
+        if (count == 0) {
+            projectContractService.updateStatusAndFinishDay(item.getContractNumber(), ContractStatus.finish.getValue(), new Date());
+        }
+        return BasePageResult.SUCCESS_RESPONSE;
+    }
 
 
     @Autowired
@@ -125,6 +218,21 @@ public class ContractManager {
     @Autowired
     public void setProjectContractItemService(ProjectContractItemService projectContractItemService) {
         this.projectContractItemService = projectContractItemService;
+    }
+
+    @Autowired
+    public void setProjectBidService(ProjectBidService projectBidService) {
+        this.projectBidService = projectBidService;
+    }
+
+    @Autowired
+    public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
+        this.projectBiddingService = projectBiddingService;
+    }
+
+    @Autowired
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @Autowired

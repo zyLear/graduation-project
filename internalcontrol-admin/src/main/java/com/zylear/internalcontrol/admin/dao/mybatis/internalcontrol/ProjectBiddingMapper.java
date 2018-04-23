@@ -32,6 +32,6 @@ public interface ProjectBiddingMapper {
 
     Integer getTotal();
 
-    void updateStatus(@Param("biddingNumber") Integer biddingNumber,
+    void updateStatus(@Param("biddingNumber") String biddingNumber,
                       @Param("biddingStatus") Integer biddingStatus);
 }

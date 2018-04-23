@@ -1,13 +1,12 @@
 package com.zylear.internalcontrol.admin.controller;
 
-import com.zylear.internalcontrol.admin.bean.BasePageResult;
-import com.zylear.internalcontrol.admin.bean.PageResult;
-import com.zylear.internalcontrol.admin.bean.TestViewBean;
+import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectContractItem;
 import com.zylear.internalcontrol.admin.manager.ProjectManager;
 import com.zylear.internalcontrol.admin.service.ProjectService;
 import com.zylear.internalcontrol.admin.util.JsonUtil;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +58,21 @@ public class ProjectController {
         return projectManager.queryProjects(projectStatus);
     }
 
+
+
+    @ResponseBody
+    @RequestMapping("/get-project-list")
+    public PageResult<ProjectViewBean> getBiddingList(@Param("limit") Integer limit,
+                                                      @Param("offset") Integer offset) {
+        if (offset == null) {
+            offset = 0;
+        }
+        if (limit == null || limit > 100) {
+            limit = 10;
+        }
+        PageParam pageParam = new PageParam(limit, offset);
+        return projectManager.getProjectListPageResult(pageParam);
+    }
 
     @ResponseBody
     @RequestMapping("/sure-project-application")

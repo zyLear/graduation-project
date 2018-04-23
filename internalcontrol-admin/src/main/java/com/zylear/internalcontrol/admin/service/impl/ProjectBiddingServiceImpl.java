@@ -53,7 +53,7 @@ public class ProjectBiddingServiceImpl implements ProjectBiddingService {
     }
 
     @Override
-    public void updateStatus(Integer biddingNumber, Integer biddingStatus) {
+    public void updateStatus(String biddingNumber, Integer biddingStatus) {
         projectBiddingMapper.updateStatus(biddingNumber, biddingStatus);
     }
 

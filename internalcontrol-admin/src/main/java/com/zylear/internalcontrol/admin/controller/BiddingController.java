@@ -68,9 +68,8 @@ public class BiddingController {
 
     @ResponseBody
     @RequestMapping("/change-bidding-status")
-    public BasePageResult changeBiddingStatus(@Param("biddingNumber") Integer biddingNumber,
+    public BasePageResult changeBiddingStatus(@Param("biddingNumber") String biddingNumber,
                                               @Param("biddingStatus") Integer biddingStatus) {
-
         return biddingManager.changeBiddingStatus(biddingNumber, biddingStatus);
     }
 
