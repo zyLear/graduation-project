@@ -68,9 +68,9 @@ public class BidController {
 
 
     @ResponseBody
-    @RequestMapping("/sure-chose-bid")
-    public BasePageResult sureChoseBid(@RequestParam("bidNumber") String bidNumber) {
-        return bidManager.sureChoseBid(bidNumber);
+    @RequestMapping("/sure-choose-bid")
+    public BasePageResult sureChooseBid(@RequestParam("bidNumber") String bidNumber) {
+        return bidManager.sureChooseBid(bidNumber);
     }
 
 //    public BasePageResult sureProjectApplication(@RequestParam("projectNumber") String projectNumber,

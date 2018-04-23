@@ -291,9 +291,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>--%>
+                        <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

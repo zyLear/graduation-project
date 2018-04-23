@@ -36,4 +36,11 @@ public interface ProjectBidMapper {
     Integer getTotal();
 
     Integer getTotalByBiddingNumber(@Param("biddingNumber") String biddingNumber);
+
+    void updateStatusByBidNumber(@Param("bidNumber")String bidNumber,
+                                 @Param("bidStatus")Integer bidStatus);
+
+    void updateStatusByBiddingNumber(@Param("biddingNumber")String biddingNumber,
+                                     @Param("bidStatus")Integer bidStatus);
+
 }

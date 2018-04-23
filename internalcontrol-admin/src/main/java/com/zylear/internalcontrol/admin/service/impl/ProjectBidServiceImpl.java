@@ -57,6 +57,16 @@ public class ProjectBidServiceImpl implements ProjectBidService {
         return projectBidMapper.getTotalByBiddingNumber(biddingNumber);
     }
 
+    @Override
+    public void updateStatusByBidNumber(String bidNumber, Integer status) {
+        projectBidMapper.updateStatusByBidNumber(bidNumber,status);
+    }
+
+    @Override
+    public void updateStatusByBiddingNumber(String biddingNumber, Integer status) {
+        projectBidMapper.updateStatusByBiddingNumber(biddingNumber, status);
+    }
+
     @Autowired
     public void setProjectBidMapper(ProjectBidMapper projectBidMapper) {
         this.projectBidMapper = projectBidMapper;

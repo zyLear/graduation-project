@@ -153,7 +153,7 @@
                         field: 'bidStatus',
                         title: '标书状态',
                         formatter: function (value, row, index) {
-                            return formatBiddingStatus(value);
+                            return formatBidStatus(value);
                         }
                     }, {
                         field: 'bidPrices',
@@ -165,7 +165,7 @@
                             return value;
                         }
                     }, {
-                        field: 'biddingNumber',
+                        field: 'bidNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
@@ -205,10 +205,10 @@
         sureChoseBid = function (value) {
             if (confirm('你确定')) {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/bid/sure-chose-bid',
+                    url: '${pageContext.request.contextPath}/bid/sure-choose-bid',
                     type: 'POST',
                     data: {
-                        "BidNumber": number
+                        "bidNumber": value
                     },
                     success: function (data) {
                         alert(data.errorMessage);

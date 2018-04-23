@@ -25,4 +25,8 @@ public interface ProjectBidService {
     Integer getTotal();
 
     Integer getTotalByBiddingNumber(String biddingNumber);
+
+    void updateStatusByBidNumber(String bidNumber, Integer status);
+
+    void updateStatusByBiddingNumber(String biddingNumber, Integer status);
 }

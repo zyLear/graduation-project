@@ -242,4 +242,18 @@
               AND bidding_number = #{biddingNumber,jdbcType=VARCHAR}
     </select>
 
+    <update id="updateStatusByBidNumber">
+        UPDATE t_project_bid
+        SET bid_status = #{bidStatus,jdbcType=TINYINT}
+        WHERE is_deleted = 0
+              AND bid_number = #{bidNumber,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateStatusByBiddingNumber">
+        UPDATE t_project_bid
+        SET bid_status = #{bidStatus,jdbcType=TINYINT}
+        WHERE is_deleted = 0
+              AND bidding_number = #{biddingNumber,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

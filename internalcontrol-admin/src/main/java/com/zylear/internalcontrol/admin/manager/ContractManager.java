@@ -4,6 +4,7 @@ import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.config.DataSourceInternalControlConfig;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.domain.*;
+import com.zylear.internalcontrol.admin.enums.BidStatus;
 import com.zylear.internalcontrol.admin.enums.ContractStatus;
 import com.zylear.internalcontrol.admin.service.*;
 import com.zylear.internalcontrol.admin.util.DateUtil;
@@ -64,6 +65,14 @@ public class ContractManager {
             return BasePageResult.FILE_EXIST_RESPONSE;
         }
 
+        ProjectBid bid = projectBidService.findByBidNumber(bidNumber);
+        if (bid == null) {
+            return BasePageResult.BID_NO_EXIST_RESPONSE;
+        }
+        if (!BidStatus.winning.getValue().equals(bid.getBidStatus())) {
+            return BasePageResult.ERROR_RESPONSE;
+        }
+
 
         try {
             file.transferTo(new File(filePathPrefix + FileDirectory.CONTRACT_FILE_DIRECTORY + file.getOriginalFilename()));
@@ -91,6 +100,7 @@ public class ContractManager {
         projectContract.setCreateTime(new Date());
         projectContract.setLastUpdateTime(new Date());
         projectContractService.insert(projectContract);
+        projectBidService.updateStatusByBidNumber(bidNumber, BidStatus.contracted.getValue());
 
 
         for (ProjectContractItem item : projectContractItems) {
