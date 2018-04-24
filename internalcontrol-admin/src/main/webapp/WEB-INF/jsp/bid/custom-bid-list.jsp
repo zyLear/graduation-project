@@ -190,7 +190,7 @@
             //得到查询的参数
             oTableInit.queryParams = function (params) {
                 var temp = {
-                    biddingNumber: ${biddingNumber},
+                    biddingNumber: '${biddingNumber}',
                     limit: params.limit,   //页面大小
                     offset: params.offset  //页码
 //                departmentname: $("#txt_search_departmentname").val(),

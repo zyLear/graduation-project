@@ -35,14 +35,17 @@ public class AssetManager {
 
     public BasePageResult addAsset(String contractNumber, String assetNumber, String assetType, String remark, Double prices/*, Integer count*/) {
 
-        ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
-        if (projectContract == null) {
-            return BasePageResult.CONTRACT_NO_EXIST_RESPONSE;
+
+        if (!"none".equals(contractNumber)) {
+            ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
+            if (projectContract == null) {
+                return BasePageResult.CONTRACT_NO_EXIST_RESPONSE;
+            }
+            if (!ContractStatus.effective.getValue().equals(projectContract.getContractStatus())) {
+                return BasePageResult.ERROR_RESPONSE;
+            }
         }
 
-        if (!ContractStatus.effective.getValue().equals(projectContract.getContractStatus())) {
-            return BasePageResult.ERROR_RESPONSE;
-        }
 
         Asset asset = assetService.findByAssetNumber(assetNumber);
         if (asset != null) {
@@ -89,9 +92,10 @@ public class AssetManager {
             if (projectContract == null) {
                 assetViewBean.setContractNumber("无");
                 assetViewBean.setContractName("无");
+            } else {
+                assetViewBean.setContractName(projectContract.getContractName());
+                assetViewBean.setContractNumber(projectContract.getContractNumber());
             }
-            assetViewBean.setContractName(projectContract.getContractName());
-            assetViewBean.setContractNumber(projectContract.getContractNumber());
             assetViewBean.setAssetNumber(asset.getAssetNumber());
             assetViewBean.setAssetType(asset.getAssetType());
             assetViewBean.setPrices(asset.getPrices());

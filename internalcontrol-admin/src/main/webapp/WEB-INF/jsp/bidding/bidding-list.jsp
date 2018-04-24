@@ -164,7 +164,7 @@
                         field: 'biddingNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
-                            var html = "";
+                            var html = '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
                             if (row.biddingStatus == BiddingStatusEnum.close) {
                                 html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
                                     'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
@@ -174,7 +174,7 @@
                             } else {
                                 html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
                             }
-                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+
                             return html;
                         }
                     }]

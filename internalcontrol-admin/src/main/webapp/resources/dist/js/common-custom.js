@@ -93,7 +93,7 @@ $.fn.initBids = function (url) {
 $.fn.initContracts = function (url) {
     var $this = this;
     $this.empty();
-    var html = '<option value="none">未选择</option>';
+    var html = '<option value="none">无</option>';
     $.ajax({
             url: url,
             type: 'POST',

@@ -42,7 +42,7 @@
                         <label class="col-sm-2 control-label">合同编号</label>
                         <div class="col-sm-7">
                             <select id="contractNumber" name="contractNumber" class="form-control">
-                                <option value="none">未选择</option>
+                                <option value="none">无</option>
                             </select>
                         </div>
                     </div>

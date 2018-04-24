@@ -63,6 +63,7 @@ public class BidController {
                                         @RequestParam("bidContent") String bidContent,
                                         @RequestParam("bidPrices") Double bidPrices,
                                         @RequestParam("file") MultipartFile file) {
+        System.out.println("jing");
         return bidManager.saveBid(biddingNumber, bidCompany, bidContent, bidPrices, file);
     }
 
