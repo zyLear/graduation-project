@@ -148,4 +148,18 @@
         AND asset_number = #{assetNumber,jdbcType=VARCHAR}
     </select>
 
+    <select id="findByPageParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_asset
+        WHERE is_deleted = 0
+        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_asset
+        WHERE is_deleted = 0
+    </select>
+
 </mapper>
