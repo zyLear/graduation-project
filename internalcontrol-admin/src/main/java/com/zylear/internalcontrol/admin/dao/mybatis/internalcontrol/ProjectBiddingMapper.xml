@@ -247,8 +247,6 @@
         LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
     </select>
 
-    `
-
     <update id="updateStatus">
         UPDATE t_project_bidding
         SET bidding_status = #{biddingStatus,jdbcType=TINYINT}

@@ -332,7 +332,7 @@
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> 资产管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"> 资产列表</a>
+                            <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>

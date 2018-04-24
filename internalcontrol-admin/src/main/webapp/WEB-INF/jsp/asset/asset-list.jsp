@@ -36,36 +36,7 @@
         </div>
         <!-- /.row -->
         <div class="row custom-content">
-
-
-            <%--<div class="panel panel-info">--%>
-            <%--<div class="panel-heading">--%>
-            <%--<h3 class="panel-title">预算详情</h3>--%>
-            <%--</div>--%>
-            <%--<div class="panel-body">--%>
-            <%--<div class="row">--%>
-            <%--<div class="panel panel-default">--%>
-            <%--<div class="panel-body">--%>
-            <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-            <%--<div class="form-group">--%>
-            <%--<label class="control-label col-lg-1 text-right"--%>
-            <%--style="margin-top: 8px;">项目名称:</label>--%>
-            <%--<div class="col-lg-2">--%>
-            <%--<select id="type" name="type" class="form-control">--%>
-            <%--<option value="all">所有</option>--%>
-            <%--<option value="internal_group">内部群</option>--%>
-            <%--<option value="outside_group">外部群</option>--%>
-            <%--</select>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-
             <table id="table"></table>
-
-
         </div>
         <!-- /.row -->
     </div>
@@ -122,60 +93,31 @@
                     columns: [/*{
                      checkbox: true
                      },*/ {
-                        field: 'projectNumber',
-                        title: '项目编号'
+                        field: 'assetNumber',
+                        title: '资产编号'
                     }, {
-                        field: 'projectName',
-                        title: '项目名称'/*,
+                        field: 'assetType',
+                        title: '资产名称'/*,
                          formatter: function (value, row, index) {
                          value
                          }*/
                     }, {
-                        field: 'biddingNumber',
-                        title: '招标编号'
+                        field: 'contractNumber',
+                        title: '相关合同编号'
                     }, {
-                        field: 'biddingName',
-                        title: '招标名称'
+                        field: 'contractName',
+                        title: '相关合同名称'
                     }, {
-                        field: 'id',
-                        title: '招标内容',
-                        formatter: function (value, row, index) {
-                            return '点击查看';
-                        }
+                        field: 'remark',
+                        title: '备注'
                     }, {
-                        field: 'biddingStatus',
-                        title: '招标状态',
-                        formatter: function (value, row, index) {
-                            return formatBiddingStatus(value);
-                        }
+                        field: 'prices',
+                        title: '价格'
                     }, {
-                        field: 'biddingStartTime',
-                        title: '招标开始时间',
+                        field: 'createTime',
+                        title: '创建时间',
                         formatter: function (value, row, index) {
                             return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
-                        }
-                    }, {
-                        field: 'biddingEndTime',
-                        title: '招标结束时间',
-                        formatter: function (value, row, index) {
-                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
-                        }
-                    }, {
-                        field: 'biddingNumber',
-                        title: '操作',
-                        formatter: function (value, row, index) {
-                            var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.close) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
-                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
-                            } else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
-                            }
-                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
-                            return html;
                         }
                     }]
                 });
@@ -195,39 +137,8 @@
         };
 
 
-        showBid = function (value) {
-
-            window.location.href = '${pageContext.request.contextPath}/bid/custom-bid-list?biddingNumber=' + value;
-
-//            alert(value);
-        };
 
 
-        changeBiddingStatus = function (number, status) {
-            var text;
-            if (BiddingStatusEnum.open == status) {
-                text = '确定启动投标吗？';
-            } else {
-                text = '确定停止投标吗？';
-            }
-            if (confirm(text)) {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/bidding/change-bidding-status',
-                    type: 'POST',
-                    data: {
-                        "biddingNumber": number,
-                        "biddingStatus": status
-                    },
-                    success: function (data) {
-                        alert(data.errorMessage);
-                        window.location.reload();
-                    },
-                    error: function (data) {
-                        alert('网络错误');
-                    }
-                });
-            }
-        }
 
 
     </script>
