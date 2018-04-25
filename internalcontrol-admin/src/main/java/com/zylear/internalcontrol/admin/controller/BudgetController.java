@@ -43,6 +43,10 @@ public class BudgetController {
         return new ModelAndView("budget/budget-submit");
     }
 
+    @RequestMapping("/show-budget")
+    public ModelAndView showBudget() {
+        return new ModelAndView("budget/show-budget");
+    }
 
     @ResponseBody
     @RequestMapping("/sure-budget-application")
