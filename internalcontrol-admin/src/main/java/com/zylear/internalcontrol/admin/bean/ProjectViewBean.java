@@ -28,6 +28,8 @@ public class ProjectViewBean {
 
     private List<BudgetViewBean> items;
 
+    private String projectContent;
+
     public Integer getId() {
         return id;
     }
@@ -106,5 +108,13 @@ public class ProjectViewBean {
 
     public void setItems(List<BudgetViewBean> items) {
         this.items = items;
+    }
+
+    public String getProjectContent() {
+        return projectContent;
+    }
+
+    public void setProjectContent(String projectContent) {
+        this.projectContent = projectContent;
     }
 }

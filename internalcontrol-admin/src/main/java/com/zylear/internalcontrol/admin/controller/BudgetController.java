@@ -5,6 +5,7 @@ import com.zylear.internalcontrol.admin.bean.PageResult;
 import com.zylear.internalcontrol.admin.bean.TestViewBean;
 import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 import com.zylear.internalcontrol.admin.manager.BudgetManager;
+import com.zylear.internalcontrol.admin.manager.ProjectManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class BudgetController {
 
 
     private BudgetManager budgetManager;
+    private ProjectManager projectManager;
 
     @RequestMapping("/budget-list")
     public ModelAndView budgetList() {
@@ -43,17 +45,21 @@ public class BudgetController {
         return new ModelAndView("budget/budget-submit");
     }
 
-    @RequestMapping("/show-budget")
-    public ModelAndView showBudget() {
-        return new ModelAndView("budget/show-budget");
-    }
-
     @ResponseBody
     @RequestMapping("/sure-budget-application")
     public BasePageResult sureBudgetApplication(@RequestParam("projectNumber") String projectNumber,
                                                 @RequestParam("items") String items
     ) {
         return budgetManager.saveBudget(projectNumber, items);
+    }
+
+
+    @RequestMapping("/show-budget")
+    public ModelAndView showBudget(@RequestParam("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("budget/show-budget");
+        modelAndView.addObject("project",projectManager.findProjectViewBean(projectNumber));
+        return modelAndView;
     }
 
 
@@ -69,5 +75,10 @@ public class BudgetController {
     @Autowired
     public void setBudgetManager(BudgetManager budgetManager) {
         this.budgetManager = budgetManager;
+    }
+
+    @Autowired
+    public void setProjectManager(ProjectManager projectManager) {
+        this.projectManager = projectManager;
     }
 }

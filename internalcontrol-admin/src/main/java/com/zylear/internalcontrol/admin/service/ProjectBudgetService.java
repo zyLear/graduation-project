@@ -2,6 +2,8 @@ package com.zylear.internalcontrol.admin.service;
 
 import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 
+import java.util.List;
+
 /**
  * Created by xiezongyu on 2018/4/9.
  */
@@ -9,5 +11,8 @@ public interface ProjectBudgetService {
 
     void insert(ProjectBudget projectBudget);
 
+    List<ProjectBudget> findByProjectNumber(String projectNumber);
+
 //    ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect);
 }
+

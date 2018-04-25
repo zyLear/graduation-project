@@ -6,6 +6,8 @@ import com.zylear.internalcontrol.admin.service.ProjectBudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by xiezongyu on 2018/4/9.
  */
@@ -17,6 +19,11 @@ public class ProjectBudgetServiceImpl implements ProjectBudgetService {
     @Override
     public void insert(ProjectBudget projectBudget) {
         projectBudgetMapper.insert(projectBudget);
+    }
+
+    @Override
+    public List<ProjectBudget> findByProjectNumber(String projectNumber) {
+        return null;
     }
 
 //    @Override
