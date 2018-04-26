@@ -1,145 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectBudgetMapper" >
-  <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="project_number" property="projectNumber" jdbcType="VARCHAR" />
-    <result column="budget_aspect" property="budgetAspect" jdbcType="VARCHAR" />
-    <result column="budget_money" property="budgetMoney" jdbcType="DOUBLE" />
-    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.ProjectBudget" extends="BaseResultMap" >
-    <result column="budget_content" property="budgetContent" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, project_number, budget_aspect, budget_money, is_deleted, create_time, last_update_time
-  </sql>
-  <sql id="Blob_Column_List" >
-    budget_content
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_project_budget
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_project_budget
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
-    insert into t_project_budget (id, project_number, budget_aspect, 
-      budget_money, is_deleted, create_time, 
-      last_update_time, budget_content)
-    values (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{budgetAspect,jdbcType=VARCHAR}, 
-      #{budgetMoney,jdbcType=DOUBLE}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{budgetContent,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
-    insert into t_project_budget
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="projectNumber != null" >
-        project_number,
-      </if>
-      <if test="budgetAspect != null" >
-        budget_aspect,
-      </if>
-      <if test="budgetMoney != null" >
-        budget_money,
-      </if>
-      <if test="isDeleted != null" >
-        is_deleted,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time,
-      </if>
-      <if test="budgetContent != null" >
-        budget_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="projectNumber != null" >
-        #{projectNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="budgetAspect != null" >
-        #{budgetAspect,jdbcType=VARCHAR},
-      </if>
-      <if test="budgetMoney != null" >
-        #{budgetMoney,jdbcType=DOUBLE},
-      </if>
-      <if test="isDeleted != null" >
-        #{isDeleted,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null" >
-        #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="budgetContent != null" >
-        #{budgetContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
-    update t_project_budget
-    <set >
-      <if test="projectNumber != null" >
-        project_number = #{projectNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="budgetAspect != null" >
-        budget_aspect = #{budgetAspect,jdbcType=VARCHAR},
-      </if>
-      <if test="budgetMoney != null" >
-        budget_money = #{budgetMoney,jdbcType=DOUBLE},
-      </if>
-      <if test="isDeleted != null" >
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null" >
-        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="budgetContent != null" >
-        budget_content = #{budgetContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
-    update t_project_budget
-    set project_number = #{projectNumber,jdbcType=VARCHAR},
-      budget_aspect = #{budgetAspect,jdbcType=VARCHAR},
-      budget_money = #{budgetMoney,jdbcType=DOUBLE},
-      is_deleted = #{isDeleted,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
-      budget_content = #{budgetContent,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget" >
-    update t_project_budget
-    set project_number = #{projectNumber,jdbcType=VARCHAR},
-      budget_aspect = #{budgetAspect,jdbcType=VARCHAR},
-      budget_money = #{budgetMoney,jdbcType=DOUBLE},
-      is_deleted = #{isDeleted,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectBudgetMapper">
+    <resultMap id="BaseResultMap" type="com.zylear.internalcontrol.admin.domain.ProjectBudget">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_number" property="projectNumber" jdbcType="VARCHAR"/>
+        <result column="budget_aspect" property="budgetAspect" jdbcType="VARCHAR"/>
+        <result column="budget_money" property="budgetMoney" jdbcType="DOUBLE"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.zylear.internalcontrol.admin.domain.ProjectBudget"
+               extends="BaseResultMap">
+        <result column="budget_content" property="budgetContent" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, project_number, budget_aspect, budget_money, is_deleted, create_time, last_update_time
+    </sql>
+    <sql id="Blob_Column_List">
+        budget_content
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_project_budget
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM t_project_budget
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget">
+        INSERT INTO t_project_budget (id, project_number, budget_aspect,
+                                      budget_money, is_deleted, create_time,
+                                      last_update_time, budget_content)
+        VALUES (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{budgetAspect,jdbcType=VARCHAR},
+                #{budgetMoney,jdbcType=DOUBLE}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastUpdateTime,jdbcType=TIMESTAMP}, #{budgetContent,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget">
+        insert into t_project_budget
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="projectNumber != null">
+                project_number,
+            </if>
+            <if test="budgetAspect != null">
+                budget_aspect,
+            </if>
+            <if test="budgetMoney != null">
+                budget_money,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time,
+            </if>
+            <if test="budgetContent != null">
+                budget_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="projectNumber != null">
+                #{projectNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="budgetAspect != null">
+                #{budgetAspect,jdbcType=VARCHAR},
+            </if>
+            <if test="budgetMoney != null">
+                #{budgetMoney,jdbcType=DOUBLE},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="budgetContent != null">
+                #{budgetContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget">
+        update t_project_budget
+        <set>
+            <if test="projectNumber != null">
+                project_number = #{projectNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="budgetAspect != null">
+                budget_aspect = #{budgetAspect,jdbcType=VARCHAR},
+            </if>
+            <if test="budgetMoney != null">
+                budget_money = #{budgetMoney,jdbcType=DOUBLE},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateTime != null">
+                last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="budgetContent != null">
+                budget_content = #{budgetContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget">
+        UPDATE t_project_budget
+        SET project_number   = #{projectNumber,jdbcType=VARCHAR},
+            budget_aspect    = #{budgetAspect,jdbcType=VARCHAR},
+            budget_money     = #{budgetMoney,jdbcType=DOUBLE},
+            is_deleted       = #{isDeleted,jdbcType=TINYINT},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            budget_content   = #{budgetContent,jdbcType=LONGVARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBudget">
+        UPDATE t_project_budget
+        SET project_number   = #{projectNumber,jdbcType=VARCHAR},
+            budget_aspect    = #{budgetAspect,jdbcType=VARCHAR},
+            budget_money     = #{budgetMoney,jdbcType=DOUBLE},
+            is_deleted       = #{isDeleted,jdbcType=TINYINT},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findByProjectNumber" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_project_budget
+        where is_deleted=0
+        and project_number = #{projectNumber,jdbcType=INTEGER}
+    </select>
+
 </mapper>

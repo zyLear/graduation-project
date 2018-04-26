@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目编号</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="projectNumber" name="projectNumber"
+                                    <input readonly type="text" class="form-control" id="projectNumber" name="projectNumber"
                                          value="${project.projectNumber}"   placeholder="项目编号">
                                 </div>
                             </div>
@@ -55,35 +55,35 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目名字</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="projectName" name="projectName"
-                                           value="${projectName.projectNumber}"   placeholder="项目名字">
+                                    <input readonly type="text" class="form-control" id="projectName" name="projectName"
+                                           value="${project.projectNumber}"   placeholder="项目名字">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请人</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control"
+                                    <input readonly type="text" class="form-control"
                                            value="${project.applicant}" id="applicant" name="applicant" placeholder="申请人">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请部门</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="applicationDepartment"
+                                    <input readonly type="text" class="form-control" id="applicationDepartment"
                                            value="${project.applicationDepartment}"  name="applicationDepartment" placeholder="申请部门">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目描述</label>
                                 <div class="col-sm-7">
-                            <textarea cols="60" rows="20" class="form-control custom-textarea"
+                            <textarea readonly cols="30" rows="10" class="form-control custom-textarea"
                                       id="projectContent" name="projectContent"> ${project.projectContent}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目预算</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="projectBudget" name="projectBudget"
+                                    <input readonly type="text" class="form-control" id="projectBudget" name="projectBudget"
                                            value="${project.projectBudget}"  placeholder="项目预算">
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                         <%--<div class="form-group">--%>
                         <%--<label class="col-sm-2 control-label">项目预算</label>--%>
                         <%--<div class="col-sm-7">--%>
-                        <%--<input type="text" class="form-control" name="a" placeholder="a">--%>
+                        <%--<input readonly type="text" class="form-control" name="a" placeholder="a">--%>
                         <%--</div>--%>
                         <%--</div>--%>
 
@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">申请表上传</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="filePath" name="filePath"
+                                <input readonly type="text" class="form-control" id="filePath" name="filePath"
                                        value="${project.filePath}"  placeholder="申请书">
                             </div>
                         </div>
@@ -123,10 +123,10 @@
                                     <label class="col-sm-2 control-label">预算项</label>
                                     <div class="col-sm-7">
                                     <textarea readonly cols="60" rows="3" class="form-control custom-textarea"
-                                              placeholder="预算描述"> ${item.itemContent}</textarea>
+                                              placeholder="预算描述"> ${item.budgetContent}</textarea>
                                     </div>
                                     <div class="col-sm-2">
-                                        <input readonly value="${item.itemMoney}" type="text" class="form-control"
+                                        <input readonly value="${item.budgetMoney}" type="text" class="form-control"
                                                placeholder="金额">
 
                                     </div>
@@ -207,7 +207,7 @@
 //                '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
 //                '</div>' +
 //                '<div class="col-sm-2">' +
-//                '<input readonly type="text" class="form-control" placeholder="金额">' +
+//                '<input readonly readonly type="text" class="form-control" placeholder="金额">' +
 //                '<button type="button" class="btn btn-info custom-button" onclick="deleteItem(this)"> 删除项</button>' +
 //                '</div>' +
 //                '</div>';

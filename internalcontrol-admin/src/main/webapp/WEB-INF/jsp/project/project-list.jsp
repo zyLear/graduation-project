@@ -119,7 +119,7 @@
                     showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
-                    columns: [ {
+                    columns: [{
                         field: 'projectNumber',
                         title: '项目编号'
                     }, {
@@ -140,7 +140,7 @@
                     }, {
                         field: 'projectBudget',
                         title: '项目预算'
-                    },{
+                    }, {
                         field: 'id',
                         title: '审批内容',
                         formatter: function (value, row, index) {
@@ -152,27 +152,32 @@
                         formatter: function (value, row, index) {
                             return formatProjectStatus(value);
                         }
-                    },{
+                    }, {
                         field: 'filePath',
                         title: '申请表',
                         formatter: function (value, row, index) {
                             return '点击查看';
                         }
                     }, {
-                        field: 'projectStatus',
+                        field: 'projectNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.close) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
-                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
-                            } else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+                            if(row.projectStatus==ProjectStatusEnum.budgeting){
+                                html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
+                            }else {
+                                html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
                             }
-                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+
+                            if (row.projectStatus == ProjectStatusEnum.in_approval) {
+                                html += '<button onclick="approval(\'' + value + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">审批项目</button>';
+                            }/* else if (row.biddingStatus == BiddingStatusEnum.open) {
+                             html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+                             'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                             }*/ else {
+                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已经审批</button>';
+                            }
                             return html;
                         }
                     }]
@@ -192,38 +197,18 @@
             return oTableInit;
         };
 
+        addBudget = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/budget/budget-application?projectNumber=' + value;
+        };
 
-        showBid = function (value) {
-            alert(value);
+        showBudget = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/budget/show-budget?projectNumber=' + value;
         };
 
 
-        changeBiddingStatus = function (number, status) {
-            <%--var text;--%>
-            <%--if (BiddingStatusEnum.open == status) {--%>
-                <%--text = '确定启动投标吗？';--%>
-            <%--} else {--%>
-                <%--text = '确定停止投标吗？';--%>
-            <%--}--%>
-            <%--if (confirm(text)) {--%>
-                <%--$.ajax({--%>
-                    <%--url: '${pageContext.request.contextPath}/bidding/change-bidding-status',--%>
-                    <%--type: 'POST',--%>
-                    <%--data: {--%>
-                        <%--"biddingNumber": number,--%>
-                        <%--"biddingStatus": status--%>
-                    <%--},--%>
-                    <%--success: function (data) {--%>
-                        <%--alert(data.errorMessage);--%>
-                        <%--window.location.reload();--%>
-                    <%--},--%>
-                    <%--error: function (data) {--%>
-                        <%--alert('网络错误');--%>
-                    <%--}--%>
-                <%--});--%>
-            <%--}--%>
+        approval = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/project/project-approval?projectNumber=' + value;
         }
-
 
     </script>
 

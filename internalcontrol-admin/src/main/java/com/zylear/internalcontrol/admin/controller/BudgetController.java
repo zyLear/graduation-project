@@ -35,8 +35,11 @@ public class BudgetController {
     }
 
     @RequestMapping("/budget-application")
-    public ModelAndView application() {
-        return new ModelAndView("budget/budget-application");
+    public ModelAndView application(@RequestParam("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("budget/budget-application");
+        modelAndView.addObject("project",projectManager.findProjectViewBean(projectNumber));
+        return modelAndView;
     }
 
 

@@ -48,8 +48,11 @@ public class ProjectController {
     }
 
     @RequestMapping("/project-approval")
-    public ModelAndView approval() {
-        return new ModelAndView("project/project-approval");
+    public ModelAndView approval(@RequestParam("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/project-approval");
+        modelAndView.addObject("project", projectManager.findProjectViewBean(projectNumber));
+        return modelAndView;
     }
 
     @ResponseBody
@@ -57,7 +60,6 @@ public class ProjectController {
     public BasePageResult<Project> getProjectList(@RequestParam("projectStatus") Integer projectStatus) {
         return projectManager.queryProjects(projectStatus);
     }
-
 
 
     @ResponseBody

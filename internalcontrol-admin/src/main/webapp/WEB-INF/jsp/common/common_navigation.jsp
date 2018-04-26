@@ -254,9 +254,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/project/project-approval"> 项目审批</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/project/project-approval"> 项目审批</a>--%>
+                        <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -273,9 +273,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/budget/budget-list"> 预算列表</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>--%>
+                        <%--</li>--%>
                         <%--<li>--%>
                             <%--<a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>--%>
                         <%--</li>--%>
