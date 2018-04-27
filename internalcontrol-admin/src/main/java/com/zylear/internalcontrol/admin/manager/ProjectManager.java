@@ -8,6 +8,7 @@ import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 import com.zylear.internalcontrol.admin.enums.ProjectStatus;
 import com.zylear.internalcontrol.admin.service.ProjectBudgetService;
 import com.zylear.internalcontrol.admin.service.ProjectService;
+import com.zylear.internalcontrol.admin.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,12 +119,13 @@ public class ProjectManager {
             projectViewBean.setProjectBudget(project.getProjectBudget());
             projectViewBean.setFilePath(project.getFilePath());
             projectViewBean.setProjectStatus(project.getProjectStatus());
+            projectViewBean.setCreateTime(project.getCreateTime());
             list.add(projectViewBean);
         }
         return list;
     }
 
-    public ProjectViewBean findProjectViewBean(String projectNumber) {
+    public ProjectViewBean findProjectViewBean(String projectNumber, boolean needFindBudgets) {
 
         Project project = projectService.findByProjectNumber(projectNumber);
 
@@ -138,19 +140,35 @@ public class ProjectManager {
         projectViewBean.setApplicationDepartment(project.getApplicationDepartment());
         projectViewBean.setProjectContent(project.getProjectContent());
         projectViewBean.setProjectBudget(project.getProjectBudget());
+        projectViewBean.setApprovalComment(project.getApprovalComment());
         projectViewBean.setFilePath(project.getFilePath());
-
-        List<ProjectBudget> budgets = projectBudgetService.findByProjectNumber(projectNumber);
-        List<BudgetViewBean> budgetViewBeans = new ArrayList<>(budgets.size());
-        for (ProjectBudget budget : budgets) {
-            BudgetViewBean budgetViewBean = new BudgetViewBean();
-            budgetViewBean.setBudgetAspect(budget.getBudgetAspect());
-            budgetViewBean.setBudgetContent(budget.getBudgetContent());
-            budgetViewBean.setBudgetMoney(budget.getBudgetMoney());
-            budgetViewBeans.add(budgetViewBean);
+        projectViewBean.setApprovalResult(formatProjectStatus(ProjectStatus.valueOf(project.getProjectStatus())));
+        if (needFindBudgets) {
+            List<ProjectBudget> budgets = projectBudgetService.findByProjectNumber(projectNumber);
+            List<BudgetViewBean> budgetViewBeans = new ArrayList<>(budgets.size());
+            for (ProjectBudget budget : budgets) {
+                BudgetViewBean budgetViewBean = new BudgetViewBean();
+                budgetViewBean.setBudgetAspect(budget.getBudgetAspect());
+                budgetViewBean.setBudgetContent(budget.getBudgetContent());
+                budgetViewBean.setBudgetMoney(budget.getBudgetMoney());
+                budgetViewBeans.add(budgetViewBean);
+            }
+            projectViewBean.setItems(budgetViewBeans);
         }
-        projectViewBean.setItems(budgetViewBeans);
         return projectViewBean;
+    }
+
+    private String formatProjectStatus(ProjectStatus status) {
+        switch (status) {
+            case in_approval:
+                return "还未审批";
+            case cancel:
+                return "不同意立项";
+            case pending:
+                return "待定";
+            default:
+                return "同意立项";
+        }
     }
 
 

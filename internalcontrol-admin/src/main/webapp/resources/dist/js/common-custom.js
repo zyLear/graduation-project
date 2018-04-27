@@ -184,6 +184,8 @@ Date.prototype.format = function (fmt) { //author:  so
 
 // return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
 
-function initAllProjects(url) {
-
+function back() {
+    window.history.go(-1);
 }
+
+

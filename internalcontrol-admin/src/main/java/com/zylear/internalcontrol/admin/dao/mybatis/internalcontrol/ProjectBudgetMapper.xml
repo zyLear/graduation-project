@@ -154,4 +154,19 @@
         and project_number = #{projectNumber,jdbcType=INTEGER}
     </select>
 
+    <select id="findByPageParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_budget
+        WHERE is_deleted = 0
+        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_project_budget
+        WHERE is_deleted = 0
+    </select>
+
+
 </mapper>

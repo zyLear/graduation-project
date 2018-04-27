@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.service.impl;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol.ProjectBudgetMapper;
 import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 import com.zylear.internalcontrol.admin.service.ProjectBudgetService;
@@ -24,6 +25,16 @@ public class ProjectBudgetServiceImpl implements ProjectBudgetService {
     @Override
     public List<ProjectBudget> findByProjectNumber(String projectNumber) {
         return projectBudgetMapper.findByProjectNumber(projectNumber);
+    }
+
+    @Override
+    public List<ProjectBudget> findByPageParam(PageParam pageParam) {
+        return projectBudgetMapper.findByPageParam(pageParam);
+    }
+
+    @Override
+    public int getTotal() {
+        return projectBudgetMapper.getTotal();
     }
 
 //    @Override

@@ -1,6 +1,8 @@
 package com.zylear.internalcontrol.admin.dao.mybatis.internalcontrol;
 
+import com.zylear.internalcontrol.admin.bean.PageParam;
 import com.zylear.internalcontrol.admin.domain.ProjectBudget;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +22,9 @@ public interface ProjectBudgetMapper {
     int updateByPrimaryKey(ProjectBudget record);
 
 
-    List<ProjectBudget> findByProjectNumber(String projectNumber);
+    List<ProjectBudget> findByProjectNumber(@Param("projectNumber") String projectNumber);
+
+    List<ProjectBudget> findByPageParam(@Param("pageParam") PageParam pageParam);
+
+    int getTotal();
 }

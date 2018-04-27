@@ -72,21 +72,43 @@
     <!-- /#page-wrapper -->
 
 
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">项目内容</h4>
+                </div>
+                <div class="modal-body">
+
+                    <textarea readonly cols="60" rows="20" class="form-control custom-textarea"
+                              id="content" name="projectContent"></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <%--<button type="button" id="sure-assign" class="btn btn-primary">确定</button>--%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <%@include file="../common/common_bottom_resource.jsp" %>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/js/bootstrap-table.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/js/bootstrap-table-locale-all.min.js"></script>
     <script>
         $(document).ready(function () {
 
-
-//            $('#add-budget').click(function () {
-//                $('#add-budget-modal').modal('show');
-//            });
-
             var oTable = new TableInit();
             oTable.Init();
 
         });
+
 
 
         var TableInit = function () {
@@ -133,19 +155,13 @@
                         title: '申请部门'
                     }, {
                         field: 'id',
-                        title: '招标内容',
+                        title: '项目内容',
                         formatter: function (value, row, index) {
-                            return '点击查看';
+                            return '<button onclick="showProjectContent(\'' + value + '\')" type="button" class="btn btn-info">点击查看</button>';
                         }
                     }, {
                         field: 'projectBudget',
                         title: '项目预算'
-                    }, {
-                        field: 'id',
-                        title: '审批内容',
-                        formatter: function (value, row, index) {
-                            return '点击查看';
-                        }
                     }, {
                         field: 'projectStatus',
                         title: '项目状态',
@@ -159,13 +175,19 @@
                             return '点击查看';
                         }
                     }, {
+                        field: 'createTime',
+                        title: '创建时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
+                    }, {
                         field: 'projectNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if(row.projectStatus==ProjectStatusEnum.budgeting){
+                            if (row.projectStatus == ProjectStatusEnum.budgeting) {
                                 html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
-                            }else {
+                            } else {
                                 html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
                             }
 
@@ -176,7 +198,8 @@
                              html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
                              'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
                              }*/ else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已经审批</button>';
+                                html += '<button onclick="showApproval(\'' + value + '\')" ' +
+                                    'type="button" class="btn btn-success custom-button-inline">查看审批</button>';
                             }
                             return html;
                         }
@@ -197,6 +220,14 @@
             return oTableInit;
         };
 
+        showProjectContent = function (value) {
+
+            $('#content').text('tessdfdsf');
+
+
+            $('#myModal').modal('show');
+        };
+
         addBudget = function (value) {
             window.location.href = '${pageContext.request.contextPath}/budget/budget-application?projectNumber=' + value;
         };
@@ -208,7 +239,11 @@
 
         approval = function (value) {
             window.location.href = '${pageContext.request.contextPath}/project/project-approval?projectNumber=' + value;
-        }
+        };
+
+        showApproval = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/project/show-project-approval?projectNumber=' + value;
+        };
 
     </script>
 

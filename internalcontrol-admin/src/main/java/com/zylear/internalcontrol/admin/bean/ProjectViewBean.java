@@ -26,6 +26,26 @@ public class ProjectViewBean {
 
     private String filePath;
 
+    private Date createTime;
+
+    private String approvalResult;
+
+    public String getApprovalResult() {
+        return approvalResult;
+    }
+
+    public void setApprovalResult(String approvalResult) {
+        this.approvalResult = approvalResult;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     private List<BudgetViewBean> items;
 
     private String projectContent;

@@ -18,3 +18,8 @@
     margin-right: 10px;
     margin-left: 10px;
 }
+
+.custom-label {
+    padding-left: 0;
+    padding-right: 0;
+}

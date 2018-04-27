@@ -124,8 +124,7 @@
 
                             <div name="item">
                                 <div class="form-group">
-                                    <label class="col-sm-1 control-label"
-                                           style="padding-left:0; padding-right: 0">预算项</label>
+                                    <label class="col-sm-1 control-label custom-label">预算项</label>
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" id="budgetAspect" name="budgetAspect"
                                                placeholder="预算模块">
@@ -152,7 +151,8 @@
                     <%--panel --%>
 
                     <div class="text-center">
-                        <button id="save" type="button" class="btn btn-info btn-lg"> 保 存</button>
+                        <button id="save" type="button" class="btn btn-info btn-lg custom-button-inline"> 保 存</button>
+                        <button onclick="back()" type="button" class="btn btn-info btn-lg custom-button-inline"> 返回</button>
                     </div>
 
                 </div>
@@ -209,8 +209,7 @@
         addItem = function () {
             var html = '  <div name="item">' +
                 '  <div class="form-group">' +
-                ' <label class="col-sm-1 control-label"' +
-                ' style="padding-left:0; padding-right: 0">预算项</label>' +
+                ' <label class="col-sm-1 control-label custom-label">预算项</label>' +
                 ' <div class="col-sm-5">' +
                 '<input type="text" class="form-control" name="budgetAspect"' +
                 ' placeholder="预算模块">' +
@@ -236,6 +235,7 @@
         deleteItem = function ($this) {
             $($this).parent().parent().parent().remove();
         };
+
 
     </script>
 

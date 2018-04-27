@@ -46,8 +46,9 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目编号</label>
                                 <div class="col-sm-7">
-                                    <input readonly type="text" class="form-control" id="projectNumber" name="projectNumber"
-                                         value="${project.projectNumber}"   placeholder="项目编号">
+                                    <input readonly type="text" class="form-control" id="projectNumber"
+                                           name="projectNumber"
+                                           value="${project.projectNumber}" placeholder="项目编号">
                                 </div>
                             </div>
 
@@ -56,21 +57,23 @@
                                 <label class="col-sm-2 control-label">项目名字</label>
                                 <div class="col-sm-7">
                                     <input readonly type="text" class="form-control" id="projectName" name="projectName"
-                                           value="${project.projectNumber}"   placeholder="项目名字">
+                                           value="${project.projectNumber}" placeholder="项目名字">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请人</label>
                                 <div class="col-sm-7">
                                     <input readonly type="text" class="form-control"
-                                           value="${project.applicant}" id="applicant" name="applicant" placeholder="申请人">
+                                           value="${project.applicant}" id="applicant" name="applicant"
+                                           placeholder="申请人">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请部门</label>
                                 <div class="col-sm-7">
                                     <input readonly type="text" class="form-control" id="applicationDepartment"
-                                           value="${project.applicationDepartment}"  name="applicationDepartment" placeholder="申请部门">
+                                           value="${project.applicationDepartment}" name="applicationDepartment"
+                                           placeholder="申请部门">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -83,29 +86,30 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目预算</label>
                                 <div class="col-sm-7">
-                                    <input readonly type="text" class="form-control" id="projectBudget" name="projectBudget"
-                                           value="${project.projectBudget}"  placeholder="项目预算">
+                                    <input readonly type="text" class="form-control" id="projectBudget"
+                                           name="projectBudget"
+                                           value="${project.projectBudget}" placeholder="项目预算">
                                 </div>
                             </div>
 
-                        <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-2 control-label">项目预算</label>--%>
-                        <%--<div class="col-sm-7">--%>
-                        <%--<input readonly type="text" class="form-control" name="a" placeholder="a">--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
+                            <%--<div class="form-group">--%>
+                            <%--<label class="col-sm-2 control-label">项目预算</label>--%>
+                            <%--<div class="col-sm-7">--%>
+                            <%--<input readonly type="text" class="form-control" name="a" placeholder="a">--%>
+                            <%--</div>--%>
+                            <%--</div>--%>
 
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">申请表上传</label>
-                            <div class="col-sm-7">
-                                <input readonly type="text" class="form-control" id="filePath" name="filePath"
-                                       value="${project.filePath}"  placeholder="申请书">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">申请表上传</label>
+                                <div class="col-sm-7">
+                                    <input readonly type="text" class="form-control" id="filePath" name="filePath"
+                                           value="${project.filePath}" placeholder="申请书">
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <%--panel body --%>
+                        </div>
+                        <%--panel body --%>
                     </div>
                     <%--panel --%>
                 </div>
@@ -131,12 +135,17 @@
 
                                     </div>
                                 </div>
-
                             </c:forEach>
+
                         </div>
                         <%--panel body --%>
                     </div>
                     <%--panel --%>
+
+                    <div class="text-center">
+                        <button onclick="back()" type="button" class="btn btn-info btn-lg"> 返回</button>
+                    </div>
+
                 </div>
                 <%--<div class="col-lg-6 form-horizontal">--%>
 
@@ -199,37 +208,6 @@
             });
         });
 
-
-        sureFinish = function (id) {
-//            var html = '  <div name="item" class="form-group">' +
-//                '<label class="col-sm-2 control-label">合同项</label>' +
-//                '<div class="col-sm-7">' +
-//                '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
-//                '</div>' +
-//                '<div class="col-sm-2">' +
-//                '<input readonly readonly type="text" class="form-control" placeholder="金额">' +
-//                '<button type="button" class="btn btn-info custom-button" onclick="deleteItem(this)"> 删除项</button>' +
-//                '</div>' +
-//                '</div>';
-//            $('#itemsPanel').append(html);
-
-            if (confirm('确定完成此合同项吗？')) {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/contract/sure-finish-item',
-                    type: 'POST',
-                    data: {
-                        "itemId": id
-                    },
-                    success: function (data) {
-                        alert(data.errorMessage);
-                        window.location.reload();
-                    },
-                    error: function (data) {
-                        alert('网络错误');
-                    }
-                });
-            }
-        };
 
         //        deleteItem = function ($this) {
         //            $($this).parent().parent().remove();

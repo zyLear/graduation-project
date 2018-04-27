@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>预算列表</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/css/bootstrap-table.min.css"
@@ -35,36 +38,32 @@
         <div class="row custom-content">
 
 
-            <div class="col-lg-offset-1 col-lg-10">
-                <%--<div class="panel panel-info">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<h3 class="panel-title">预算详情</h3>--%>
-                <%--</div>--%>
-                <%--<div class="panel-body">--%>
-                <div class="row">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div<%--action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""--%>>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-1 text-right"
-                                           style="margin-top: 8px;">项目名称:</label>
-                                    <div class="col-lg-2">
-                                        <select id="type" name="type" class="form-control">
-                                            <option value="all">所有</option>
-                                            <option value="internal_group">内部群</option>
-                                            <option value="outside_group">外部群</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <%--<div class="panel panel-info">--%>
+            <%--<div class="panel-heading">--%>
+            <%--<h3 class="panel-title">预算详情</h3>--%>
+            <%--</div>--%>
+            <%--<div class="panel-body">--%>
+            <%--<div class="row">--%>
+            <%--<div class="panel panel-default">--%>
+            <%--<div class="panel-body">--%>
+            <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
+            <%--<div class="form-group">--%>
+            <%--<label class="control-label col-lg-1 text-right"--%>
+            <%--style="margin-top: 8px;">项目名称:</label>--%>
+            <%--<div class="col-lg-2">--%>
+            <%--<select id="type" name="type" class="form-control">--%>
+            <%--<option value="all">所有</option>--%>
+            <%--<option value="internal_group">内部群</option>--%>
+            <%--<option value="outside_group">外部群</option>--%>
+            <%--</select>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
 
-                <table id="table"></table>
-
-            </div>
-            <%-- col-lg-6 --%>
+            <table id="table"></table>
 
 
         </div>
@@ -80,9 +79,9 @@
         $(document).ready(function () {
 
 
-            $('#add-budget').click(function () {
-                $('#add-budget-modal').modal('show');
-            });
+//            $('#add-budget').click(function () {
+//                $('#add-budget-modal').modal('show');
+//            });
 
             var oTable = new TableInit();
             oTable.Init();
@@ -95,7 +94,7 @@
             //初始化Table
             oTableInit.Init = function () {
                 $('#table').bootstrapTable({
-                    url: '${pageContext.request.contextPath}/budget/budget-detail',         //请求后台的URL（*）
+                    url: '${pageContext.request.contextPath}/budget/get-budget-list',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）
                     toolbar: '#toolbar',                //工具按钮用哪个容器
                     striped: true,                      //是否显示行间隔色
@@ -120,23 +119,58 @@
                     showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
-                    columns: [/*{
-                     checkbox: true
-                     },*/ {
-                        field: 'name',
-                        title: 'name'
+                    columns: [{
+                        field: 'projectNumber',
+                        title: '项目编号'
+                    }, {
+                        field: 'projectName',
+                        title: '项目名称'
+                    }, {
+                        field: 'budgetAspect',
+                        title: '预算模块'
+                    }, {
+                        field: 'budgetContent',
+                        title: '预算内容',
+                        formatter: function (value, row, index) {
+                            return '点击查看';
+                        }
+                    }, {
+                        field: 'budgetMoney',
+                        title: '金额'
+                    }, {
+                        field: 'filePath',
+                        title: '申请表',
+                        formatter: function (value, row, index) {
+                            return '点击查看';
+                        }
+                    }, {
+                        field: 'createTime',
+                        title: '创建时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
                     }/*, {
-                     field: 'parentName',
-                     title: '上级部门',
+                     field: 'projectNumber',
+                     title: '操作'/!*,
                      formatter: function (value, row, index) {
-                     value
+                     var html = "";
+                     if(row.projectStatus==ProjectStatusEnum.budgeting){
+                     html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
+                     }else {
+                     html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
                      }
-                     }, {
-                     field: 'level',
-                     title: '部门级别'
-                     }, {
-                     field: 'description',
-                     title: '描述'
+
+                     if (row.projectStatus == ProjectStatusEnum.in_approval) {
+                     html += '<button onclick="approval(\'' + value + '\')" ' +
+                     'type="button" class="btn btn-info custom-button-inline">审批项目</button>';
+                     }/!* else if (row.biddingStatus == BiddingStatusEnum.open) {
+                     html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+                     'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                     }*!/ else {
+                     html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已经审批</button>';
+                     }
+                     return html;
+                     }*!/
                      }*/]
                 });
             };
@@ -153,6 +187,20 @@
             };
             return oTableInit;
         };
+
+        addBudget = function (value) {
+            <%--window.location.href = '${pageContext.request.contextPath}/budget/budget-application?projectNumber=' + value;--%>
+        };
+
+        showBudget = function (value) {
+            <%--window.location.href = '${pageContext.request.contextPath}/budget/show-budget?projectNumber=' + value;--%>
+        };
+
+
+        approval = function (value) {
+            <%--window.location.href = '${pageContext.request.contextPath}/project/project-approval?projectNumber=' + value;--%>
+        }
+
     </script>
 
 </div>
