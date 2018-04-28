@@ -77,8 +77,7 @@ public class ProjectController {
                                                  @RequestParam("applicationDepartment") String applicationDepartment,
                                                  @RequestParam("projectContent") String projectContent,
                                                  @RequestParam("projectBudget") Double projectBudget,
-                                                 @RequestParam("file") MultipartFile file
-    ) {
+                                                 @RequestParam("file") MultipartFile file) {
         return projectManager.saveProjectApplication(projectNumber, projectName, applicant,
                 applicationDepartment, projectContent, projectBudget, file);
     }
@@ -87,8 +86,7 @@ public class ProjectController {
     @RequestMapping("/sure-project-approval")
     public BasePageResult<Project> sureApproval(@RequestParam("projectNumber") String projectNumber,
                                                 @RequestParam("projectStatus") Integer projectStatus,
-                                                @RequestParam("approvalComment") String approvalComment
-    ) {
+                                                @RequestParam("approvalComment") String approvalComment) {
         return projectManager.sureApproval(projectNumber, projectStatus, approvalComment);
     }
 
@@ -100,6 +98,11 @@ public class ProjectController {
         return modelAndView;
     }
 
+    @ResponseBody
+    @RequestMapping("/get-project-content")
+    public BasePageResult<ProjectViewBean> getProjectContent(@RequestParam("projectNumber") String projectNumber) {
+        return projectManager.getProjectContent(projectNumber);
+    }
 
 //    @RequestMapping("/test")
 //    public ModelAndView test(HttpServletResponse response) {

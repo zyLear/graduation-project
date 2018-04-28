@@ -29,4 +29,6 @@ public interface ProjectBidService {
     void updateStatusByBidNumber(String bidNumber, Integer status);
 
     void updateStatusByBiddingNumber(String biddingNumber, Integer status);
+
+    ProjectBid selectByPrimaryKey(Integer id);
 }

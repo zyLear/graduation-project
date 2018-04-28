@@ -30,6 +30,11 @@ public class ProjectViewBean {
 
     private String approvalResult;
 
+    private List<BudgetViewBean> items;
+
+    private String projectContent;
+
+
     public String getApprovalResult() {
         return approvalResult;
     }
@@ -45,10 +50,6 @@ public class ProjectViewBean {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
-    private List<BudgetViewBean> items;
-
-    private String projectContent;
 
     public Integer getId() {
         return id;

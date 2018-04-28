@@ -74,14 +74,6 @@ public class BidController {
         return bidManager.sureChooseBid(bidNumber);
     }
 
-//    public BasePageResult sureProjectApplication(@RequestParam("projectNumber") String projectNumber,
-//                                                 @RequestParam("biddingNumber") String biddingNumber,
-//                                                 @RequestParam("biddingName") String biddingName,
-//                                                 @RequestParam("biddingContent") String biddingContent,
-//                                                 @RequestParam("prices") Double prices,
-//                                                 @RequestParam("file") MultipartFile file) {
-//        return biddingManager.saveBidding(projectNumber, biddingNumber, biddingName, biddingContent, prices, file);
-//    }
 
     @ResponseBody
     @RequestMapping("/get-bidding-list")
@@ -134,6 +126,13 @@ public class BidController {
         PageParam pageParam = new PageParam(limit, offset);
         return bidManager.getCustomBidListPageResult(biddingNumber, pageParam);
     }
+
+    @ResponseBody
+    @RequestMapping("/get-bid-content")
+    public BasePageResult<BidViewBean> getProjectContent(@RequestParam("id") Integer id) {
+        return bidManager.getBidContent(id);
+    }
+
 
 
     @Autowired

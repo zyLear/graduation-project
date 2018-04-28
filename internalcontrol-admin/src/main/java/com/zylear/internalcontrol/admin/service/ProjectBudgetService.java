@@ -18,6 +18,8 @@ public interface ProjectBudgetService {
 
     int getTotal();
 
+    ProjectBudget selectByPrimaryKey(Integer id);
+
 //    ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect);
 }
 

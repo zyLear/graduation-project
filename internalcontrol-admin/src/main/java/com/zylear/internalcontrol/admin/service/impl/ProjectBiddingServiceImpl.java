@@ -57,6 +57,11 @@ public class ProjectBiddingServiceImpl implements ProjectBiddingService {
         projectBiddingMapper.updateStatus(biddingNumber, biddingStatus);
     }
 
+    @Override
+    public ProjectBidding selectByPrimaryKey(Integer id) {
+        return projectBiddingMapper.selectByPrimaryKey(id);
+    }
+
     @Autowired
     public void setProjectBiddingMapper(ProjectBiddingMapper projectBiddingMapper) {
         this.projectBiddingMapper = projectBiddingMapper;

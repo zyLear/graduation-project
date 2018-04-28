@@ -341,6 +341,19 @@
                     <!-- /.nav-second-level -->
                 </li>
 
+                <li>
+                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Template<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/user/login"> LOGIN</a>
+                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/asset/add-asset"> </a>--%>
+                        <%--</li>--%>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

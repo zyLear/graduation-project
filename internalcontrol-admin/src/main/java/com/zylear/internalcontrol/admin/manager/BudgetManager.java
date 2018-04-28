@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -104,6 +105,7 @@ public class BudgetManager {
                 continue;
             }
             BudgetViewBean budgetViewBean = new BudgetViewBean();
+            budgetViewBean.setId(budget.getId());
             budgetViewBean.setProjectNumber(project.getProjectNumber());
             budgetViewBean.setProjectName(project.getProjectName());
             budgetViewBean.setBudgetAspect(budget.getBudgetAspect());
@@ -113,6 +115,19 @@ public class BudgetManager {
             list.add(budgetViewBean);
         }
         return list;
+    }
+
+
+    public BasePageResult<BudgetViewBean> getBudgetContent(Integer id) {
+        ProjectBudget budget = projectBudgetService.selectByPrimaryKey(id);
+        if (budget == null) {
+            return BasePageResult.BUDGET_NO_EXIST_RESPONSE;
+        }
+        BasePageResult<BudgetViewBean> successResponse = BasePageResult.getSuccessResponse();
+        BudgetViewBean budgetViewBean = new BudgetViewBean();
+        budgetViewBean.setBudgetContent(budget.getBudgetContent());
+        successResponse.setData(Arrays.asList(budgetViewBean));
+        return successResponse;
     }
 
 

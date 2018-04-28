@@ -59,12 +59,17 @@ public class ProjectBidServiceImpl implements ProjectBidService {
 
     @Override
     public void updateStatusByBidNumber(String bidNumber, Integer status) {
-        projectBidMapper.updateStatusByBidNumber(bidNumber,status);
+        projectBidMapper.updateStatusByBidNumber(bidNumber, status);
     }
 
     @Override
     public void updateStatusByBiddingNumber(String biddingNumber, Integer status) {
         projectBidMapper.updateStatusByBiddingNumber(biddingNumber, status);
+    }
+
+    @Override
+    public ProjectBid selectByPrimaryKey(Integer id) {
+        return projectBidMapper.selectByPrimaryKey(id);
     }
 
     @Autowired

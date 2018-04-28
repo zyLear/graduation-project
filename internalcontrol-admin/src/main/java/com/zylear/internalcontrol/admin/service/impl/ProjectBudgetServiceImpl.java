@@ -37,6 +37,11 @@ public class ProjectBudgetServiceImpl implements ProjectBudgetService {
         return projectBudgetMapper.getTotal();
     }
 
+    @Override
+    public ProjectBudget selectByPrimaryKey(Integer id) {
+        return projectBudgetMapper.selectByPrimaryKey(id);
+    }
+
 //    @Override
 //    public ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect) {
 //        return null;

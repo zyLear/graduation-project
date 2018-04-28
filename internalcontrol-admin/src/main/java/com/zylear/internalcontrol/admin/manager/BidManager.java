@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -164,6 +165,18 @@ public class BidManager {
         return list;
     }
 
+    public BasePageResult<BidViewBean> getBidContent(Integer id) {
+        ProjectBid bid= projectBidService.selectByPrimaryKey(id);
+        if (bid == null) {
+            return BasePageResult.BID_NO_EXIST_RESPONSE;
+        }
+        BasePageResult<BidViewBean> successResponse = BasePageResult.getSuccessResponse();
+        BidViewBean bidViewBean = new BidViewBean();
+        bidViewBean.setBidContent(bid.getBidContent());
+        successResponse.setData(Arrays.asList(bidViewBean));
+        return successResponse;
+    }
+
 
 
 
@@ -191,4 +204,6 @@ public class BidManager {
     public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
         this.projectBiddingService = projectBiddingService;
     }
+
+
 }

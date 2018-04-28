@@ -76,15 +76,21 @@ public class BudgetController {
         return modelAndView;
     }
 
-
     @ResponseBody
-    @RequestMapping("/budget-detail")
-    public PageResult budgetDetail() {
-        PageResult pageResult = new PageResult();
-        pageResult.setTotal(4);
-        pageResult.setRows(Arrays.asList(new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1")));
-        return pageResult;
+    @RequestMapping("/get-budget-content")
+    public BasePageResult<BudgetViewBean> getBudgetContent(@RequestParam("id") Integer id) {
+        return budgetManager.getBudgetContent(id);
     }
+
+
+//    @ResponseBody
+//    @RequestMapping("/budget-detail")
+//    public PageResult budgetDetail() {
+//        PageResult pageResult = new PageResult();
+//        pageResult.setTotal(4);
+//        pageResult.setRows(Arrays.asList(new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1")));
+//        return pageResult;
+//    }
 
     @Autowired
     public void setBudgetManager(BudgetManager budgetManager) {

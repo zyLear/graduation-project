@@ -110,7 +110,6 @@
         });
 
 
-
         var TableInit = function () {
             var oTableInit = new Object();
             //初始化Table
@@ -154,10 +153,10 @@
                         field: 'applicationDepartment',
                         title: '申请部门'
                     }, {
-                        field: 'id',
+                        field: 'projectNumber',
                         title: '项目内容',
                         formatter: function (value, row, index) {
-                            return '<button onclick="showProjectContent(\'' + value + '\')" type="button" class="btn btn-info">点击查看</button>';
+                            return '<button onclick="showContent(\'' + value + '\')" type="button" class="btn btn-default">点击查看</button>';
                         }
                     }, {
                         field: 'projectBudget',
@@ -220,12 +219,25 @@
             return oTableInit;
         };
 
-        showProjectContent = function (value) {
-
-            $('#content').text('tessdfdsf');
-
-
-            $('#myModal').modal('show');
+        showContent = function (value) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/project/get-project-content',
+                type: 'POST',
+                data: {
+                    "projectNumber": value
+                },
+                success: function (data) {
+                    if (data.errorCode == 0) {
+                        $('#content').text(data.data[0].projectContent);
+                        $('#myModal').modal('show');
+                    } else {
+                        alert(data.errorMessage);
+                    }
+                },
+                error: function (data) {
+                    alert('网络错误');
+                }
+            });
         };
 
         addBudget = function (value) {

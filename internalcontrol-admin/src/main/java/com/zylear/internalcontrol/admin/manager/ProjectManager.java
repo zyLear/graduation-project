@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -171,6 +172,19 @@ public class ProjectManager {
         }
     }
 
+    public BasePageResult<ProjectViewBean> getProjectContent(String projectNumber) {
+        Project project = projectService.findByProjectNumber(projectNumber);
+        if (project == null) {
+            return BasePageResult.PROJECT_NO_EXIST_RESPONSE;
+        }
+
+        BasePageResult<ProjectViewBean> successResponse = BasePageResult.getSuccessResponse();
+        ProjectViewBean projectViewBean = new ProjectViewBean();
+        projectViewBean.setProjectContent(project.getProjectContent());
+        successResponse.setData(Arrays.asList(projectViewBean));
+        return successResponse;
+    }
+
 
     @Autowired
     public void setFilePathPrefix(String filePathPrefix) {
@@ -186,4 +200,6 @@ public class ProjectManager {
     public void setProjectBudgetService(ProjectBudgetService projectBudgetService) {
         this.projectBudgetService = projectBudgetService;
     }
+
+
 }

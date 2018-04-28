@@ -48,17 +48,6 @@
                                 <option value="none">${biddingNumber}</option>
                             </select>
                         </div>
-                        <%--<label class="control-label col-xs-2" for="filter_resource_type">Excluded Thumb Status:</label>--%>
-                        <%--<div class="col-xs-2">--%>
-                        <%--<select id="filter_thumb_status" name="thumbStatus" class="form-control selectpicker" data-header="Select Status">--%>
-                        <%--<option  data-subtext="" selected="selected" value="none">None</option>--%>
-                        <%--<option  data-subtext="" value="2">Thumbs Up</option>--%>
-                        <%--<option  data-subtext="" value="3">Thumbs Down</option>--%>
-                        <%--</select>--%>
-                        <%--</div>--%>
-                        <%--<div class="col-sm-4" style="text-align:left;">--%>
-                        <%--<button type="button" style="margin-left:50px" id="btn_query" class="btn btn-default">Query</button>--%>
-                        <%--</div>--%>
                     </div>
                 </div>
             </div>
@@ -72,6 +61,30 @@
     </div>
     <!-- /#page-wrapper -->
 
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">标书内容</h4>
+                </div>
+                <div class="modal-body">
+
+                    <textarea readonly cols="60" rows="20" class="form-control custom-textarea"
+                              id="content" name="projectContent"></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <%--<button type="button" id="sure-assign" class="btn btn-primary">确定</button>--%>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <%@include file="../common/common_bottom_resource.jsp" %>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/js/bootstrap-table.min.js"></script>
@@ -147,7 +160,7 @@
                         field: 'id',
                         title: '标书内容',
                         formatter: function (value, row, index) {
-                            return '点击查看';
+                            return '<button onclick="showContent(' + value + ')" type="button" class="btn btn-default">点击查看</button>';
                         }
                     }, {
                         field: 'bidStatus',
@@ -222,38 +235,26 @@
 
         };
 
-
-        //        showBid = function (value) {
-        //            alert(value);
-        //        };
-
-
-        <%--changeBiddingStatus = function (number, status) {--%>
-        <%--var text;--%>
-        <%--if (BiddingStatusEnum.open == status) {--%>
-        <%--text = '确定启动投标吗？';--%>
-        <%--} else {--%>
-        <%--text = '确定停止投标吗？';--%>
-        <%--}--%>
-        <%--if (confirm(text)) {--%>
-        <%--$.ajax({--%>
-        <%--url: '${pageContext.request.contextPath}/bidding/change-bidding-status',--%>
-        <%--type: 'POST',--%>
-        <%--data: {--%>
-        <%--"biddingNumber": number,--%>
-        <%--"biddingStatus": status--%>
-        <%--},--%>
-        <%--success: function (data) {--%>
-        <%--alert(data.errorMessage);--%>
-        <%--window.location.reload();--%>
-        <%--},--%>
-        <%--error: function (data) {--%>
-        <%--alert('错误');--%>
-        <%--}--%>
-
-        <%--});--%>
-        <%--}--%>
-        <%--}--%>
+        showContent = function (value) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/bid/get-bid-content',
+                type: 'POST',
+                data: {
+                    "id": value
+                },
+                success: function (data) {
+                    if (data.errorCode == 0) {
+                        $('#content').text(data.data[0].bidContent);
+                        $('#myModal').modal('show');
+                    } else {
+                        alert(data.errorMessage);
+                    }
+                },
+                error: function (data) {
+                    alert('网络错误');
+                }
+            });
+        };
 
 
     </script>

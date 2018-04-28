@@ -37,32 +37,6 @@
         <!-- /.row -->
         <div class="row custom-content">
 
-
-            <%--<div class="panel panel-info">--%>
-            <%--<div class="panel-heading">--%>
-            <%--<h3 class="panel-title">预算详情</h3>--%>
-            <%--</div>--%>
-            <%--<div class="panel-body">--%>
-            <%--<div class="row">--%>
-            <%--<div class="panel panel-default">--%>
-            <%--<div class="panel-body">--%>
-            <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-            <%--<div class="form-group">--%>
-            <%--<label class="control-label col-lg-1 text-right"--%>
-            <%--style="margin-top: 8px;">项目名称:</label>--%>
-            <%--<div class="col-lg-2">--%>
-            <%--<select id="type" name="type" class="form-control">--%>
-            <%--<option value="all">所有</option>--%>
-            <%--<option value="internal_group">内部群</option>--%>
-            <%--<option value="outside_group">外部群</option>--%>
-            <%--</select>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-
             <table id="table"></table>
 
 
@@ -71,6 +45,31 @@
     </div>
     <!-- /#page-wrapper -->
 
+
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">预算内容</h4>
+                </div>
+                <div class="modal-body">
+
+                    <textarea readonly cols="60" rows="20" class="form-control custom-textarea"
+                              id="content" name="projectContent"></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <%--<button type="button" id="sure-assign" class="btn btn-primary">确定</button>--%>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <%@include file="../common/common_bottom_resource.jsp" %>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/js/bootstrap-table.min.js"></script>
@@ -129,10 +128,10 @@
                         field: 'budgetAspect',
                         title: '预算模块'
                     }, {
-                        field: 'budgetContent',
+                        field: 'id',
                         title: '预算内容',
                         formatter: function (value, row, index) {
-                            return '点击查看';
+                            return '<button onclick="showContent(' + value + ')" type="button" class="btn btn-default">点击查看</button>';
                         }
                     }, {
                         field: 'budgetMoney',
@@ -187,6 +186,28 @@
             };
             return oTableInit;
         };
+
+        showContent = function (value) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/budget/get-budget-content',
+                type: 'POST',
+                data: {
+                    "id": value
+                },
+                success: function (data) {
+                    if (data.errorCode == 0) {
+                        $('#content').text(data.data[0].budgetContent);
+                        $('#myModal').modal('show');
+                    } else {
+                        alert(data.errorMessage);
+                    }
+                },
+                error: function (data) {
+                    alert('网络错误');
+                }
+            });
+        };
+
 
         addBudget = function (value) {
             <%--window.location.href = '${pageContext.request.contextPath}/budget/budget-application?projectNumber=' + value;--%>
