@@ -184,11 +184,6 @@
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if (row.projectStatus == ProjectStatusEnum.budgeting) {
-                                html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
-                            } else {
-                                html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
-                            }
 
                             if (row.projectStatus == ProjectStatusEnum.in_approval) {
                                 html += '<button onclick="approval(\'' + value + '\')" ' +
@@ -200,6 +195,15 @@
                                 html += '<button onclick="showApproval(\'' + value + '\')" ' +
                                     'type="button" class="btn btn-success custom-button-inline">查看审批</button>';
                             }
+
+                            if (row.projectStatus == ProjectStatusEnum.budgeting) {
+                                html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
+                            } else if (row.projectStatus == ProjectStatusEnum.bidding) {
+                                html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
+                            } else {
+                                html += '<button disabled="disabled" onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
+                            }
+
                             return html;
                         }
                     }]

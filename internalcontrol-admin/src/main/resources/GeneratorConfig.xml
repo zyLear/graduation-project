@@ -39,10 +39,10 @@
         </javaClientGenerator>
 
 
-        <!--<table tableName="t_asset" domainObjectName="Asset"-->
-               <!--enableCountByExample="false" enableSelectByExample="false"-->
-               <!--enableUpdateByExample="false" enableDeleteByExample="false">-->
-        <!--</table>-->
+        <table tableName="t_user" domainObjectName="User"
+               enableCountByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false">
+        </table>
 
         <!--<table tableName="t_project" domainObjectName="Project"-->
                <!--enableCountByExample="false" enableSelectByExample="false"-->

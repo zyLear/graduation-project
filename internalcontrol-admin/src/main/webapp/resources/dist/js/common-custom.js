@@ -188,4 +188,9 @@ function back() {
     window.history.go(-1);
 }
 
+function logout(contextPath) {
+    $.get(contextPath + '/user/sure-logout');
+    window.location.href = contextPath + '/user/login';
+}
+
 

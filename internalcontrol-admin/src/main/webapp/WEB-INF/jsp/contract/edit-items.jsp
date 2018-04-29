@@ -141,6 +141,11 @@
                         <%--panel body --%>
                     </div>
                     <%--panel --%>
+
+                    <div class="text-center">
+                        <button onclick="back()" type="button" class="btn btn-info btn-lg"> 返回</button>
+                    </div>
+
                 </div>
                 <%--<div class="col-lg-6 form-horizontal">--%>
 
@@ -158,51 +163,6 @@
     <%@include file="../common/common_bottom_resource.jsp" %>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
     <script>
-
-        $(document).ready(function () {
-
-
-            $('#save').click(function () {
-
-                var items = new Array();
-
-                $('[name="item"]').each(function () {
-                    var object = new Object();
-                    object.itemMoney = $(this).find('input').val();
-                    object.itemContent = $(this).find('textarea').val();
-                    items.push(object);
-                });
-//                var object = new Object();
-//                object.itemMoney = 100;
-//                object.itemContent = 'content';
-//
-//                items.push(object);
-//                items.push(object);
-//                items.push(object);
-
-                var param = new FormData($('#form')[0]);
-                param.append('items', JSON.stringify(items));
-
-
-                $.ajax({
-                        url: '${pageContext.request.contextPath}/contract/sure-contract-create',
-                        type: 'POST',
-                        data: param,
-                        async: false,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (data) {
-                            alert(data.errorMessage);
-                        },
-                        error: function (data) {
-                            alert(data.errorMessage);
-                        }
-                    }
-                )
-            });
-        });
-
 
         sureFinish = function (id) {
 //            var html = '  <div name="item" class="form-group">' +

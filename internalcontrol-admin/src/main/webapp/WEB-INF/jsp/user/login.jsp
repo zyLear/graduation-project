@@ -65,12 +65,95 @@
     </div>
 </div>
 
+
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">注册</h4>
+            </div>
+            <div class="modal-body">
+                <div style="height: 50px;"></div>
+                <div class="row">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">账号</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="registerAccount"
+                                       name="registerAccount"
+                                       maxlength="16"
+                                       placeholder="账号">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">密码</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control" id="registerPassword"
+                                       name="registerPassword"
+                                       maxlength="16"
+                                       placeholder="密码">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">确认密码</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control" id="registerSurePassword"
+                                       name="registerSurePassword"
+                                       maxlength="16"
+                                       placeholder="确认密码">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">角色</label>
+                            <div class="col-sm-4">
+                                <input readonly type="text" class="form-control" id="registerAuthority"
+                                       value="投标者" name="registerAuthority"
+                                       placeholder="投标者">
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="col-sm-offset-5 col-sm-2">
+                        <button id="sureRegister"
+                                class="btn btn-lg btn-success btn-block">注册
+                        </button>
+                    </div>
+                </div>
+                <div style="height: 50px;"></div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <%@include file="../common/common_bottom_resource.jsp" %>
 <script>
 
     $(document).ready(function () {
         $('#login').click(function () {
             login();
+        });
+
+        $('#register').click(function () {
+            register();
+        });
+
+        $('#sureRegister').click(function () {
+            sureRegister();
         });
     });
 
@@ -85,9 +168,9 @@
             },
             success: function (data) {
                 if (data.errorCode == 0) {
-                    if ($('[name="authority"]:checked').val()==1) {
+                    if ($('[name="authority"]:checked').val() == 1) {
                         window.location.href = '${pageContext.request.contextPath}/project/project-list';
-                    }else {
+                    } else {
                         window.location.href = '${pageContext.request.contextPath}/bid/bidding-list';
                     }
 
@@ -99,6 +182,39 @@
                 alert('网络错误');
             }
         });
+    };
+
+    sureRegister = function () {
+
+        if ($('#registerPassword').val() != $('#registerSurePassword').val()) {
+            alert('两次密码不一样');
+            return;
+        }
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/user/sure-register',
+            type: 'POST',
+            data: {
+                "account": $('#registerAccount').val(),
+                "password": $('#registerPassword').val(),
+                "authority": 0
+            },
+            success: function (data) {
+                if (data.errorCode == 0) {
+                    alert('注册成功');
+                    window.location.href = '${pageContext.request.contextPath}/bid/bidding-list';
+                } else {
+                    alert('注册失败');
+                }
+            },
+            error: function (data) {
+                alert('网络错误');
+            }
+        });
+    };
+
+    register = function () {
+        $('#myModal').modal('show');
     };
 
 </script>
