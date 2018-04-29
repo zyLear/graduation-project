@@ -254,9 +254,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/project/project-approval"> 项目审批</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/project/project-approval"> 项目审批</a>--%>
+                        <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -273,9 +273,9 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/budget/budget-list"> 预算列表</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>
-                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>--%>
+                        <%--</li>--%>
                         <%--<li>--%>
                             <%--<a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>--%>
                         <%--</li>--%>
@@ -332,11 +332,24 @@
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> 资产管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"> 资产列表</a>
+                            <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>
                         </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Template<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/user/login"> LOGIN</a>
+                        </li>
+                        <%--<li>--%>
+                            <%--<a href="${pageContext.request.contextPath}/asset/add-asset"> </a>--%>
+                        <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

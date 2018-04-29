@@ -27,4 +27,5 @@ public interface ProjectService {
     List<Project> findByPageParam(PageParam pageParam);
 
     Integer getTotal();
+
 }

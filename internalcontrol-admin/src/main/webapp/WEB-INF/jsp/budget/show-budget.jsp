@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>项目审批</title>
+    <title>项目预算</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
@@ -28,7 +28,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">项目审批</h1>
+                <h1 class="page-header">项目预算</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -118,36 +118,34 @@
                 <div class="col-lg-6 form-horizontal">
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">审批</h3>
+                            <h3 class="panel-title">预算内容</h3>
                         </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">审批结果</label>
-                                <div class="col-sm-9">
-                                    <select id="projectStatus" name="projectStatus" class="form-control">
-                                        <option value="-1">未选择</option>
-                                    </select>
+                        <div class="panel-body" id="itemsPanel">
+                            <c:forEach items="${project.items}" var="item">
+
+                                <div name="item" class="form-group">
+                                    <label class="col-sm-2 control-label">预算项</label>
+                                    <div class="col-sm-7">
+                                    <textarea readonly cols="60" rows="3" class="form-control custom-textarea"
+                                              placeholder="预算描述"> ${item.budgetContent}</textarea>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input readonly value="${item.budgetMoney}" type="text" class="form-control"
+                                               placeholder="金额">
+
+                                    </div>
                                 </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">审批评论</label>
-                                <div class="col-sm-9">
-                            <textarea cols="30" rows="7" class="form-control custom-textarea"
-                                      id="approvalComment" name="approvalComment"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="text-center">
-                                <button id="save" type="button" class="btn btn-info btn-lg custom-button-inline"> 保 存</button>
-                                <button onclick="back()" type="button" class="btn btn-info btn-lg custom-button-inline"> 返回</button>
-                            </div>
+                            </c:forEach>
 
                         </div>
                         <%--panel body --%>
                     </div>
                     <%--panel --%>
+
+                    <div class="text-center">
+                        <button onclick="back()" type="button" class="btn btn-info btn-lg"> 返回</button>
+                    </div>
+
                 </div>
                 <%--<div class="col-lg-6 form-horizontal">--%>
 
@@ -168,38 +166,53 @@
 
         $(document).ready(function () {
 
-            initApprovalResult();
 
             $('#save').click(function () {
+
+                var items = new Array();
+
+                $('[name="item"]').each(function () {
+                    var object = new Object();
+                    object.itemMoney = $(this).find('input').val();
+                    object.itemContent = $(this).find('textarea').val();
+                    items.push(object);
+                });
+//                var object = new Object();
+//                object.itemMoney = 100;
+//                object.itemContent = 'content';
+//
+//                items.push(object);
+//                items.push(object);
+//                items.push(object);
+
+                var param = new FormData($('#form')[0]);
+                param.append('items', JSON.stringify(items));
+
+
                 $.ajax({
-                        url: '${pageContext.request.contextPath}/project/sure-project-approval',
+                        url: '${pageContext.request.contextPath}/contract/sure-contract-create',
                         type: 'POST',
-                        data: {
-                            "projectNumber": $('#projectNumber').val(),
-                            "projectStatus": $('#projectStatus').val(),
-                            "approvalComment": $('#approvalComment').val()
-                        },
+                        data: param,
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
                         success: function (data) {
                             alert(data.errorMessage);
-                            window.location.href = '${pageContext.request.contextPath}/project/project-list';
                         },
                         error: function (data) {
-                            alert('网络错误');
+                            alert(data.errorMessage);
                         }
-
                     }
                 )
             });
         });
 
 
-        function initApprovalResult() {
-            var html = '<option value="-1">未选择</option>' +
-                '<option value="' + ProjectStatusEnum.budgeting + '">同意立项</option>' +
-                '<option value="' + ProjectStatusEnum.pending + '">待定</option>' +
-                '<option value="' + ProjectStatusEnum.cancel + '">不同意立项</option>';
-            $('#projectStatus').html(html);
-        }
+        //        deleteItem = function ($this) {
+        //            $($this).parent().parent().remove();
+        //        };
+
 
     </script>
 

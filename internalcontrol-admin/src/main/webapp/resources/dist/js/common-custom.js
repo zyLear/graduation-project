@@ -93,7 +93,7 @@ $.fn.initBids = function (url) {
 $.fn.initContracts = function (url) {
     var $this = this;
     $this.empty();
-    var html = '<option value="none">未选择</option>';
+    var html = '<option value="none">无</option>';
     $.ajax({
             url: url,
             type: 'POST',
@@ -184,6 +184,8 @@ Date.prototype.format = function (fmt) { //author:  so
 
 // return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
 
-function initAllProjects(url) {
-
+function back() {
+    window.history.go(-1);
 }
+
+

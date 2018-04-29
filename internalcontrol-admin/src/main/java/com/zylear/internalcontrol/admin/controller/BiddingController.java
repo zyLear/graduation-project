@@ -75,13 +75,20 @@ public class BiddingController {
 
 
     @ResponseBody
-    @RequestMapping("/bidding-detail")
-    public PageResult budgetDetail() {
-        PageResult pageResult = new PageResult();
-        pageResult.setTotal(4);
-        pageResult.setRows(Arrays.asList(new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1")));
-        return pageResult;
+    @RequestMapping("/get-bidding-content")
+    public BasePageResult<BiddingViewBean> getBiddingContent(@RequestParam("id") Integer id) {
+        return biddingManager.getBiddingContent(id);
     }
+
+
+//    @ResponseBody
+//    @RequestMapping("/bidding-detail")
+//    public PageResult budgetDetail() {
+//        PageResult pageResult = new PageResult();
+//        pageResult.setTotal(4);
+//        pageResult.setRows(Arrays.asList(new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1"), new TestViewBean("1")));
+//        return pageResult;
+//    }
 
 
     @Autowired

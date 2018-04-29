@@ -124,8 +124,8 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">审批结果</label>
                                 <div class="col-sm-9">
-                                    <select id="projectStatus" name="projectStatus" class="form-control">
-                                        <option value="-1">未选择</option>
+                                    <select readonly="" id="projectStatus" name="projectStatus" class="form-control">
+                                        <option>${project.approvalResult}</option>
                                     </select>
                                 </div>
                             </div>
@@ -134,20 +134,20 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">审批评论</label>
                                 <div class="col-sm-9">
-                            <textarea cols="30" rows="7" class="form-control custom-textarea"
-                                      id="approvalComment" name="approvalComment"></textarea>
+                            <textarea readonly cols="30" rows="7" class="form-control custom-textarea"
+                                      id="approvalComment" name="approvalComment">${project.approvalComment}</textarea>
                                 </div>
-                            </div>
-
-                            <div class="text-center">
-                                <button id="save" type="button" class="btn btn-info btn-lg custom-button-inline"> 保 存</button>
-                                <button onclick="back()" type="button" class="btn btn-info btn-lg custom-button-inline"> 返回</button>
                             </div>
 
                         </div>
                         <%--panel body --%>
                     </div>
                     <%--panel --%>
+
+                    <div class="text-center">
+                        <button onclick="back()" type="button" class="btn btn-info btn-lg"> 返回</button>
+                    </div>
+
                 </div>
                 <%--<div class="col-lg-6 form-horizontal">--%>
 
@@ -163,45 +163,7 @@
 
 
     <%@include file="../common/common_bottom_resource.jsp" %>
-    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script>
-
-        $(document).ready(function () {
-
-            initApprovalResult();
-
-            $('#save').click(function () {
-                $.ajax({
-                        url: '${pageContext.request.contextPath}/project/sure-project-approval',
-                        type: 'POST',
-                        data: {
-                            "projectNumber": $('#projectNumber').val(),
-                            "projectStatus": $('#projectStatus').val(),
-                            "approvalComment": $('#approvalComment').val()
-                        },
-                        success: function (data) {
-                            alert(data.errorMessage);
-                            window.location.href = '${pageContext.request.contextPath}/project/project-list';
-                        },
-                        error: function (data) {
-                            alert('网络错误');
-                        }
-
-                    }
-                )
-            });
-        });
-
-
-        function initApprovalResult() {
-            var html = '<option value="-1">未选择</option>' +
-                '<option value="' + ProjectStatusEnum.budgeting + '">同意立项</option>' +
-                '<option value="' + ProjectStatusEnum.pending + '">待定</option>' +
-                '<option value="' + ProjectStatusEnum.cancel + '">不同意立项</option>';
-            $('#projectStatus').html(html);
-        }
-
-    </script>
+    <%--<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>--%>
 
 </div>
 <!-- /#wrapper -->

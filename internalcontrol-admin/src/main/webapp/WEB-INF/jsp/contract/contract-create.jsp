@@ -110,8 +110,8 @@
                         </div>
                         <div class="panel-body" id="itemsPanel">
                             <div name="item" class="form-group">
-                                <label class="col-sm-2 control-label">合同项</label>
-                                <div class="col-sm-7">
+                                <label class="col-sm-1 control-label custom-label">合同项</label>
+                                <div class="col-sm-8">
                                     <textarea cols="60" rows="3" class="form-control custom-textarea"
                                               placeholder="合同项描述"></textarea>
                                 </div>
@@ -195,8 +195,8 @@
 
         addItem = function () {
             var html = '  <div name="item" class="form-group">' +
-                '<label class="col-sm-2 control-label">合同项</label>' +
-                '<div class="col-sm-7">' +
+                '<label class="col-sm-1 control-label custom-label">合同项</label>' +
+                '<div class="col-sm-8">' +
                 '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
                 '</div>' +
                 '<div class="col-sm-2">' +

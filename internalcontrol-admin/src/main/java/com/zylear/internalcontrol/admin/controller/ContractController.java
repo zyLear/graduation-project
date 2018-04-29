@@ -87,6 +87,13 @@ public class ContractController {
     }
 
 
+    @ResponseBody
+    @RequestMapping("/get-contract-content")
+    public BasePageResult<ContractViewBean> getProjectContent(@RequestParam("contractNumber") String contractNumber) {
+        return contractManager.getContractContent(contractNumber);
+    }
+
+
     @Autowired
     public void setContractManager(ContractManager contractManager) {
         this.contractManager = contractManager;

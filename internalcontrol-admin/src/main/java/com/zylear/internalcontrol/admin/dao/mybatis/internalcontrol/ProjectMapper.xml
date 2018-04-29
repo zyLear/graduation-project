@@ -231,9 +231,11 @@
         LIMIT 1
     </select>
 
-    <select id="findByProjectNumber" resultMap="BaseResultMap">
+    <select id="findByProjectNumber" resultMap="ResultMapWithBLOBs">
         SELECT
         <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
         FROM t_project
         WHERE is_deleted = 0
         AND project_number = #{projectNumber,jdbcType=VARCHAR}

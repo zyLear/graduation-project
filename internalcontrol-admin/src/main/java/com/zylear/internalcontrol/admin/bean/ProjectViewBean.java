@@ -1,6 +1,7 @@
 package com.zylear.internalcontrol.admin.bean;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xiezongyu on 2018/4/22.
@@ -24,6 +25,31 @@ public class ProjectViewBean {
     private String approvalComment;
 
     private String filePath;
+
+    private Date createTime;
+
+    private String approvalResult;
+
+    private List<BudgetViewBean> items;
+
+    private String projectContent;
+
+
+    public String getApprovalResult() {
+        return approvalResult;
+    }
+
+    public void setApprovalResult(String approvalResult) {
+        this.approvalResult = approvalResult;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public Integer getId() {
         return id;
@@ -95,5 +121,21 @@ public class ProjectViewBean {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public List<BudgetViewBean> getItems() {
+        return items;
+    }
+
+    public void setItems(List<BudgetViewBean> items) {
+        this.items = items;
+    }
+
+    public String getProjectContent() {
+        return projectContent;
+    }
+
+    public void setProjectContent(String projectContent) {
+        this.projectContent = projectContent;
     }
 }

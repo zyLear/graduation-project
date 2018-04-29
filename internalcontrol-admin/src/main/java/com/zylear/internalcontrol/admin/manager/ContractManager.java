@@ -206,7 +206,6 @@ public class ContractManager {
 
     @Transactional(value = DataSourceInternalControlConfig.TX_MANAGER)
     public BasePageResult sureFinishItem(Integer itemId) {
-
         ProjectContractItem item = projectContractItemService.findById(itemId);
         if (item == null) {
             return BasePageResult.ERROR_RESPONSE;
@@ -217,6 +216,20 @@ public class ContractManager {
             projectContractService.updateStatusAndFinishDay(item.getContractNumber(), ContractStatus.finish.getValue(), new Date());
         }
         return BasePageResult.SUCCESS_RESPONSE;
+    }
+
+
+    public BasePageResult<ContractViewBean> getContractContent(String contractNumber) {
+        ProjectContract contract = projectContractService.findByContractNumber(contractNumber);
+        if (contract == null) {
+            return BasePageResult.CONTRACT_NO_EXIST_RESPONSE;
+        }
+
+        BasePageResult<ContractViewBean> successResponse = BasePageResult.getSuccessResponse();
+        ContractViewBean contractViewBean = new ContractViewBean();
+        contractViewBean.setContractContent(contract.getContractContent());
+        successResponse.setData(Arrays.asList(contractViewBean));
+        return successResponse;
     }
 
 
@@ -249,6 +262,5 @@ public class ContractManager {
     public void setFilePathPrefix(String filePathPrefix) {
         this.filePathPrefix = filePathPrefix;
     }
-
 
 }

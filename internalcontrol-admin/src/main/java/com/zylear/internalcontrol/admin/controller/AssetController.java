@@ -45,7 +45,7 @@ public class AssetController {
 
 
     @ResponseBody
-    @RequestMapping("/get-bidding-list")
+    @RequestMapping("/get-asset-list")
     public PageResult<AssetViewBean> getBiddingList(@Param("limit") Integer limit,
                                                     @Param("offset") Integer offset) {
         if (offset == null) {

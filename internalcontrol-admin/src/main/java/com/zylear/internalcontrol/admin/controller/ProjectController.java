@@ -2,10 +2,8 @@ package com.zylear.internalcontrol.admin.controller;
 
 import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.domain.Project;
-import com.zylear.internalcontrol.admin.domain.ProjectContractItem;
 import com.zylear.internalcontrol.admin.manager.ProjectManager;
 import com.zylear.internalcontrol.admin.service.ProjectService;
-import com.zylear.internalcontrol.admin.util.JsonUtil;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by xiezongyu on 2018/4/6.
@@ -48,8 +41,11 @@ public class ProjectController {
     }
 
     @RequestMapping("/project-approval")
-    public ModelAndView approval() {
-        return new ModelAndView("project/project-approval");
+    public ModelAndView approval(@RequestParam("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/project-approval");
+        modelAndView.addObject("project", projectManager.findProjectViewBean(projectNumber, false));
+        return modelAndView;
     }
 
     @ResponseBody
@@ -57,7 +53,6 @@ public class ProjectController {
     public BasePageResult<Project> getProjectList(@RequestParam("projectStatus") Integer projectStatus) {
         return projectManager.queryProjects(projectStatus);
     }
-
 
 
     @ResponseBody
@@ -82,8 +77,7 @@ public class ProjectController {
                                                  @RequestParam("applicationDepartment") String applicationDepartment,
                                                  @RequestParam("projectContent") String projectContent,
                                                  @RequestParam("projectBudget") Double projectBudget,
-                                                 @RequestParam("file") MultipartFile file
-    ) {
+                                                 @RequestParam("file") MultipartFile file) {
         return projectManager.saveProjectApplication(projectNumber, projectName, applicant,
                 applicationDepartment, projectContent, projectBudget, file);
     }
@@ -92,11 +86,23 @@ public class ProjectController {
     @RequestMapping("/sure-project-approval")
     public BasePageResult<Project> sureApproval(@RequestParam("projectNumber") String projectNumber,
                                                 @RequestParam("projectStatus") Integer projectStatus,
-                                                @RequestParam("approvalComment") String approvalComment
-    ) {
+                                                @RequestParam("approvalComment") String approvalComment) {
         return projectManager.sureApproval(projectNumber, projectStatus, approvalComment);
     }
 
+    @RequestMapping("/show-project-approval")
+    public ModelAndView showProjectApproval(@RequestParam("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/show-project-approval");
+        modelAndView.addObject("project", projectManager.findProjectViewBean(projectNumber, false));
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping("/get-project-content")
+    public BasePageResult<ProjectViewBean> getProjectContent(@RequestParam("projectNumber") String projectNumber) {
+        return projectManager.getProjectContent(projectNumber);
+    }
 
 //    @RequestMapping("/test")
 //    public ModelAndView test(HttpServletResponse response) {

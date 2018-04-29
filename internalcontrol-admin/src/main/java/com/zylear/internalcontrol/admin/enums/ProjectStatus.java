@@ -22,4 +22,14 @@ public enum ProjectStatus {
         return value;
     }
 
+
+    public static ProjectStatus valueOf(Integer value) {
+        for (ProjectStatus projectStatus : ProjectStatus.values()) {
+            if (projectStatus.getValue().equals(value)) {
+                return projectStatus;
+            }
+        }
+        throw new RuntimeException("unknown ProjectStatus value:" + value);
+    }
+
 }

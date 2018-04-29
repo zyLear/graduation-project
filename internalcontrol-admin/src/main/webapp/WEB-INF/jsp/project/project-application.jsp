@@ -82,10 +82,10 @@
                     </div>
 
                     <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-2 control-label">项目预算</label>--%>
-                        <%--<div class="col-sm-7">--%>
-                            <%--<input type="text" class="form-control" name="a" placeholder="a">--%>
-                        <%--</div>--%>
+                    <%--<label class="col-sm-2 control-label">项目预算</label>--%>
+                    <%--<div class="col-sm-7">--%>
+                    <%--<input type="text" class="form-control" name="a" placeholder="a">--%>
+                    <%--</div>--%>
                     <%--</div>--%>
 
 
@@ -134,6 +134,8 @@
                         processData: false,
                         success: function (data) {
                             alert(data.errorMessage);
+                            window.location.href = '${pageContext.request.contextPath}/project/project-list';
+
                         },
                         error: function (data) {
                             alert(data.errorMessage);

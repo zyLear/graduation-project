@@ -138,7 +138,7 @@
         $('#save').click(function () {
 
             var param = new FormData($('#form')[0]);
-            param.append('biddingNumber', ${bidding.biddingNumber});
+            param.append('biddingNumber', '${bidding.biddingNumber}');
             $.ajax({
                     url: '${pageContext.request.contextPath}/bid/sure-bid-create',
                     type: 'POST',

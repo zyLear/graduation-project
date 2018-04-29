@@ -72,16 +72,37 @@
     <!-- /#page-wrapper -->
 
 
+    <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">项目内容</h4>
+                </div>
+                <div class="modal-body">
+
+                    <textarea readonly cols="60" rows="20" class="form-control custom-textarea"
+                              id="content" name="projectContent"></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <%--<button type="button" id="sure-assign" class="btn btn-primary">确定</button>--%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <%@include file="../common/common_bottom_resource.jsp" %>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/js/bootstrap-table.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/js/bootstrap-table-locale-all.min.js"></script>
     <script>
         $(document).ready(function () {
-
-
-//            $('#add-budget').click(function () {
-//                $('#add-budget-modal').modal('show');
-//            });
 
             var oTable = new TableInit();
             oTable.Init();
@@ -119,7 +140,7 @@
                     showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
-                    columns: [ {
+                    columns: [{
                         field: 'projectNumber',
                         title: '项目编号'
                     }, {
@@ -132,47 +153,53 @@
                         field: 'applicationDepartment',
                         title: '申请部门'
                     }, {
-                        field: 'id',
-                        title: '招标内容',
+                        field: 'projectNumber',
+                        title: '项目内容',
                         formatter: function (value, row, index) {
-                            return '点击查看';
+                            return '<button onclick="showContent(\'' + value + '\')" type="button" class="btn btn-default">点击查看</button>';
                         }
                     }, {
                         field: 'projectBudget',
                         title: '项目预算'
-                    },{
-                        field: 'id',
-                        title: '审批内容',
-                        formatter: function (value, row, index) {
-                            return '点击查看';
-                        }
                     }, {
                         field: 'projectStatus',
                         title: '项目状态',
                         formatter: function (value, row, index) {
                             return formatProjectStatus(value);
                         }
-                    },{
+                    }, {
                         field: 'filePath',
                         title: '申请表',
                         formatter: function (value, row, index) {
                             return '点击查看';
                         }
                     }, {
-                        field: 'projectStatus',
+                        field: 'createTime',
+                        title: '创建时间',
+                        formatter: function (value, row, index) {
+                            return new Date(value).format('yyyy年MM月dd日 hh:mm:ss');
+                        }
+                    }, {
+                        field: 'projectNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.close) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
-                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                            if (row.projectStatus == ProjectStatusEnum.budgeting) {
+                                html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
                             } else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+                                html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
                             }
-                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+
+                            if (row.projectStatus == ProjectStatusEnum.in_approval) {
+                                html += '<button onclick="approval(\'' + value + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">审批项目</button>';
+                            }/* else if (row.biddingStatus == BiddingStatusEnum.open) {
+                             html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
+                             'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                             }*/ else {
+                                html += '<button onclick="showApproval(\'' + value + '\')" ' +
+                                    'type="button" class="btn btn-success custom-button-inline">查看审批</button>';
+                            }
                             return html;
                         }
                     }]
@@ -192,38 +219,43 @@
             return oTableInit;
         };
 
+        showContent = function (value) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/project/get-project-content',
+                type: 'POST',
+                data: {
+                    "projectNumber": value
+                },
+                success: function (data) {
+                    if (data.errorCode == 0) {
+                        $('#content').text(data.data[0].projectContent);
+                        $('#myModal').modal('show');
+                    } else {
+                        alert(data.errorMessage);
+                    }
+                },
+                error: function (data) {
+                    alert('网络错误');
+                }
+            });
+        };
 
-        showBid = function (value) {
-            alert(value);
+        addBudget = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/budget/budget-application?projectNumber=' + value;
+        };
+
+        showBudget = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/budget/show-budget?projectNumber=' + value;
         };
 
 
-        changeBiddingStatus = function (number, status) {
-            <%--var text;--%>
-            <%--if (BiddingStatusEnum.open == status) {--%>
-                <%--text = '确定启动投标吗？';--%>
-            <%--} else {--%>
-                <%--text = '确定停止投标吗？';--%>
-            <%--}--%>
-            <%--if (confirm(text)) {--%>
-                <%--$.ajax({--%>
-                    <%--url: '${pageContext.request.contextPath}/bidding/change-bidding-status',--%>
-                    <%--type: 'POST',--%>
-                    <%--data: {--%>
-                        <%--"biddingNumber": number,--%>
-                        <%--"biddingStatus": status--%>
-                    <%--},--%>
-                    <%--success: function (data) {--%>
-                        <%--alert(data.errorMessage);--%>
-                        <%--window.location.reload();--%>
-                    <%--},--%>
-                    <%--error: function (data) {--%>
-                        <%--alert('网络错误');--%>
-                    <%--}--%>
-                <%--});--%>
-            <%--}--%>
-        }
+        approval = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/project/project-approval?projectNumber=' + value;
+        };
 
+        showApproval = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/project/show-project-approval?projectNumber=' + value;
+        };
 
     </script>
 

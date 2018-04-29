@@ -18,6 +18,16 @@ public class BiddingViewBean {
     private String filePath;
     private Double prices;
 
+    private String biddingContent;
+
+    public String getBiddingContent() {
+        return biddingContent;
+    }
+
+    public void setBiddingContent(String biddingContent) {
+        this.biddingContent = biddingContent;
+    }
+
     public Integer getId() {
         return id;
     }

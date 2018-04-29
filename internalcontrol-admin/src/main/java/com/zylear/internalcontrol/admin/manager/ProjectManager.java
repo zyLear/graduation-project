@@ -4,8 +4,11 @@ import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import com.zylear.internalcontrol.admin.controller.ProjectController;
 import com.zylear.internalcontrol.admin.domain.Project;
+import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 import com.zylear.internalcontrol.admin.enums.ProjectStatus;
+import com.zylear.internalcontrol.admin.service.ProjectBudgetService;
 import com.zylear.internalcontrol.admin.service.ProjectService;
+import com.zylear.internalcontrol.admin.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +32,7 @@ public class ProjectManager {
 
     private String filePathPrefix;
     private ProjectService projectService;
+    private ProjectBudgetService projectBudgetService;
 
 
     public BasePageResult saveProjectApplication(String projectNumber, String projectName, String applicant, String applicationDepartment, String projectContent, Double projectBudget, MultipartFile file) {
@@ -115,9 +120,69 @@ public class ProjectManager {
             projectViewBean.setProjectBudget(project.getProjectBudget());
             projectViewBean.setFilePath(project.getFilePath());
             projectViewBean.setProjectStatus(project.getProjectStatus());
+            projectViewBean.setCreateTime(project.getCreateTime());
             list.add(projectViewBean);
         }
         return list;
+    }
+
+    public ProjectViewBean findProjectViewBean(String projectNumber, boolean needFindBudgets) {
+
+        Project project = projectService.findByProjectNumber(projectNumber);
+
+        if (project == null) {
+            return null;
+        }
+        ProjectViewBean projectViewBean = new ProjectViewBean();
+        projectViewBean.setId(project.getId());
+        projectViewBean.setProjectNumber(project.getProjectNumber());
+        projectViewBean.setProjectName(project.getProjectName());
+        projectViewBean.setApplicant(project.getApplicant());
+        projectViewBean.setApplicationDepartment(project.getApplicationDepartment());
+        projectViewBean.setProjectContent(project.getProjectContent());
+        projectViewBean.setProjectBudget(project.getProjectBudget());
+        projectViewBean.setApprovalComment(project.getApprovalComment());
+        projectViewBean.setFilePath(project.getFilePath());
+        projectViewBean.setApprovalResult(formatProjectStatus(ProjectStatus.valueOf(project.getProjectStatus())));
+        if (needFindBudgets) {
+            List<ProjectBudget> budgets = projectBudgetService.findByProjectNumber(projectNumber);
+            List<BudgetViewBean> budgetViewBeans = new ArrayList<>(budgets.size());
+            for (ProjectBudget budget : budgets) {
+                BudgetViewBean budgetViewBean = new BudgetViewBean();
+                budgetViewBean.setBudgetAspect(budget.getBudgetAspect());
+                budgetViewBean.setBudgetContent(budget.getBudgetContent());
+                budgetViewBean.setBudgetMoney(budget.getBudgetMoney());
+                budgetViewBeans.add(budgetViewBean);
+            }
+            projectViewBean.setItems(budgetViewBeans);
+        }
+        return projectViewBean;
+    }
+
+    private String formatProjectStatus(ProjectStatus status) {
+        switch (status) {
+            case in_approval:
+                return "还未审批";
+            case cancel:
+                return "不同意立项";
+            case pending:
+                return "待定";
+            default:
+                return "同意立项";
+        }
+    }
+
+    public BasePageResult<ProjectViewBean> getProjectContent(String projectNumber) {
+        Project project = projectService.findByProjectNumber(projectNumber);
+        if (project == null) {
+            return BasePageResult.PROJECT_NO_EXIST_RESPONSE;
+        }
+
+        BasePageResult<ProjectViewBean> successResponse = BasePageResult.getSuccessResponse();
+        ProjectViewBean projectViewBean = new ProjectViewBean();
+        projectViewBean.setProjectContent(project.getProjectContent());
+        successResponse.setData(Arrays.asList(projectViewBean));
+        return successResponse;
     }
 
 
@@ -129,6 +194,11 @@ public class ProjectManager {
     @Autowired
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    @Autowired
+    public void setProjectBudgetService(ProjectBudgetService projectBudgetService) {
+        this.projectBudgetService = projectBudgetService;
     }
 
 

@@ -19,6 +19,16 @@ public class BidViewBean {
     private Integer bidStatus;
     private String filePath;
 
+    private String bidContent;
+
+    public String getBidContent() {
+        return bidContent;
+    }
+
+    public void setBidContent(String bidContent) {
+        this.bidContent = bidContent;
+    }
+
     public Integer getId() {
         return id;
     }
