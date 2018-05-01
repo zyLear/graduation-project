@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>标书列表</title>
+    <title>招标详情</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-table/css/bootstrap-table.min.css"
@@ -30,23 +30,29 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">招标列表</h1>
+                <h1 class="page-header">招标详情</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+
+
         <div class="row custom-content">
 
+
+            <div style="height: 20px;"></div>
 
             <div class="panel panel-default">
                 <%--<div class="panel-heading">Filter</div>--%>
                 <div class="panel-body">
                     <div class="form-group form-horizontal">
-                        <label class="control-label col-xs-2">标书编号</label>
-                        <div class="col-xs-2">
-                            <select disabled="disabled" class="form-control selectpicker" data-header="Select type">
-                                <option value="none">${biddingNumber}</option>
-                            </select>
+                        <div class="form-group">
+                            <label class="control-label col-xs-2">标书编号</label>
+                            <div class="col-xs-2">
+                                <select readonly class="form-control selectpicker" data-header="Select type">
+                                    <option value="none">${biddingNumber}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,9 +139,7 @@
                     showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                     cardView: false,                    //是否显示详细视图
                     detailView: false,                   //是否显示父子表
-                    columns: [/*{
-                     checkbox: true
-                     },*/ {
+                    columns: [{
                         field: 'projectNumber',
                         title: '项目编号'
                     }, {
@@ -175,7 +179,7 @@
                         field: 'filePath',
                         title: '投标文件',
                         formatter: function (value, row, index) {
-                            return value;
+                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
                         }
                     }, {
                         field: 'bidNumber',

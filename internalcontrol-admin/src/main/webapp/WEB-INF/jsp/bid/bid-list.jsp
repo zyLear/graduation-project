@@ -38,19 +38,20 @@
         <div class="row custom-content">
 
 
-            <div class="panel panel-default">
-                <%--<div class="panel-heading">Filter</div>--%>
-                <div class="panel-body">
-                    <div class="form-group form-horizontal">
-                        <label class="control-label col-xs-2">标书编号</label>
-                        <div class="col-xs-2">
-                            <select id="biddingNumber" class="form-control selectpicker" data-header="Select type">
-                                <option value="none">未选择</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%--<div class="panel panel-default">--%>
+                <%--&lt;%&ndash;<div class="panel-heading">Filter</div>&ndash;%&gt;--%>
+                <%--<div class="panel-body">--%>
+                    <%--<div class="form-group form-horizontal">--%>
+                        <%--<label class="control-label col-xs-2">标书编号</label>--%>
+                        <%--<div class="col-xs-2">--%>
+                            <%--<select id="biddingNumber" class="form-control selectpicker" data-header="Select type">--%>
+                                <%--<option value="none">未选择</option>--%>
+                            <%--</select>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+
 
 
             <table id="table"></table>
@@ -173,10 +174,10 @@
                         field: 'bidPrices',
                         title: '投标价格'
                     }, {
-                        field: 'filePath',
+                        field: 'id',
                         title: '投标文件',
                         formatter: function (value, row, index) {
-                            return value;
+                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
                         }
                     }, {
                         field: 'biddingNumber',

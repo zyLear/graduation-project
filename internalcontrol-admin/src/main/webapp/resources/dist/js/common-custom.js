@@ -194,3 +194,8 @@ function logout(contextPath) {
 }
 
 
+function formFileLink(contextPath,filePath,fileName) {
+    var url = contextPath+'/downloader/download?filePath='+filePath;
+    return '<a href="'+url+'">'+fileName+'</a>';
+}
+

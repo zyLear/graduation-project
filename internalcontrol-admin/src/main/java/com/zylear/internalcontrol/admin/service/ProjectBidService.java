@@ -31,4 +31,8 @@ public interface ProjectBidService {
     void updateStatusByBiddingNumber(String biddingNumber, Integer status);
 
     ProjectBid selectByPrimaryKey(Integer id);
+
+    List<ProjectBid> findByAccountAndPageParam(String account, PageParam pageParam);
+
+    Integer getTotalByAccount(String account);
 }

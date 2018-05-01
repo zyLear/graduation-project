@@ -167,6 +167,7 @@ public class ContractManager {
             contractViewBean.setContractStatus(contract.getContractStatus());
             contractViewBean.setFinishDay(contract.getFinishDay());
             contractViewBean.setFilePath(contract.getFilePath());
+            contractViewBean.setFileName(FileDirectory.getFileName(contract.getFilePath()));
             list.add(contractViewBean);
         }
         return list;
@@ -187,6 +188,7 @@ public class ContractManager {
         contractViewBean.setContractStatus(contract.getContractStatus());
         contractViewBean.setFinishDay(contract.getFinishDay());
         contractViewBean.setFilePath(contract.getFilePath());
+        contractViewBean.setFileName(FileDirectory.getFileName(contract.getFilePath()));
         List<ProjectContractItem> items = projectContractItemService.findByContractNumber(contractNumber);
         List<ContractItemViewbean> itemViewbeans = new ArrayList<>(items.size());
         for (ProjectContractItem item : items) {

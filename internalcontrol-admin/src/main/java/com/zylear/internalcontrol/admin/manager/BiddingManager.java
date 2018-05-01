@@ -66,7 +66,7 @@ public class BiddingManager {
         projectBidding.setBiddingName(biddingName);
         projectBidding.setBiddingContent(biddingContent);
         projectBidding.setPrices(prices);
-        projectBidding.setFilePath(FileDirectory.PROJECT_FILE_DIRECTORY + file.getOriginalFilename());
+        projectBidding.setFilePath(FileDirectory.BIDDING_FILE_DIRECTORY + file.getOriginalFilename());
         projectBidding.setBiddingStatus(BiddingStatus.close.getValue());
         projectBidding.setBiddingStartTime(biddingStartTime);
         projectBidding.setBiddingEndTime(biddingEndTime);
@@ -104,6 +104,7 @@ public class BiddingManager {
             biddingViewBean.setBiddingStartTime(projectBidding.getBiddingStartTime());
             biddingViewBean.setBiddingEndTime(projectBidding.getBiddingEndTime());
             biddingViewBean.setFilePath(projectBidding.getFilePath());
+            biddingViewBean.setFileName(FileDirectory.getFileName(projectBidding.getFilePath()));
             biddingViewBean.setPrices(projectBidding.getPrices());
             list.add(biddingViewBean);
         }
@@ -113,7 +114,13 @@ public class BiddingManager {
     public BiddingViewBean getBiddingViewBean(String biddingNumber) {
         BiddingViewBean biddingViewBean = new BiddingViewBean();
         ProjectBidding projectBidding = projectBiddingService.findByBiddingNumber(biddingNumber);
+        if (projectBidding == null) {
+            return null;
+        }
         Project project = projectService.findByProjectNumber(projectBidding.getProjectNumber());
+        if (project == null) {
+            return null;
+        }
         biddingViewBean.setBiddingNumber(biddingNumber);
         biddingViewBean.setBiddingName(biddingNumber);
         biddingViewBean.setProjectNumber(project.getProjectNumber());

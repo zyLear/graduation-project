@@ -1,5 +1,6 @@
 package com.zylear.internalcontrol.admin.controller;
 
+import com.zylear.internalcontrol.admin.constant.FileDirectory;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class DownloadController {
         try {
             response.setHeader("content-type", "application/octet-stream");
             response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + filePath.substring(filePath.lastIndexOf("\\") + 1));
+            response.setHeader("Content-Disposition", "attachment;filename=" + FileDirectory.getFileName(filePath));
             byte[] buff = new byte[1024];
             BufferedInputStream bis = null;
             OutputStream os = null;

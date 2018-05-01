@@ -53,6 +53,7 @@ public class UserController {
             return BasePageResult.ERROR_RESPONSE;
         }
         request.getSession().setAttribute("authority", authority);
+        request.getSession().setAttribute("account", account);
         return BasePageResult.SUCCESS_RESPONSE;
     }
 
@@ -80,6 +81,7 @@ public class UserController {
     @RequestMapping(value = "/sure-logout")
     public BasePageResult sureLogout(HttpServletRequest request) {
         request.getSession().removeAttribute("authority");
+        request.getSession().removeAttribute("account");
         return BasePageResult.SUCCESS_RESPONSE;
     }
 

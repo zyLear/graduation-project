@@ -22,7 +22,7 @@ public class BidderFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         try {
             Integer authority = Integer.parseInt(request.getSession().getAttribute("authority").toString());
-            if (!Authority.admin.getValue().equals(authority) ||
+            if (!Authority.admin.getValue().equals(authority) &&
                     !Authority.bidder.getValue().equals(authority)) {
                 response.sendRedirect(request.getContextPath() + "/index.jsp");
                 return;

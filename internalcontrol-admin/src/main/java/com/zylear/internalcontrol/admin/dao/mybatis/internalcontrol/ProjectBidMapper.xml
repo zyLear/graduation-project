@@ -40,13 +40,15 @@
         INSERT INTO t_project_bid (id, bid_number, bidding_number,
                                    bid_company, bid_prices, bid_status,
                                    file_path, is_deleted, create_time,
-                                   last_update_time, bid_content)
-        VALUES (#{id,jdbcType=INTEGER}, #{bidNumber,jdbcType=VARCHAR}, #{biddingNumber,jdbcType=VARCHAR},
-                                        #{bidCompany,jdbcType=VARCHAR}, #{bidPrices,jdbcType=DOUBLE},
-                                        #{bidStatus,jdbcType=TINYINT},
-                                        #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT},
-                                        #{createTime,jdbcType=TIMESTAMP},
-                                        #{lastUpdateTime,jdbcType=TIMESTAMP}, #{bidContent,jdbcType=LONGVARCHAR})
+                                   last_update_time, bid_content, create_account)
+        VALUES (#{id,jdbcType=INTEGER},
+            #{bidNumber,jdbcType=VARCHAR}, #{biddingNumber,jdbcType=VARCHAR},
+            #{bidCompany,jdbcType=VARCHAR}, #{bidPrices,jdbcType=DOUBLE},
+            #{bidStatus,jdbcType=TINYINT},
+            #{filePath,jdbcType=VARCHAR}, #{isDeleted,jdbcType=TINYINT},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{lastUpdateTime,jdbcType=TIMESTAMP}, #{bidContent,jdbcType=LONGVARCHAR},
+                #{createAccount,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.ProjectBid">
         insert into t_project_bid
@@ -255,5 +257,21 @@
         WHERE is_deleted = 0
               AND bidding_number = #{biddingNumber,jdbcType=VARCHAR}
     </update>
+
+    <select id="findByAccountAndPageParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_bid
+        WHERE is_deleted = 0
+        AND create_account = #{account,jdbcType=VARCHAR}
+        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="getTotalByAccount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM t_project_bid
+        WHERE is_deleted = 0
+              AND create_account = #{account,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

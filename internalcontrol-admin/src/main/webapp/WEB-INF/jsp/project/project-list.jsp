@@ -37,32 +37,6 @@
         <!-- /.row -->
         <div class="row custom-content">
 
-
-            <%--<div class="panel panel-info">--%>
-            <%--<div class="panel-heading">--%>
-            <%--<h3 class="panel-title">预算详情</h3>--%>
-            <%--</div>--%>
-            <%--<div class="panel-body">--%>
-            <%--<div class="row">--%>
-            <%--<div class="panel panel-default">--%>
-            <%--<div class="panel-body">--%>
-            <%--<div&lt;%&ndash;action=""${pageContext.request.contextPath}/page/wechat/articlecity-list""&ndash;%&gt;>--%>
-            <%--<div class="form-group">--%>
-            <%--<label class="control-label col-lg-1 text-right"--%>
-            <%--style="margin-top: 8px;">项目名称:</label>--%>
-            <%--<div class="col-lg-2">--%>
-            <%--<select id="type" name="type" class="form-control">--%>
-            <%--<option value="all">所有</option>--%>
-            <%--<option value="internal_group">内部群</option>--%>
-            <%--<option value="outside_group">外部群</option>--%>
-            <%--</select>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-
             <table id="table"></table>
 
 
@@ -168,10 +142,10 @@
                             return formatProjectStatus(value);
                         }
                     }, {
-                        field: 'filePath',
+                        field: 'id',
                         title: '申请表',
                         formatter: function (value, row, index) {
-                            return '点击查看';
+                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
                         }
                     }, {
                         field: 'createTime',

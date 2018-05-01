@@ -118,6 +118,7 @@ public class ProjectManager {
             projectViewBean.setApplicant(project.getApplicant());
             projectViewBean.setApplicationDepartment(project.getApplicationDepartment());
             projectViewBean.setProjectBudget(project.getProjectBudget());
+            projectViewBean.setFileName(FileDirectory.getFileName(project.getFilePath()));
             projectViewBean.setFilePath(project.getFilePath());
             projectViewBean.setProjectStatus(project.getProjectStatus());
             projectViewBean.setCreateTime(project.getCreateTime());
@@ -142,6 +143,7 @@ public class ProjectManager {
         projectViewBean.setProjectContent(project.getProjectContent());
         projectViewBean.setProjectBudget(project.getProjectBudget());
         projectViewBean.setApprovalComment(project.getApprovalComment());
+        projectViewBean.setFileName(FileDirectory.getFileName(project.getFilePath()));
         projectViewBean.setFilePath(project.getFilePath());
         projectViewBean.setApprovalResult(formatProjectStatus(ProjectStatus.valueOf(project.getProjectStatus())));
         if (needFindBudgets) {

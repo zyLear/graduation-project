@@ -34,6 +34,15 @@ public class ProjectViewBean {
 
     private String projectContent;
 
+    private String fileName;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     public String getApprovalResult() {
         return approvalResult;
@@ -115,12 +124,12 @@ public class ProjectViewBean {
         this.approvalComment = approvalComment;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public List<BudgetViewBean> getItems() {

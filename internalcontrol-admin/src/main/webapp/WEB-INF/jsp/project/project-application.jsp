@@ -113,15 +113,6 @@
         $(document).ready(function () {
             $('#save').click(function () {
 
-//                var test = new Array();
-//                var object = new Object();
-//
-//                object.itemMoney = 100;
-//                object.itemContent = 'content';
-//                test.push(object);
-//                test.push(object);
-//                test.push(object);
-//
                 var param = new FormData($('#form')[0]);
 //                param.append('items', JSON.stringify(test));
                 $.ajax({

@@ -30,7 +30,7 @@ public class WebFilterConfig {
     @Bean
     public FilterRegistrationBean bidderFilterRegistrationBean() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setName("adminFilter");
+        registrationBean.setName("bidderFilter");
         BidderFilter bidderFilter = new BidderFilter();
         registrationBean.setFilter(bidderFilter);
         registrationBean.addUrlPatterns("/bid/*");
