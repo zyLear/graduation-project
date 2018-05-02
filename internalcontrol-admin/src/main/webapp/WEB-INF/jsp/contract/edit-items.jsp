@@ -92,9 +92,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">申请表</label>
-                                <div class="col-sm-9">
-                                    <a> ${contract.filePath}</a>
+                                <label class="col-sm-2 control-label">合同文件</label>
+                                <div class="col-sm-7 custom-link">
+                                    <a href="${pageContext.request.contextPath}/downloader/download?filePath=${contract.filePath}">${contract.fileName}</a>
                                 </div>
                             </div>
 

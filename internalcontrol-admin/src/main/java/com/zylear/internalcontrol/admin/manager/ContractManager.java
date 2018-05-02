@@ -213,7 +213,7 @@ public class ContractManager {
             return BasePageResult.ERROR_RESPONSE;
         }
         projectContractItemService.updateFinishDay(itemId, new Date());
-        Integer count = projectContractItemService.findUnfinishCount(itemId);
+        Integer count = projectContractItemService.findUnfinishCount(item.getContractNumber());
         if (count == 0) {
             projectContractService.updateStatusAndFinishDay(item.getContractNumber(), ContractStatus.finish.getValue(), new Date());
         }

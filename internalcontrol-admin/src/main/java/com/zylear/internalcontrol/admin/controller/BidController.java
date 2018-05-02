@@ -68,12 +68,14 @@ public class BidController {
 
     @ResponseBody
     @RequestMapping("/sure-bid-create")
-    public BasePageResult sureBidCreate(@RequestParam("biddingNumber") String biddingNumber,
+    public BasePageResult sureBidCreate(HttpServletRequest request,
+                                        @RequestParam("biddingNumber") String biddingNumber,
                                         @RequestParam("bidCompany") String bidCompany,
                                         @RequestParam("bidContent") String bidContent,
                                         @RequestParam("bidPrices") Double bidPrices,
                                         @RequestParam("file") MultipartFile file) {
-        return bidManager.saveBid(biddingNumber, bidCompany, bidContent, bidPrices, file);
+        String account = request.getSession().getAttribute("account").toString();
+        return bidManager.saveBid(biddingNumber, bidCompany, bidContent, bidPrices, file, account);
     }
 
 

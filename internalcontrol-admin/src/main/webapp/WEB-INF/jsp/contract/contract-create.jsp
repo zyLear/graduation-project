@@ -180,7 +180,12 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            alert(data.errorMessage);
+                            if (data.errorCode == 0) {
+                                alert('添加成功');
+                                window.location.href = '${pageContext.request.contextPath}/contract/contract-list';
+                            } else {
+                                alert(data.errorMessage);
+                            }
                         },
                         error: function (data) {
                             alert(data.errorMessage);

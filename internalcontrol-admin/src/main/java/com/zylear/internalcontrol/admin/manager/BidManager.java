@@ -44,7 +44,7 @@ public class BidManager {
     private ProjectBiddingService projectBiddingService;
 
 
-    public BasePageResult saveBid(String biddingNumber, String bidCompany, String bidContent, Double bidPrices, MultipartFile file) {
+    public BasePageResult saveBid(String biddingNumber, String bidCompany, String bidContent, Double bidPrices, MultipartFile file, String account) {
         int retryCount = 5;
         ProjectBid projectBid;
         String bidNumber;
@@ -86,6 +86,7 @@ public class BidManager {
         projectBid.setIsDeleted(false);
         projectBid.setCreateTime(new Date());
         projectBid.setLastUpdateTime(new Date());
+        projectBid.setCreateAccount(account);
         projectBidService.insert(projectBid);
 
         return BasePageResult.SUCCESS_RESPONSE;

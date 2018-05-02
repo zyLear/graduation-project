@@ -10,12 +10,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>立项申请</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
           rel="stylesheet">
-
 </head>
 
 <body>
@@ -69,7 +68,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目描述</label>
                         <div class="col-sm-7">
-                            <textarea cols="60" rows="20" class="form-control custom-textarea"
+                            <textarea cols="60" rows="15" class="form-control custom-textarea"
                                       id="projectContent" name="projectContent"></textarea>
                         </div>
                     </div>
@@ -124,9 +123,12 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            alert(data.errorMessage);
-                            window.location.href = '${pageContext.request.contextPath}/project/project-list';
-
+                            if (data.errorCode==0) {
+                                alert('添加成功');
+                                window.location.href = '${pageContext.request.contextPath}/project/project-list';
+                            }else {
+                                alert(data.errorMessage);
+                            }
                         },
                         error: function (data) {
                             alert(data.errorMessage);

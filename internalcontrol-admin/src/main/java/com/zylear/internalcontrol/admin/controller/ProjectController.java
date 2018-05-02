@@ -48,6 +48,14 @@ public class ProjectController {
         return modelAndView;
     }
 
+    @RequestMapping("/show-project")
+    public ModelAndView showProject(@RequestParam("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("project/show-project");
+        modelAndView.addObject("project", projectManager.findProjectViewBean(projectNumber, false));
+        return modelAndView;
+    }
+
     @ResponseBody
     @RequestMapping("/get-projects")
     public BasePageResult<Project> getProjectList(@RequestParam("projectStatus") Integer projectStatus) {

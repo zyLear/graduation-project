@@ -38,8 +38,8 @@ public class ProjectContractItemServiceImpl implements ProjectContractItemServic
     }
 
     @Override
-    public Integer findUnfinishCount(Integer itemId) {
-        return projectContractItemMapper.findUnfinishCount(itemId);
+    public Integer findUnfinishCount(String contractNumber) {
+        return projectContractItemMapper.findUnfinishCount(contractNumber);
     }
 
     @Autowired

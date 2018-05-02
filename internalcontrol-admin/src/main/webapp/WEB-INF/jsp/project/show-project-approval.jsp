@@ -101,10 +101,9 @@
 
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">申请表上传</label>
-                                <div class="col-sm-7">
-                                    <input readonly type="text" class="form-control" id="filePath" name="filePath"
-                                           value="${project.filePath}" placeholder="申请书">
+                                <label class="col-sm-2 control-label">申请表</label>
+                                <div class="col-sm-7 custom-link">
+                                    <a href="${pageContext.request.contextPath}/downloader/download?filePath=${project.filePath}">${project.fileName}</a>
                                 </div>
                             </div>
 
