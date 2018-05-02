@@ -67,7 +67,10 @@ CREATE TABLE IF NOT EXISTS `t_project_bid` (
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  `create_account` varchar(16) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `index_bidding_number` (`bidding_number`),
+  KEY `index_create_account` (`create_account`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -145,6 +148,23 @@ CREATE TABLE IF NOT EXISTS `t_project_contract_item` (
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 数据导出被取消选择。
+
+
+-- 导出  表 internal_control.t_user 结构
+CREATE TABLE IF NOT EXISTS `t_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` varchar(16) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `authority` tinyint(4) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_account` (`account`),
+  KEY `index_account_password` (`account`,`password`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。

@@ -134,6 +134,12 @@
                         return '<button onclick="showContent(\'' + value + '\')" type="button" class="btn btn-default">点击查看</button>';
                     }
                 }, {
+                    field: 'id',
+                    title: '合同文件',
+                    formatter: function (value, row, index) {
+                        return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
+                    }
+                }, {
                     field: 'contractStatus',
                     title: '合同状态',
                     formatter: function (value, row, index) {

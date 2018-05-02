@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -251,104 +252,106 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/project/project-list">项目列表</a>
                         </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
-                        </li>
-                        <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/project/project-approval"> 项目审批</a>--%>
-                        <%--</li>--%>
+                        <c:if test="${pageContext.session.getAttribute('authority')==1}">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
+                            </li>
+                        </c:if>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
-                <%--<li>--%>
-                <%--<a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>--%>
-                <%--</li>--%>
-                <%--<li>--%>
-                <%--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>--%>
-                <%--</li>--%>
-                <li>
-                    <a href="#"><i class="fa fa-wrench fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/budget/budget-list"> 预算列表</a>
-                        </li>
-                        <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>--%>
-                        <%--</li>--%>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-sitemap fa-fw"></i> 招标管理<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/bidding/bidding-list"> 招标列表</a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>
-                        </li>
-                        <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>--%>
-                        <%--</li>--%>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                <c:if test="${pageContext.session.getAttribute('authority')==1}">
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/budget/budget-list"> 预算列表</a>
+                            </li>
+                                <%--<li>--%>
+                                <%--<a href="${pageContext.request.contextPath}/budget/budget-application"> 预算申请</a>--%>
+                                <%--</li>--%>
+                                <%--<li>--%>
+                                <%--<a href="${pageContext.request.contextPath}/budget/budget-submit"> 预算提交</a>--%>
+                                <%--</li>--%>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> 招标管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/bidding/bidding-list"> 招标列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>
+                            </li>
+                                <%--<li>--%>
+                                <%--<a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>--%>
+                                <%--</li>--%>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 合同管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/contract/contract-list"> 合同列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 资产管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </c:if>
 
 
-                <li>
-                    <a href="#"><i class="fa fa-sitemap fa-fw"></i> 投标管理<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/bid/bidding-list"> 招标列表</a>
-                        </li>
-                        <%--<li>--%>
-                        <%--<a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                        <%--<a href="#"> 标书申请列表</a>--%>
-                        <%--</li>--%>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                <c:if test="${pageContext.session.getAttribute('authority')==0}">
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> 投标管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/bid/bidding-list">
+                                    招标列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/bid/user-bid-list">
+                                    我的投标</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </c:if>
 
                 <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> 合同管理<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-files-o fa-fw"></i> 用户管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
+                        <c:if test="${pageContext.session.getAttribute('authority')==1}">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/register-admin">
+                                    创建账号</a>
+                            </li>
+                        </c:if>
                         <li>
-                            <a href="${pageContext.request.contextPath}/contract/contract-list"> 合同列表</a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-
-                <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> 资产管理<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-
-                <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Template<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/user/login"> LOGIN</a>
+                            <a href="javascript:void(0);" onclick="logout('${pageContext.request.contextPath}');">
+                                退出账号</a>
                         </li>
                         <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/asset/add-asset"> </a>--%>
+                        <%--<a href="${pageContext.request.contextPath}/asset/add-asset"> </a>--%>
                         <%--</li>--%>
                     </ul>
                     <!-- /.nav-second-level -->

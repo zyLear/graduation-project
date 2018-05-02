@@ -188,4 +188,14 @@ function back() {
     window.history.go(-1);
 }
 
+function logout(contextPath) {
+    $.get(contextPath + '/user/sure-logout');
+    window.location.href = contextPath + '/user/login';
+}
+
+
+function formFileLink(contextPath,filePath,fileName) {
+    var url = contextPath+'/downloader/download?filePath='+filePath;
+    return '<a href="'+url+'">'+fileName+'</a>';
+}
 

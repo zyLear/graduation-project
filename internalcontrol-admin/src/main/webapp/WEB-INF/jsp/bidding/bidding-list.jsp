@@ -178,6 +178,12 @@
                             return formatBiddingStatus(value);
                         }
                     }, {
+                        field: 'id',
+                        title: '文件',
+                        formatter: function (value, row, index) {
+                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
+                        }
+                    }, {
                         field: 'biddingStartTime',
                         title: '招标开始时间',
                         formatter: function (value, row, index) {

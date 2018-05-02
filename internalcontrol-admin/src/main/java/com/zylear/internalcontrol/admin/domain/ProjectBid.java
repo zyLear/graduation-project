@@ -25,6 +25,16 @@ public class ProjectBid {
 
     private String bidContent;
 
+    private String createAccount;
+
+    public String getCreateAccount() {
+        return createAccount;
+    }
+
+    public void setCreateAccount(String createAccount) {
+        this.createAccount = createAccount;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by xiezongyu on 2018/4/15.
  */
@@ -47,6 +49,14 @@ public class BidController {
         return modelAndView;
     }
 
+    @RequestMapping("/user-bid-list")
+    public ModelAndView userBidListPage(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("bid/user-bid-list");
+        modelAndView.addObject("account", request.getSession().getAttribute("account"));
+        return modelAndView;
+    }
+
 
     @RequestMapping("/bid-create")
     public ModelAndView bidCreate(@Param("biddingNumber") String biddingNumber) {
@@ -63,7 +73,6 @@ public class BidController {
                                         @RequestParam("bidContent") String bidContent,
                                         @RequestParam("bidPrices") Double bidPrices,
                                         @RequestParam("file") MultipartFile file) {
-        System.out.println("jing");
         return bidManager.saveBid(biddingNumber, bidCompany, bidContent, bidPrices, file);
     }
 
@@ -127,12 +136,28 @@ public class BidController {
         return bidManager.getCustomBidListPageResult(biddingNumber, pageParam);
     }
 
+
+    @ResponseBody
+    @RequestMapping("/get-user-bid-list")
+    public PageResult<BidViewBean> getUserBidList(HttpServletRequest request,
+                                                  @Param("limit") Integer limit,
+                                                  @Param("offset") Integer offset) {
+        if (offset == null) {
+            offset = 0;
+        }
+        if (limit == null || limit > 100) {
+            limit = 10;
+        }
+        PageParam pageParam = new PageParam(limit, offset);
+        return bidManager.getUserBidListPageResult(request.getSession().getAttribute("account").toString(), pageParam);
+    }
+
+
     @ResponseBody
     @RequestMapping("/get-bid-content")
     public BasePageResult<BidViewBean> getProjectContent(@RequestParam("id") Integer id) {
         return bidManager.getBidContent(id);
     }
-
 
 
     @Autowired

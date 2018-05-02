@@ -136,6 +136,14 @@ public class BidManager {
         return pageResult;
     }
 
+    public PageResult<BidViewBean> getUserBidListPageResult(String account, PageParam pageParam) {
+        PageResult<BidViewBean> pageResult = new PageResult<>();
+        List<ProjectBid> projectBids = projectBidService.findByAccountAndPageParam(account, pageParam);
+        pageResult.setTotal(projectBidService.getTotalByAccount(account));
+        pageResult.setRows(toBidViewBean(projectBids));
+        return pageResult;
+    }
+
     private List<BidViewBean> toBidViewBean(List<ProjectBid> projectBids) {
         List<BidViewBean> list = new ArrayList<>(projectBids.size());
         for (ProjectBid bid : projectBids) {
@@ -160,13 +168,14 @@ public class BidManager {
             viewBean.setBidPrices(bid.getBidPrices());
             viewBean.setId(bid.getId());
             viewBean.setFilePath(bid.getFilePath());
+            viewBean.setFileName(FileDirectory.getFileName(bid.getFilePath()));
             list.add(viewBean);
         }
         return list;
     }
 
     public BasePageResult<BidViewBean> getBidContent(Integer id) {
-        ProjectBid bid= projectBidService.selectByPrimaryKey(id);
+        ProjectBid bid = projectBidService.selectByPrimaryKey(id);
         if (bid == null) {
             return BasePageResult.BID_NO_EXIST_RESPONSE;
         }

@@ -21,6 +21,16 @@ public class BidViewBean {
 
     private String bidContent;
 
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public String getBidContent() {
         return bidContent;
     }

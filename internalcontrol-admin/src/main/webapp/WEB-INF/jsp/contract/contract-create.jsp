@@ -47,8 +47,6 @@
                                 <div class="col-sm-9">
                                     <select id="bidNumber" name="bidNumber" class="form-control">
                                         <option value="none">未选择</option>
-                                        <option value="internal_group">1111</option>
-                                        <option value="outside_group">2222</option>
                                     </select>
                                 </div>
                             </div>

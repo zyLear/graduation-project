@@ -72,6 +72,16 @@ public class ProjectBidServiceImpl implements ProjectBidService {
         return projectBidMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<ProjectBid> findByAccountAndPageParam(String account, PageParam pageParam) {
+        return projectBidMapper.findByAccountAndPageParam(account, pageParam);
+    }
+
+    @Override
+    public Integer getTotalByAccount(String account) {
+        return projectBidMapper.getTotalByAccount(account);
+    }
+
     @Autowired
     public void setProjectBidMapper(ProjectBidMapper projectBidMapper) {
         this.projectBidMapper = projectBidMapper;
