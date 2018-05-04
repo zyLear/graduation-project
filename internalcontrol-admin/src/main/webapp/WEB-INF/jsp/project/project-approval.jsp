@@ -173,6 +173,19 @@
             initApprovalResult();
 
             $('#save').click(function () {
+
+
+                if ($('#projectStatus').val() == '-1') {
+                    alert('请选择审批结果');
+                    return;
+                }
+
+                if ($('#approvalComment').val() == '') {
+                    alert('审批评论不能为空');
+                    return;
+                }
+
+
                 $.ajax({
                         url: '${pageContext.request.contextPath}/project/sure-project-approval',
                         type: 'POST',

@@ -176,17 +176,53 @@
         $(document).ready(function () {
             $('#save').click(function () {
 
+                var aspectSet = new Set();
+
                 var params = new Object();
                 var items = new Array();
                 params.projectNumber = $('#projectNumber').val();
+                var needBounce = false;
                 $('[name="item"]').each(function () {
                     var object = new Object();
                     object.budgetAspect = $(this).find('[name="budgetAspect"]').val();
                     object.budgetMoney = $(this).find('[name="budgetMoney"]').val();
                     object.budgetContent = $(this).find('textarea').val();
+
+                    if (object.budgetAspect == '') {
+                        needBounce = true;
+                        alert('预算模块不能为空');
+                        return false;
+                    }
+
+                    if(aspectSet.has(object.budgetAspect)) {
+                        alert('预算模块不能重复');
+                        needBounce = true;
+                        return false;
+                    }
+                    aspectSet.add(object.budgetAspect);
+
+                    if (object.budgetMoney == '') {
+                        needBounce = true;
+                        alert('金额不能为空');
+                        return false;
+                    }
+                    if (isNaN(object.budgetMoney)) {
+                        needBounce = true;
+                        alert('金额必须是数字');
+                        return false;
+                    }
+                    if (object.budgetContent == '') {
+                        needBounce = true;
+                        alert('预算内容不能为空');
+                        return false;
+                    }
                     items.push(object);
                 });
+                if (needBounce) {
+                    return;
+                }
                 params.items = JSON.stringify(items);
+
 
                 $.ajax({
                         url: '${pageContext.request.contextPath}/budget/sure-budget-application',

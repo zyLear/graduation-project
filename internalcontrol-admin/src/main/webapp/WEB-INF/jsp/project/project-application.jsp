@@ -112,6 +112,47 @@
         $(document).ready(function () {
             $('#save').click(function () {
 
+                if ($('#projectNumber').val() == '') {
+                    alert('项目编号不能为空');
+                    return;
+                }
+
+                if ($('#projectName').val() == '') {
+                    alert('项目名字不能为空');
+                    return;
+                }
+
+                if ($('#applicant').val() == '') {
+                    alert('申请人不能为空');
+                    return;
+                }
+
+                if ($('#applicationDepartment').val() == '') {
+                    alert('申请部门不能为空');
+                    return;
+                }
+
+                if ($('#projectContent').val() == '') {
+                    alert('项目内容不能为空');
+                    return;
+                }
+
+                if ($('#projectBudget').val() == '') {
+                    alert('项目预算不能为空');
+                    return;
+                }
+
+                if (isNaN($('#projectBudget').val())) {
+                    alert('金额必须是数字');
+                    return;
+                }
+
+                if ($('#file').val() == '') {
+                    alert('申请表不能为空');
+                    return;
+                }
+
+
                 var param = new FormData($('#form')[0]);
 //                param.append('items', JSON.stringify(test));
                 $.ajax({
@@ -123,10 +164,10 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            if (data.errorCode==0) {
+                            if (data.errorCode == 0) {
                                 alert('添加成功');
                                 window.location.href = '${pageContext.request.contextPath}/project/project-list';
-                            }else {
+                            } else {
                                 alert(data.errorMessage);
                             }
                         },

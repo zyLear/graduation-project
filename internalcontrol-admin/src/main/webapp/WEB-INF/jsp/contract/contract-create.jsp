@@ -46,7 +46,7 @@
                                 <label class="col-sm-2 control-label">标书编号</label>
                                 <div class="col-sm-9">
                                     <select id="bidNumber" name="bidNumber" class="form-control">
-                                        <option value="none">未选择</option>
+                                        <option value="-1">未选择</option>
                                     </select>
                                 </div>
                             </div>
@@ -151,14 +151,74 @@
 
             $('#save').click(function () {
 
-                var items = new Array();
 
+                if ($('#bidNumber').val() == '') {
+                    alert('标书编号不能为空');
+                    return;
+                }
+
+                if ($('#contractNumber').val() == '') {
+                    alert('合同编号不能为空');
+                    return;
+                }
+
+                if ($('#contractName').val() == '') {
+                    alert('合同名字不能为空');
+                    return;
+                }
+
+                if ($('#contractContent').val() == '') {
+                    alert('合同内容不能为空');
+                    return;
+                }
+
+//
+//                if ($('#projectBudget').val() == '') {
+//                    alert('项目预算不能为空');
+//                    return;
+//                }
+//
+//                if (isNaN($('#projectBudget').val())) {
+//                    alert('金额必须是数字');
+//                    return;
+//                }
+
+                if ($('#file').val() == '') {
+                    alert('申请表不能为空');
+                    return;
+                }
+
+
+                var items = new Array();
+                var needBounce = false;
                 $('[name="item"]').each(function () {
                     var object = new Object();
                     object.itemMoney = $(this).find('input').val();
                     object.itemContent = $(this).find('textarea').val();
+
+                    if (object.itemContent == '') {
+                        needBounce = true;
+                        alert('合同项描述不能为空');
+                        return false;
+                    }
+
+                    if (object.itemMoney == '') {
+                        needBounce = true;
+                        alert('金额不能为空');
+                        return false;
+                    }
+
+                    if (isNaN(object.itemMoney)) {
+                        needBounce = true;
+                        alert('金额必须是数字');
+                        return false;
+                    }
+
                     items.push(object);
                 });
+                if (needBounce) {
+                    return;
+                }
 //                var object = new Object();
 //                object.itemMoney = 100;
 //                object.itemContent = 'content';
