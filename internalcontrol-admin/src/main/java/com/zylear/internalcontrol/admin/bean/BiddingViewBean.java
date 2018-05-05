@@ -22,6 +22,27 @@ public class BiddingViewBean {
 
     private String fileName;
 
+    private Integer biddedCount;
+
+    private Boolean bidded;
+
+
+    public Integer getBiddedCount() {
+        return biddedCount;
+    }
+
+    public void setBiddedCount(Integer biddedCount) {
+        this.biddedCount = biddedCount;
+    }
+
+    public Boolean getBidded() {
+        return bidded;
+    }
+
+    public void setBidded(Boolean bidded) {
+        this.bidded = bidded;
+    }
+
     public String getFileName() {
         return fileName;
     }

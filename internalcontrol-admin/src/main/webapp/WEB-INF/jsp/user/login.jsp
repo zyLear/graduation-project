@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>登录</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
 
@@ -32,23 +32,44 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">请登录</h3>
+                    <h3 class="panel-title">登录</h3>
                 </div>
                 <div class="panel-body">
+
                     <form role="form">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="输入账号" id="account" type="text" autofocus>
                             </div>
+
                             <div class="form-group">
                                 <input class="form-control" placeholder="输入密码" id="password" type="password"
                                        value="">
                             </div>
+
                             <div class="custom-radio-group">
                                 <input type="radio" name="authority" value="1" checked="checked">
                                 <label>管理员&nbsp;</label>
                                 <input type="radio" name="authority" value="0"> <label>投标者&nbsp;</label>
                             </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <img id="captchaImage"
+                                             src="${pageContext.request.contextPath}/user/generateCaptcha"
+                                             height="50px;" align="absmiddle"/>
+                                        </br>
+                                        <a id="changeCaptcha" href="javascrip:void(0);">换一张 </a>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <input placeholder="输入验证码" class="form-control" id="captcha" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <%--<div class="checkbox">--%>
                             <%--<label>--%>
                             <%--<input name="remember" type="checkbox" value="Remember Me">Remember Me--%>
@@ -155,6 +176,10 @@
         $('#sureRegister').click(function () {
             sureRegister();
         });
+
+        $('#changeCaptcha').click(function () {
+            changeCaptcha();
+        });
     });
 
     login = function () {
@@ -164,7 +189,8 @@
             data: {
                 "account": $('#account').val(),
                 "password": $('#password').val(),
-                "authority": $('[name="authority"]:checked').val()
+                "authority": $('[name="authority"]:checked').val(),
+                "captcha": $('#captcha').val()
             },
             success: function (data) {
                 if (data.errorCode == 0) {
@@ -173,15 +199,22 @@
                     } else {
                         window.location.href = '${pageContext.request.contextPath}/bid/bidding-list';
                     }
-
+                } else if (data.errorCode == 11) {
+                    alert('验证码错误');
+                    changeCaptcha();
                 } else {
                     alert('账号或者密码错误');
+                    changeCaptcha();
                 }
             },
             error: function (data) {
                 alert('网络错误');
             }
         });
+    };
+
+    changeCaptcha = function () {
+        $("#captchaImage").attr('src', '${pageContext.request.contextPath}/user/generateCaptcha?' + Math.random());
     };
 
     sureRegister = function () {

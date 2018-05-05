@@ -27,3 +27,9 @@
 .custom-radio-group {
     padding-bottom: 10px;
 }
+
+.custom-link{
+    text-align: left;
+    padding-top: 7px;
+    margin-bottom: 0;
+}

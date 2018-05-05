@@ -18,5 +18,5 @@ public interface ProjectContractItemService {
 
     ProjectContractItem findById(Integer itemId);
 
-    Integer findUnfinishCount(Integer itemId);
+    Integer findUnfinishCount(String contractNumber);
 }

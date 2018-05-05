@@ -124,6 +124,37 @@
         $('#contractNumber').initContracts('${pageContext.request.contextPath}/contract/get-contracts?contractStatus=' + ContractStatusEnum.effective);
 
         $('#save').click(function () {
+
+            if ($('#contractNumber').val() == 'none') {
+                alert('未选择合同编号');
+                return;
+            }
+
+            if ($('#assetNumber').val() == '') {
+                alert('资产编号不能为空');
+                return;
+            }
+
+            if ($('#assetType').val() == '') {
+                alert('资产名称不能为空');
+                return;
+            }
+
+            if ($('#remark').val() == '') {
+                alert('备注不能为空');
+                return;
+            }
+
+            if ($('#prices').val() == '') {
+                alert('单价不能为空');
+                return;
+            }
+
+            if (isNaN($('#prices').val())) {
+                alert('单价必须是数字');
+                return;
+            }
+
             $.ajax({
                 url: '${pageContext.request.contextPath}/asset/sure-add-asset',
                 type: 'POST',

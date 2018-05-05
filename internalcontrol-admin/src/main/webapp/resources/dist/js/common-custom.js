@@ -199,3 +199,9 @@ function formFileLink(contextPath,filePath,fileName) {
     return '<a href="'+url+'">'+fileName+'</a>';
 }
 
+
+function formShowProjectLink(contextPath,projectNumber) {
+    var url = contextPath+'/project/show-project?projectNumber='+projectNumber;
+    return '<a href="'+url+'">'+projectNumber+'</a>';
+}
+

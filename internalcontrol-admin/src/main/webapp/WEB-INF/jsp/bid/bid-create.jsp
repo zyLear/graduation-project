@@ -107,14 +107,6 @@
                     <button id="save" type="button" class="btn btn-info btn-lg">确定投标</button>
                 </div>
 
-                <%--</div>--%>
-                <%--&lt;%&ndash;pannel-body&ndash;%&gt;--%>
-                <%--</div>--%>
-                <%--&lt;%&ndash;pannel&ndash;%&gt;--%>
-                <%--</div>--%>
-                <%--&lt;%&ndash; col-lg-6 &ndash;%&gt;--%>
-
-
             </div>
             <%-- col-lg-6 --%>
 
@@ -137,6 +129,34 @@
     $(document).ready(function () {
         $('#save').click(function () {
 
+
+            if ($('#bidCompany').val() == '') {
+                alert('投标公司不能为空');
+                return;
+            }
+
+            if ($('#bidContent').val() == '') {
+                alert('标书内容不能为空');
+                return;
+            }
+
+            if ($('#bidPrices').val() == '') {
+                alert('投标价格不能为空');
+                return;
+            }
+
+            if (isNaN($('#bidPrices').val())) {
+                alert('投标价格必须是数字');
+                return;
+            }
+
+            if ($('#file').val() == '') {
+                alert('标书文件不能为空');
+                return;
+            }
+
+
+
             var param = new FormData($('#form')[0]);
             param.append('biddingNumber', '${bidding.biddingNumber}');
             $.ajax({
@@ -148,7 +168,12 @@
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        alert(data.errorMessage);
+                        if (data.errorCode==0) {
+                            alert('投标成功');
+                            window.location.href = '${pageContext.request.contextPath}/bid/bidding-list';
+                        }else {
+                            alert(data.errorMessage);
+                        }
                     },
                     error: function (data) {
                         alert(data.errorMessage);

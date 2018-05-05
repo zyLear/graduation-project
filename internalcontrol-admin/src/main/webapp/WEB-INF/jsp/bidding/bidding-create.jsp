@@ -115,12 +115,6 @@
                     <button id="save" type="button " class="btn btn-info btn-lg"> 保 存</button>
                 </div>
 
-                <%--</div>--%>
-                <%--&lt;%&ndash;pannel-body&ndash;%&gt;--%>
-                <%--</div>--%>
-                <%--&lt;%&ndash;pannel&ndash;%&gt;--%>
-                <%--</div>--%>
-                <%--&lt;%&ndash; col-lg-6 &ndash;%&gt;--%>
 
 
             </div>
@@ -148,6 +142,52 @@
         $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.bidding);
 
         $('#save').click(function () {
+
+            if ($('#projectNumber').val() == '-1') {
+                alert('项目编号不能为空');
+                return;
+            }
+
+            if ($('#biddingNumber').val() == '') {
+                alert('招标编号不能为空');
+                return;
+            }
+
+            if ($('#biddingName').val() == '') {
+                alert('招标名字不能为空');
+                return;
+            }
+
+            if ($('#biddingStartTime').val() == '') {
+                alert('开始时间不能为空');
+                return;
+            }
+
+            if ($('#biddingEndTime').val() == '') {
+                alert('结束时间不能为空');
+                return;
+            }
+
+            if ($('#biddingContent').val() == '') {
+                alert('招标内容不能为空');
+                return;
+            }
+
+            if ($('#prices').val() == '') {
+                alert('招标价格不能为空');
+                return;
+            }
+
+            if (isNaN($('#prices').val())) {
+                alert('招标价格是数字');
+                return;
+            }
+
+            if ($('#file').val() == '') {
+                alert('招标文件不能为空');
+                return;
+            }
+
             var param = new FormData($('#form')[0]);
             param.append('biddingStartTime', new Date($('#biddingStartTime').val()).getTime());
             param.append('biddingEndTime', new Date($('#biddingEndTime').val()).getTime());
@@ -161,7 +201,12 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    alert(data.errorMessage);
+                    if (data.errorCode == 0) {
+                        alert('添加成功');
+                        window.location.href = '${pageContext.request.contextPath}/bidding/bidding-list';
+                    } else {
+                        alert(data.errorMessage);
+                    }
                 },
                 error: function (data) {
                     alert(data.errorMessage);

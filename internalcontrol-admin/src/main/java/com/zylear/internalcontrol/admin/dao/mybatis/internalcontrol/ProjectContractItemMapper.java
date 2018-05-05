@@ -27,5 +27,5 @@ public interface ProjectContractItemMapper {
     void updateFinishDay(@Param("id") Integer id,
                          @Param("date") Date date);
 
-    Integer findUnfinishCount(@Param("id") Integer id);
+    Integer findUnfinishCount(@Param("contractNumber") String contractNumber);
 }

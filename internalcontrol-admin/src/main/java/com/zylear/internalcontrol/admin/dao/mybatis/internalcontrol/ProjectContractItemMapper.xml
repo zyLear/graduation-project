@@ -168,7 +168,7 @@
         FROM t_project_contract_item
         WHERE is_deleted = 0
               AND finish_day IS NULL
-              AND id = #{id,jdbcType=INTEGER}
+              AND contract_number = #{contractNumber,jdbcType=VARCHAR}
     </select>
 
 </mapper>

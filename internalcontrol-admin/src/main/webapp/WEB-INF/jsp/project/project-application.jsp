@@ -10,12 +10,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>立项申请</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
           rel="stylesheet">
-
 </head>
 
 <body>
@@ -69,7 +68,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目描述</label>
                         <div class="col-sm-7">
-                            <textarea cols="60" rows="20" class="form-control custom-textarea"
+                            <textarea cols="60" rows="15" class="form-control custom-textarea"
                                       id="projectContent" name="projectContent"></textarea>
                         </div>
                     </div>
@@ -113,6 +112,47 @@
         $(document).ready(function () {
             $('#save').click(function () {
 
+                if ($('#projectNumber').val() == '') {
+                    alert('项目编号不能为空');
+                    return;
+                }
+
+                if ($('#projectName').val() == '') {
+                    alert('项目名字不能为空');
+                    return;
+                }
+
+                if ($('#applicant').val() == '') {
+                    alert('申请人不能为空');
+                    return;
+                }
+
+                if ($('#applicationDepartment').val() == '') {
+                    alert('申请部门不能为空');
+                    return;
+                }
+
+                if ($('#projectContent').val() == '') {
+                    alert('项目内容不能为空');
+                    return;
+                }
+
+                if ($('#projectBudget').val() == '') {
+                    alert('项目预算不能为空');
+                    return;
+                }
+
+                if (isNaN($('#projectBudget').val())) {
+                    alert('金额必须是数字');
+                    return;
+                }
+
+                if ($('#file').val() == '') {
+                    alert('申请表不能为空');
+                    return;
+                }
+
+
                 var param = new FormData($('#form')[0]);
 //                param.append('items', JSON.stringify(test));
                 $.ajax({
@@ -124,9 +164,12 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            alert(data.errorMessage);
-                            window.location.href = '${pageContext.request.contextPath}/project/project-list';
-
+                            if (data.errorCode == 0) {
+                                alert('添加成功');
+                                window.location.href = '${pageContext.request.contextPath}/project/project-list';
+                            } else {
+                                alert(data.errorMessage);
+                            }
                         },
                         error: function (data) {
                             alert(data.errorMessage);

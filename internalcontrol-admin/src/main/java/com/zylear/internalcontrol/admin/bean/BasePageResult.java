@@ -24,9 +24,9 @@ public class BasePageResult<T> {
     public static final BasePageResult BIDDING_NO_EXIST_RESPONSE = new BasePageResult(7, "bidding no exist");
     public static final BasePageResult BID_NO_EXIST_RESPONSE = new BasePageResult(8, "bid no exist");
     public static final BasePageResult CONTRACT_NO_EXIST_RESPONSE = new BasePageResult(9, "contract no exist");
-    public static final BasePageResult BUDGET_NO_EXIST_RESPONSE = new BasePageResult(9, "budget no exist");
+    public static final BasePageResult BUDGET_NO_EXIST_RESPONSE = new BasePageResult(10, "budget no exist");
 
-
+    public static final BasePageResult CAPTCHA_ERROR = new BasePageResult(11, "captcha error");
 
 
     public BasePageResult() {

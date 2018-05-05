@@ -101,10 +101,9 @@
 
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">申请表上传</label>
-                                <div class="col-sm-7">
-                                    <input readonly type="text" class="form-control" id="filePath" name="filePath"
-                                           value="${project.filePath}" placeholder="申请书">
+                                <label class="col-sm-2 control-label">申请表</label>
+                                <div class="col-sm-7 custom-link">
+                                    <a href="${pageContext.request.contextPath}/downloader/download?filePath=${project.filePath}">${project.fileName}</a>
                                 </div>
                             </div>
 
@@ -152,7 +151,8 @@
 
                     <div class="text-center">
                         <button id="save" type="button" class="btn btn-info btn-lg custom-button-inline"> 保 存</button>
-                        <button onclick="back()" type="button" class="btn btn-info btn-lg custom-button-inline"> 返回</button>
+                        <button onclick="back()" type="button" class="btn btn-info btn-lg custom-button-inline"> 返回
+                        </button>
                     </div>
 
                 </div>
@@ -176,17 +176,53 @@
         $(document).ready(function () {
             $('#save').click(function () {
 
+                var aspectSet = new Set();
+
                 var params = new Object();
                 var items = new Array();
                 params.projectNumber = $('#projectNumber').val();
+                var needBounce = false;
                 $('[name="item"]').each(function () {
                     var object = new Object();
                     object.budgetAspect = $(this).find('[name="budgetAspect"]').val();
                     object.budgetMoney = $(this).find('[name="budgetMoney"]').val();
                     object.budgetContent = $(this).find('textarea').val();
+
+                    if (object.budgetAspect == '') {
+                        needBounce = true;
+                        alert('预算模块不能为空');
+                        return false;
+                    }
+
+                    if(aspectSet.has(object.budgetAspect)) {
+                        alert('预算模块不能重复');
+                        needBounce = true;
+                        return false;
+                    }
+                    aspectSet.add(object.budgetAspect);
+
+                    if (object.budgetMoney == '') {
+                        needBounce = true;
+                        alert('金额不能为空');
+                        return false;
+                    }
+                    if (isNaN(object.budgetMoney)) {
+                        needBounce = true;
+                        alert('金额必须是数字');
+                        return false;
+                    }
+                    if (object.budgetContent == '') {
+                        needBounce = true;
+                        alert('预算内容不能为空');
+                        return false;
+                    }
                     items.push(object);
                 });
+                if (needBounce) {
+                    return;
+                }
                 params.items = JSON.stringify(items);
+
 
                 $.ajax({
                         url: '${pageContext.request.contextPath}/budget/sure-budget-application',
@@ -194,7 +230,12 @@
                         data: params,
 //                    },
                         success: function (data) {
-                            alert(data.errorMessage);
+                            if (data.errorCode == 0) {
+                                alert('添加成功');
+                                window.location.href = '${pageContext.request.contextPath}/project/project-list';
+                            } else {
+                                alert(data.errorMessage);
+                            }
                         },
                         error: function (data) {
                             alert('网络错误');

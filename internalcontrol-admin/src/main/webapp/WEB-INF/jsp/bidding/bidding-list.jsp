@@ -152,7 +152,10 @@
                      checkbox: true
                      },*/ {
                         field: 'projectNumber',
-                        title: '项目编号'
+                        title: '项目编号',
+                        formatter: function (value, row, index) {
+                            return formShowProjectLink('${pageContext.request.contextPath}',value);
+                        }
                     }, {
                         field: 'projectName',
                         title: '项目名称'/*,
