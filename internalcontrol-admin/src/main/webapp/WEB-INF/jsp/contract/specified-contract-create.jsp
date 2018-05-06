@@ -45,8 +45,8 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">标书编号</label>
                                 <div class="col-sm-9">
-                                    <select id="bidNumber" name="bidNumber" class="form-control">
-                                        <option value="-1">未选择</option>
+                                    <select readonly="" id="bidNumber" name="bidNumber" class="form-control">
+                                        <option value="${bid.bidNumber}">${bid.bidNumber}</option>
                                     </select>
                                 </div>
                             </div>
@@ -77,15 +77,31 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">总金额</label>
+                                <label class="col-sm-2 control-label">中标价</label>
                                 <div class="col-sm-9">
-                                    <input disabled type="text" class="form-control" id="contractMoney"
-                                           name="contractMoney"
-                                           placeholder="总金额">
+                                    <input readonly type="text" class="form-control"
+                                           value="${bid.bidPrices}" placeholder="中标价">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">中标公司</label>
+                                <div class="col-sm-9">
+                                    <input readonly type="text" class="form-control"
+                                           value="${bid.bidCompany}" placeholder="中标公司">
+                                </div>
+                            </div>
+
+
+                            <%--<div class="form-group">--%>
+                            <%--<label class="col-sm-2 control-label">总金额</label>--%>
+                            <%--<div class="col-sm-9">--%>
+                            <%--<input disabled type="text" class="form-control" id="contractMoney"--%>
+                            <%--name="contractMoney"--%>
+                            <%--placeholder="总金额">--%>
+                            <%--</div>--%>
+                            <%--</div>--%>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">申请表上传</label>
@@ -147,7 +163,7 @@
 
         $(document).ready(function () {
 
-            $('#bidNumber').initBids('${pageContext.request.contextPath}/bid/get-bids?bidStatus=' + BidStatusEnum.winning);
+            <%--$('#bidNumber').initBids('${pageContext.request.contextPath}/bid/get-bids?bidStatus=' + BidStatusEnum.winning);--%>
 
             $('#save').click(function () {
 

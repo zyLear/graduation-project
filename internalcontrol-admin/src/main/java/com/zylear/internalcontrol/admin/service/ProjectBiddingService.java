@@ -29,4 +29,6 @@ public interface ProjectBiddingService {
     void updateStatus(String biddingNumber, Integer biddingStatus);
 
     ProjectBidding selectByPrimaryKey(Integer id);
+
+    Double findTotalPricesByProjectNumber(String projectNumber);
 }

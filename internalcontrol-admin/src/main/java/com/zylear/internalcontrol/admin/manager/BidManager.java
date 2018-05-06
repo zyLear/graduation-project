@@ -188,6 +188,18 @@ public class BidManager {
     }
 
 
+    public BidViewBean findBidViewBean(String bidNumber) {
+
+        ProjectBid bid = projectBidService.findByBidNumber(bidNumber);
+        if (bid == null) {
+            return null;
+        }
+        BidViewBean bidViewBean = new BidViewBean();
+        bidViewBean.setBidNumber(bidNumber);
+        bidViewBean.setBidCompany(bid.getBidCompany());
+        bidViewBean.setBidPrices(bid.getBidPrices());
+        return bidViewBean;
+    }
 
 
     /* <foreach collection="msgIds" open="(" close=")" separator="," index="index" item="msgId">

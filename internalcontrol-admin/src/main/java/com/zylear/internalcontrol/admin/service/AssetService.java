@@ -17,4 +17,6 @@ public interface AssetService {
     List<Asset> findByPageParam(PageParam pageParam);
 
     Integer getTotal();
+
+    Double findTotalMoneyByContractNumber(String contractNumber);
 }

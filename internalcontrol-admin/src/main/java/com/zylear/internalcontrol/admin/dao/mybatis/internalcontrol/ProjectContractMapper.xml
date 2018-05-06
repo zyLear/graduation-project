@@ -259,5 +259,14 @@
         WHERE contract_number = #{contractNumber,jdbcType=VARCHAR}
     </update>
 
+    <select id="findbyBidNumber" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_project_contract
+        WHERE is_deleted = 0
+        AND bid_number = #{bidNumber,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
 
 </mapper>

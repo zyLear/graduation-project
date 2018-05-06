@@ -162,4 +162,12 @@
         WHERE is_deleted = 0
     </select>
 
+    <select id="findTotalMoneyByContractNumber" resultType="java.lang.Double">
+        SELECT sum(prices)
+        FROM t_asset
+        WHERE is_deleted = 0
+              AND contract_number = #{contractNumber,jdbcType=VARCHAR}
+    </select>
+
+
 </mapper>

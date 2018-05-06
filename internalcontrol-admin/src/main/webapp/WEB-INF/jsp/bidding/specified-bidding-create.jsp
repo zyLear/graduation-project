@@ -43,8 +43,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目编号</label>
                         <div class="col-sm-7">
-                            <select id="projectNumber" name="projectNumber" class="form-control">
-                                <option value="-1">未选择</option>
+                            <select readonly id="projectNumber" name="projectNumber" class="form-control">
+                                <option value="${project.projectNumber}">${project.projectNumber}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${project.projectName}</option>
                             </select>
                         </div>
                     </div>
@@ -92,6 +93,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">剩余最大招标金额</label>
+                        <div class="col-sm-7">
+                            <input value="${project.leaveBiddingPrices}" type="text" class="form-control">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">招标价格</label>
@@ -138,7 +145,7 @@
 
     $(document).ready(function () {
 
-        $('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.bidding);
+        <%--$('#projectNumber').initProjects('${pageContext.request.contextPath}/project/get-projects?projectStatus=' + ProjectStatusEnum.bidding);--%>
 
         $('#save').click(function () {
 

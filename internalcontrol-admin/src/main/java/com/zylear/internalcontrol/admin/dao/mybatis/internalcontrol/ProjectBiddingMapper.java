@@ -34,4 +34,6 @@ public interface ProjectBiddingMapper {
 
     void updateStatus(@Param("biddingNumber") String biddingNumber,
                       @Param("biddingStatus") Integer biddingStatus);
+
+    Double findTotalPricesByProjectNumber(@Param("projectNumber")String projectNumber);
 }

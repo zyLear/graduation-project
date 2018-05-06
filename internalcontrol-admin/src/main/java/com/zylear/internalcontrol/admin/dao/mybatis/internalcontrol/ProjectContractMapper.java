@@ -38,4 +38,6 @@ public interface ProjectContractMapper {
     void updateStatusAndFinishDay(@Param("contractNumber") String contractNumber,
                                   @Param("contractStatus") Integer contractStatus,
                                   @Param("date") Date date);
+
+    ProjectContract findbyBidNumber(@Param("bidNumber") String bidNumber);
 }

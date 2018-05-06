@@ -75,10 +75,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">项目预算</label>
+                        <label class="col-sm-2 control-label">申请预算</label>
                         <div class="col-sm-7">
                             <input readonly type="text" class="form-control" id="projectBudget" name="projectBudget"
-                                   value="${project.projectBudget}" placeholder="项目预算">
+                                   value="${project.projectBudget}" placeholder="申请预算">
                         </div>
                     </div>
 

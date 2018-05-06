@@ -25,4 +25,6 @@ public interface AssetMapper {
     Integer getTotal();
 
     List<Asset> findByPageParam(@Param("pageParam") PageParam pageParam);
+
+    Double findTotalMoneyByContractNumber(@Param("contractNumber") String contractNumber);
 }

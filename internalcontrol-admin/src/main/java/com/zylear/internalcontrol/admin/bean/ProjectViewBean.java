@@ -36,6 +36,26 @@ public class ProjectViewBean {
 
     private String fileName;
 
+    private Double leaveBiddingPrices;
+
+    private Double planBudget;
+
+    public Double getLeaveBiddingPrices() {
+        return leaveBiddingPrices;
+    }
+
+    public void setLeaveBiddingPrices(Double leaveBiddingPrices) {
+        this.leaveBiddingPrices = leaveBiddingPrices;
+    }
+
+    public Double getPlanBudget() {
+        return planBudget;
+    }
+
+    public void setPlanBudget(Double planBudget) {
+        this.planBudget = planBudget;
+    }
+
     public String getFilePath() {
         return filePath;
     }

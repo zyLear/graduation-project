@@ -38,6 +38,11 @@ public class AssetServiceImpl implements AssetService {
         return assetMapper.getTotal();
     }
 
+    @Override
+    public Double findTotalMoneyByContractNumber(String contractNumber) {
+        return assetMapper.findTotalMoneyByContractNumber(contractNumber);
+    }
+
     @Autowired
     public void setAssetMapper(AssetMapper assetMapper) {
         this.assetMapper = assetMapper;

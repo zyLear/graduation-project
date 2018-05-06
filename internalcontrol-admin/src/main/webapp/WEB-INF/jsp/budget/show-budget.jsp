@@ -84,11 +84,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">项目预算</label>
+                                <label class="col-sm-2 control-label">申请预算</label>
                                 <div class="col-sm-7">
                                     <input readonly type="text" class="form-control" id="projectBudget"
                                            name="projectBudget"
-                                           value="${project.projectBudget}" placeholder="项目预算">
+                                           value="${project.projectBudget}" placeholder="申请预算">
                                 </div>
                             </div>
 
@@ -115,19 +115,37 @@
                         <div class="panel-body" id="itemsPanel">
                             <c:forEach items="${project.items}" var="item">
 
-                                <div name="item" class="form-group">
-                                    <label class="col-sm-2 control-label">预算项</label>
-                                    <div class="col-sm-7">
-                                    <textarea readonly cols="60" rows="3" class="form-control custom-textarea"
-                                              placeholder="预算描述"> ${item.budgetContent}</textarea>
+                                <div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label custom-label">预算项</label>
+                                        <div class="col-sm-5">
+                                            <input readonly type="text" class="form-control" name="budgetAspect"
+                                                   value="${item.budgetAspect}"    placeholder="预算模块">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input readonly type="text" class="form-control" id="budgetMoney" name="budgetMoney"
+                                                   value="${item.budgetMoney}"    placeholder="金额">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <%--<button type="button" class="btn btn-info " onclick="addItem()"> 增加新项</button>--%>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <input readonly value="${item.budgetMoney}" type="text" class="form-control"
-                                               placeholder="金额">
-
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-1 col-sm-10">
+                                        <textarea readonly cols="30" rows="5" class="form-control custom-textarea"
+                                                  placeholder="预算描述">${item.budgetContent}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </c:forEach>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label custom-label">总预算</label>
+
+                                <div class="col-sm-8">
+                                    <input readonly value="${project.planBudget}" type="text" class="form-control"
+                                           placeholder="总预算">
+                                </div>
+                            </div>
 
                         </div>
                         <%--panel body --%>
@@ -153,60 +171,8 @@
 
 
     <%@include file="../common/common_bottom_resource.jsp" %>
-    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script>
+    <%--<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/js/fileinput.min.js"></script>--%>
 
-        $(document).ready(function () {
-
-
-            $('#save').click(function () {
-
-                var items = new Array();
-
-                $('[name="item"]').each(function () {
-                    var object = new Object();
-                    object.itemMoney = $(this).find('input').val();
-                    object.itemContent = $(this).find('textarea').val();
-                    items.push(object);
-                });
-//                var object = new Object();
-//                object.itemMoney = 100;
-//                object.itemContent = 'content';
-//
-//                items.push(object);
-//                items.push(object);
-//                items.push(object);
-
-                var param = new FormData($('#form')[0]);
-                param.append('items', JSON.stringify(items));
-
-
-                $.ajax({
-                        url: '${pageContext.request.contextPath}/contract/sure-contract-create',
-                        type: 'POST',
-                        data: param,
-                        async: false,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (data) {
-                            alert(data.errorMessage);
-                        },
-                        error: function (data) {
-                            alert(data.errorMessage);
-                        }
-                    }
-                )
-            });
-        });
-
-
-        //        deleteItem = function ($this) {
-        //            $($this).parent().parent().remove();
-        //        };
-
-
-    </script>
 
 </div>
 <!-- /#wrapper -->

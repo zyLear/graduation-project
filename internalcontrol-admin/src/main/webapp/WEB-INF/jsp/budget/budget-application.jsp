@@ -194,7 +194,7 @@
                         return false;
                     }
 
-                    if(aspectSet.has(object.budgetAspect)) {
+                    if (aspectSet.has(object.budgetAspect)) {
                         alert('预算模块不能重复');
                         needBounce = true;
                         return false;
@@ -221,8 +221,11 @@
                 if (needBounce) {
                     return;
                 }
+                if (items.length == 0) {
+                    alert('至少输入一个预算项');
+                    return;
+                }
                 params.items = JSON.stringify(items);
-
 
                 $.ajax({
                         url: '${pageContext.request.contextPath}/budget/sure-budget-application',
@@ -233,7 +236,9 @@
                             if (data.errorCode == 0) {
                                 alert('添加成功');
                                 window.location.href = '${pageContext.request.contextPath}/project/project-list';
-                            } else {
+                            } else if(data.errorCode==5) {
+                                alert('添加失败,预算总额超过立项所申请的金额');
+                            }else {
                                 alert(data.errorMessage);
                             }
                         },
