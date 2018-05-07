@@ -3,6 +3,7 @@ package com.zylear.internalcontrol.admin.controller;
 import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.domain.ProjectBid;
 import com.zylear.internalcontrol.admin.domain.ProjectContract;
+import com.zylear.internalcontrol.admin.manager.BidManager;
 import com.zylear.internalcontrol.admin.manager.BiddingManager;
 import com.zylear.internalcontrol.admin.manager.ContractManager;
 import org.apache.ibatis.annotations.Param;
@@ -25,6 +26,7 @@ public class ContractController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContractController.class);
     private ContractManager contractManager;
+    private BidManager bidManager;
 
 
     @RequestMapping("/contract-list")
@@ -32,11 +34,26 @@ public class ContractController {
         return new ModelAndView("contract/contract-list");
     }
 
+    @RequestMapping("/show-contract")
+    public ModelAndView showContract(@Param("bidNumber") String bidNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("contract/edit-items");
+        modelAndView.addObject("contract", contractManager.findContractViewBeanByBidNumber(bidNumber));
+        return modelAndView;
+    }
+
     @RequestMapping("/contract-create")
     public ModelAndView contractCreatePage() {
         return new ModelAndView("contract/contract-create");
     }
 
+    @RequestMapping("/specified-contract-create")
+    public ModelAndView specifiedContractCreatePage(@Param("bidNumber") String bidNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("contract/specified-contract-create");
+        modelAndView.addObject("bid", bidManager.findBidViewBean(bidNumber));
+        return modelAndView;
+    }
 
     @RequestMapping("/edit-items")
     public ModelAndView editItems(@RequestParam("contractNumber") String contractNumber) {
@@ -97,5 +114,10 @@ public class ContractController {
     @Autowired
     public void setContractManager(ContractManager contractManager) {
         this.contractManager = contractManager;
+    }
+
+    @Autowired
+    public void setBidManager(BidManager bidManager) {
+        this.bidManager = bidManager;
     }
 }

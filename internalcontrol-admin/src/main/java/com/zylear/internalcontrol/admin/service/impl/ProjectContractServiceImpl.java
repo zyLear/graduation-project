@@ -59,6 +59,11 @@ public class ProjectContractServiceImpl implements ProjectContractService {
         projectContractMapper.updateStatusAndFinishDay(contractNumber, contractStatus, date);
     }
 
+    @Override
+    public ProjectContract findbyBidNumber(String bidNumber) {
+        return projectContractMapper.findbyBidNumber(bidNumber);
+    }
+
 
     @Autowired
     public void setProjectContractMapper(ProjectContractMapper projectContractMapper) {

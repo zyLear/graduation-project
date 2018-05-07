@@ -32,15 +32,15 @@ public class AssetManager {
     public BasePageResult addAsset(String contractNumber, String assetNumber, String assetType, String remark, Double prices/*, Integer count*/) {
 
 
-        if (!"none".equals(contractNumber)) {
-            ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
-            if (projectContract == null) {
-                return BasePageResult.CONTRACT_NO_EXIST_RESPONSE;
-            }
-            if (!ContractStatus.effective.getValue().equals(projectContract.getContractStatus())) {
-                return BasePageResult.ERROR_RESPONSE;
-            }
+//        if (!"none".equals(contractNumber)) {
+        ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
+        if (projectContract == null) {
+            return BasePageResult.CONTRACT_NO_EXIST_RESPONSE;
         }
+        if (!ContractStatus.effective.getValue().equals(projectContract.getContractStatus())) {
+            return BasePageResult.ERROR_RESPONSE;
+        }
+//        }
 
 
         Asset asset = assetService.findByAssetNumber(assetNumber);
@@ -48,7 +48,14 @@ public class AssetManager {
             return BasePageResult.ID_EXIST_RESPONSE;
         }
         //calculate the all money of the contarct
-        // if (projectContract.getContractMoney()<count*ass)
+
+        Double currentTotalMoney = assetService.findTotalMoneyByContractNumber(contractNumber);
+        currentTotalMoney = currentTotalMoney == null ? 0 : currentTotalMoney;
+
+
+        if (projectContract.getContractMoney() < currentTotalMoney + prices) {
+            return BasePageResult.OVERSPEND_RESPONSE;
+        }
 
         asset = new Asset();
         asset.setContractNumber(contractNumber);
@@ -78,12 +85,12 @@ public class AssetManager {
     private List<AssetViewBean> toAssetViewBean(List<Asset> assets) {
         List<AssetViewBean> list = new ArrayList<>(assets.size());
         for (Asset asset : assets) {
-            String contractNumber = asset.getContractNumber();
+//            String contractNumber = asset.getContractNumber();
             AssetViewBean assetViewBean = new AssetViewBean();
-            if ("none".equals(contractNumber)) {
-                assetViewBean.setContractNumber("无");
-                assetViewBean.setContractName("无");
-            }
+//            if ("none".equals(contractNumber)) {
+//                assetViewBean.setContractNumber("无");
+//                assetViewBean.setContractName("无");
+//            }
             ProjectContract projectContract = projectContractService.findByContractNumber(asset.getContractNumber());
             if (projectContract == null) {
                 assetViewBean.setContractNumber("无");

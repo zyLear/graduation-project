@@ -175,6 +175,9 @@
                             return '<button onclick="showContent(' + value + ')" type="button" class="btn btn-default">点击查看</button>';
                         }
                     }, {
+                        field: 'prices',
+                        title: '招标金额'
+                    }, {
                         field: 'biddingStatus',
                         title: '招标状态',
                         formatter: function (value, row, index) {

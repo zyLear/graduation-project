@@ -283,9 +283,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/bidding/bidding-list"> 招标列表</a>
                             </li>
-                            <li>
-                                <a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>
-                            </li>
+                            <%--<li>--%>
+                                <%--<a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>--%>
+                            <%--</li>--%>
                                 <%--<li>--%>
                                 <%--<a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>--%>
                                 <%--</li>--%>
@@ -298,9 +298,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/contract/contract-list"> 合同列表</a>
                             </li>
-                            <li>
-                                <a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>
-                            </li>
+                            <%--<li>--%>
+                                <%--<a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>--%>
+                            <%--</li>--%>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -311,9 +311,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
                             </li>
-                            <li>
-                                <a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>
-                            </li>
+                            <%--<li>--%>
+                                <%--<a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>--%>
+                            <%--</li>--%>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

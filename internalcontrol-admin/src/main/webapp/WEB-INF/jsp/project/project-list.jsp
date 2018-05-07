@@ -118,7 +118,7 @@
                         field: 'projectNumber',
                         title: '项目编号',
                         formatter: function (value, row, index) {
-                            return formShowProjectLink('${pageContext.request.contextPath}',value);
+                            return formShowProjectLink('${pageContext.request.contextPath}', value);
                         }
                     }, {
                         field: 'projectName',
@@ -136,8 +136,8 @@
                             return '<button onclick="showContent(\'' + value + '\')" type="button" class="btn btn-default">点击查看</button>';
                         }
                     }, {
-                        field: 'projectBudget',
-                        title: '项目预算'
+                        field: 'planBudget',
+                        title: '计划预算'
                     }, {
                         field: 'projectStatus',
                         title: '项目状态',
@@ -148,7 +148,7 @@
                         field: 'id',
                         title: '申请表',
                         formatter: function (value, row, index) {
-                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
+                            return formFileLink('${pageContext.request.contextPath}', row.filePath, row.fileName);
                         }
                     }, {
                         field: 'createTime',
@@ -165,21 +165,25 @@
                             if (row.projectStatus == ProjectStatusEnum.in_approval) {
                                 html += '<button onclick="approval(\'' + value + '\')" ' +
                                     'type="button" class="btn btn-info custom-button-inline">审批项目</button>';
-                            }/* else if (row.biddingStatus == BiddingStatusEnum.open) {
-                             html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-                             'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
-                             }*/ else {
+                            } else {
                                 html += '<button onclick="showApproval(\'' + value + '\')" ' +
                                     'type="button" class="btn btn-success custom-button-inline">查看审批</button>';
                             }
 
                             if (row.projectStatus == ProjectStatusEnum.budgeting) {
-                                html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
+                                html += '<button onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">添加预算</button>';
+                                html += '<button disabled="disabled" onclick="addBidding(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">招标</button>';
                             } else if (row.projectStatus == ProjectStatusEnum.bidding) {
-                                html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success">查看预算</button>';
+                                html += '<button onclick="showBudget(\'' + value + '\')" type="button" class="btn btn-success custom-button-inline">查看预算</button>';
+                                html += '<button onclick="addBidding(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">招标</button>';
+
                             } else {
-                                html += '<button disabled="disabled" onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info">添加预算</button>';
+                                html += '<button disabled="disabled" onclick="addBudget(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">添加预算</button>';
+                                html += '<button disabled="disabled" onclick="addBidding(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">招标</button>';
+
                             }
+
+
 
                             return html;
                         }
@@ -236,6 +240,10 @@
 
         showApproval = function (value) {
             window.location.href = '${pageContext.request.contextPath}/project/show-project-approval?projectNumber=' + value;
+        };
+
+        addBidding= function (value) {
+            window.location.href = '${pageContext.request.contextPath}/bidding/specified-bidding-create?projectNumber=' + value;
         };
 
     </script>

@@ -259,5 +259,11 @@
         WHERE is_deleted = 0
     </select>
 
+    <select id="findTotalPricesByProjectNumber" resultType="java.lang.Double">
+        SELECT sum(prices)
+        FROM t_project_bidding
+        WHERE is_deleted = 0
+              AND project_number = #{projectNumber,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

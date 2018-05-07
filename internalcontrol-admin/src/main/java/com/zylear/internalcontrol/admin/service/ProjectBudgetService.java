@@ -20,6 +20,8 @@ public interface ProjectBudgetService {
 
     ProjectBudget selectByPrimaryKey(Integer id);
 
+    Double findTotalPricesByProjectNumber(String projectNumber);
+
 //    ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect);
 }
 

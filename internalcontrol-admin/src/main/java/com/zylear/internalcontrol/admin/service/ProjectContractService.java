@@ -27,4 +27,6 @@ public interface ProjectContractService {
     Integer getTotal();
 
     void updateStatusAndFinishDay(String contractNumber, Integer contractStatus, Date date);
+
+    ProjectContract findbyBidNumber(String bidNumber);
 }

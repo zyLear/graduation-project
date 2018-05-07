@@ -73,6 +73,16 @@ public class ContractManager {
             return BasePageResult.ERROR_RESPONSE;
         }
 
+        Double money = 0.0;
+
+        for (ProjectContractItem item : projectContractItems) {
+            money += item.getItemMoney();
+        }
+
+        if (money > bid.getBidPrices()) {
+            return BasePageResult.OVERSPEND_RESPONSE;
+        }
+
 
         try {
             file.transferTo(new File(filePathPrefix + FileDirectory.CONTRACT_FILE_DIRECTORY + file.getOriginalFilename()));
@@ -82,11 +92,6 @@ public class ContractManager {
             return BasePageResult.UPLOAD_FAIL_RESPONSE;
         }
 
-        Double money = 0.0;
-
-        for (ProjectContractItem item : projectContractItems) {
-            money += item.getItemMoney();
-        }
 
         projectContract = new ProjectContract();
         projectContract.setBidNumber(bidNumber);
@@ -189,6 +194,7 @@ public class ContractManager {
         contractViewBean.setFinishDay(contract.getFinishDay());
         contractViewBean.setFilePath(contract.getFilePath());
         contractViewBean.setFileName(FileDirectory.getFileName(contract.getFilePath()));
+        contractViewBean.setContractMoney(contract.getContractMoney());
         List<ProjectContractItem> items = projectContractItemService.findByContractNumber(contractNumber);
         List<ContractItemViewbean> itemViewbeans = new ArrayList<>(items.size());
         for (ProjectContractItem item : items) {
@@ -234,6 +240,14 @@ public class ContractManager {
         return successResponse;
     }
 
+    public ContractViewBean findContractViewBeanByBidNumber(String bidNumber) {
+        ProjectContract contract = projectContractService.findbyBidNumber(bidNumber);
+        if (contract == null) {
+            return null;
+        }
+        return findContractViewBean(contract.getContractNumber());
+    }
+
 
     @Autowired
     public void setProjectContractService(ProjectContractService projectContractService) {
@@ -264,5 +278,6 @@ public class ContractManager {
     public void setFilePathPrefix(String filePathPrefix) {
         this.filePathPrefix = filePathPrefix;
     }
+
 
 }

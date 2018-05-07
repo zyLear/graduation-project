@@ -42,6 +42,11 @@ public class ProjectBudgetServiceImpl implements ProjectBudgetService {
         return projectBudgetMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public Double findTotalPricesByProjectNumber(String projectNumber) {
+        return projectBudgetMapper.findTotalPricesByProjectNumber(projectNumber);
+    }
+
 //    @Override
 //    public ProjectBudget findByNumberAndAspect(String projectNumber, String budgetAspect) {
 //        return null;

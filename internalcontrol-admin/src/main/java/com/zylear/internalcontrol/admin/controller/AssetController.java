@@ -26,9 +26,10 @@ public class AssetController {
 
     private static final Logger logger = LoggerFactory.getLogger(AssetController.class);
     private AssetManager assetManager;
+    private ContractManager contractManager;
 
 
-//    @RequestMapping("/contract-list")
+    //    @RequestMapping("/contract-list")
 //    public ModelAndView contractListPage() {
 //        return new ModelAndView("bidding/bidding-list-page");
 //    }
@@ -36,6 +37,14 @@ public class AssetController {
     @RequestMapping("/add-asset")
     public ModelAndView contractCreatePage() {
         return new ModelAndView("asset/add-asset");
+    }
+
+    @RequestMapping("/specified-add-asset")
+    public ModelAndView specifiedContractCreatePage(@Param("contractNumber") String contractNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("asset/specified-add-asset");
+        modelAndView.addObject("contract", contractManager.findContractViewBean(contractNumber));
+        return modelAndView;
     }
 
     @RequestMapping("/asset-list")
@@ -72,11 +81,13 @@ public class AssetController {
     }
 
 
-
-
-
     @Autowired
     public void setAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;
+    }
+
+    @Autowired
+    public void setContractManager(ContractManager contractManager) {
+        this.contractManager = contractManager;
     }
 }

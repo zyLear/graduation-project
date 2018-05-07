@@ -143,7 +143,7 @@
                         field: 'projectNumber',
                         title: '项目编号',
                         formatter: function (value, row, index) {
-                            return formShowProjectLink('${pageContext.request.contextPath}',value);
+                            return formShowProjectLink('${pageContext.request.contextPath}', value);
                         }
                     }, {
                         field: 'projectName',
@@ -182,21 +182,27 @@
                         field: 'filePath',
                         title: '投标文件',
                         formatter: function (value, row, index) {
-                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
+                            return formFileLink('${pageContext.request.contextPath}', row.filePath, row.fileName);
                         }
                     }, {
                         field: 'bidNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.open) {
+                            if (row.biddingStatus != BiddingStatusEnum.finish && row.bidStatus == BidStatusEnum.bided) {
                                 html += '<button onclick="sureChoseBid(\'' + value + '\')" ' +
                                     'type="button" class="btn btn-info custom-button-inline">此标书中标</button>';
-//                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-//                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
                             } else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+                                if (row.bidStatus == BidStatusEnum.winning) {
+                                    html += '<button onclick="createContract(\'' + row.bidNumber + '\')" ' +
+                                        'type="button" class="btn btn-info custom-button-inline">创建合同</button>';
+                                } else if (row.bidStatus == BidStatusEnum.contracted) {
+                                    html += '<button onclick="showContract(\'' + row.bidNumber + '\')" ' +
+                                        'type="button" class="btn btn-success custom-button-inline">查看合同</button>';
+                                } else {
+                                    html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">无操作</button>';
+
+                                }
                             }
 //                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
 
@@ -261,6 +267,15 @@
                     alert('网络错误');
                 }
             });
+        };
+
+
+        createContract = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/contract/specified-contract-create?bidNumber=' + value;
+        };
+
+        showContract = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/contract/show-contract?bidNumber=' + value;
         };
 
 

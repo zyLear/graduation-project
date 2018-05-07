@@ -119,7 +119,7 @@
                     field: 'projectNumber',
                     title: '项目编号',
                     formatter: function (value, row, index) {
-                        return formShowProjectLink('${pageContext.request.contextPath}',value);
+                        return formShowProjectLink('${pageContext.request.contextPath}', value);
                     }
                 }, {
                     field: 'projectName',
@@ -137,10 +137,13 @@
                         return '<button onclick="showContent(\'' + value + '\')" type="button" class="btn btn-default">点击查看</button>';
                     }
                 }, {
+                    field: 'contractMoney',
+                    title: '合同金额'
+                }, {
                     field: 'id',
                     title: '合同文件',
                     formatter: function (value, row, index) {
-                        return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
+                        return formFileLink('${pageContext.request.contextPath}', row.filePath, row.fileName);
                     }
                 }, {
                     field: 'contractStatus',
@@ -159,7 +162,7 @@
                         }
                     }
                 }, {
-                    field: 'contractNumber',
+                    field: 'bidNumber',
                     title: '操作',
                     formatter: function (value, row, index) {
 //                            if (row.biddingStatus == BiddingStatusEnum.close) {
@@ -171,7 +174,13 @@
 //                            } else {
 //                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
 //                            }
-                        var html = '<button onclick="editContractItems(\'' + value + '\')" type="button" class="btn btn-info">编辑合同项</button>';
+                        var html = '<button onclick="editContractItems(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">合同详情</button>';
+                        if (row.contractStatus == ContractStatusEnum.effective) {
+                            html += '<button onclick="addAsset(\'' + row.contractNumber + '\')" type="button" class="btn btn-info custom-button-inline">资产入库</button>';
+                        } else {
+                            html += '<button disabled onclick="addAsset(\'' + row.contractNumber + '\')" type="button" class="btn btn-info custom-button-inline">资产入库</button>';
+
+                        }
                         return html;
                     }
                 }]
@@ -217,7 +226,11 @@
     };
 
     editContractItems = function (value) {
-        window.location.href = '${pageContext.request.contextPath}/contract/edit-items?contractNumber=' + value;
+        window.location.href = '${pageContext.request.contextPath}/contract/show-contract?bidNumber=' + value;
+    };
+
+    addAsset = function (value) {
+        window.location.href = '${pageContext.request.contextPath}/asset/specified-add-asset?contractNumber=' + value;
     };
 
 

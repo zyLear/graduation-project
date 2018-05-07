@@ -62,6 +62,11 @@ public class ProjectBiddingServiceImpl implements ProjectBiddingService {
         return projectBiddingMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public Double findTotalPricesByProjectNumber(String projectNumber) {
+        return projectBiddingMapper.findTotalPricesByProjectNumber(projectNumber);
+    }
+
     @Autowired
     public void setProjectBiddingMapper(ProjectBiddingMapper projectBiddingMapper) {
         this.projectBiddingMapper = projectBiddingMapper;

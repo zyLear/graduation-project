@@ -6,6 +6,7 @@ import com.zylear.internalcontrol.admin.controller.ProjectController;
 import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectBudget;
 import com.zylear.internalcontrol.admin.enums.ProjectStatus;
+import com.zylear.internalcontrol.admin.service.ProjectBiddingService;
 import com.zylear.internalcontrol.admin.service.ProjectBudgetService;
 import com.zylear.internalcontrol.admin.service.ProjectService;
 import com.zylear.internalcontrol.admin.util.DateUtil;
@@ -33,6 +34,7 @@ public class ProjectManager {
     private String filePathPrefix;
     private ProjectService projectService;
     private ProjectBudgetService projectBudgetService;
+    private ProjectBiddingService projectBiddingService;
 
 
     public BasePageResult saveProjectApplication(String projectNumber, String projectName, String applicant, String applicationDepartment, String projectContent, Double projectBudget, MultipartFile file) {
@@ -122,6 +124,14 @@ public class ProjectManager {
             projectViewBean.setFilePath(project.getFilePath());
             projectViewBean.setProjectStatus(project.getProjectStatus());
             projectViewBean.setCreateTime(project.getCreateTime());
+
+            Double planBudget = projectBudgetService.findTotalPricesByProjectNumber(project.getProjectNumber());
+            Double currentTotalBidddingPrices = projectBiddingService.findTotalPricesByProjectNumber(project.getProjectNumber());
+            planBudget = planBudget == null ? 0 : planBudget;
+            currentTotalBidddingPrices = currentTotalBidddingPrices == null ? 0 : currentTotalBidddingPrices;
+            projectViewBean.setPlanBudget(planBudget);
+            projectViewBean.setLeaveBiddingPrices(planBudget - currentTotalBidddingPrices);
+
             list.add(projectViewBean);
         }
         return list;
@@ -146,6 +156,8 @@ public class ProjectManager {
         projectViewBean.setFileName(FileDirectory.getFileName(project.getFilePath()));
         projectViewBean.setFilePath(project.getFilePath());
         projectViewBean.setApprovalResult(formatProjectStatus(ProjectStatus.valueOf(project.getProjectStatus())));
+
+        Double planBudget = 0.0;
         if (needFindBudgets) {
             List<ProjectBudget> budgets = projectBudgetService.findByProjectNumber(projectNumber);
             List<BudgetViewBean> budgetViewBeans = new ArrayList<>(budgets.size());
@@ -155,9 +167,18 @@ public class ProjectManager {
                 budgetViewBean.setBudgetContent(budget.getBudgetContent());
                 budgetViewBean.setBudgetMoney(budget.getBudgetMoney());
                 budgetViewBeans.add(budgetViewBean);
+                planBudget += budget.getBudgetMoney();
             }
             projectViewBean.setItems(budgetViewBeans);
+        } else {
+            planBudget = projectBudgetService.findTotalPricesByProjectNumber(projectNumber);
+            planBudget = planBudget == null ? 0 : planBudget;
         }
+        projectViewBean.setPlanBudget(planBudget);
+        Double currentTotalBidddingPrices = projectBiddingService.findTotalPricesByProjectNumber(projectNumber);
+        currentTotalBidddingPrices = currentTotalBidddingPrices == null ? 0 : currentTotalBidddingPrices;
+        projectViewBean.setLeaveBiddingPrices(planBudget - currentTotalBidddingPrices);
+
         return projectViewBean;
     }
 
@@ -203,5 +224,8 @@ public class ProjectManager {
         this.projectBudgetService = projectBudgetService;
     }
 
-
+    @Autowired
+    public void setProjectBiddingService(ProjectBiddingService projectBiddingService) {
+        this.projectBiddingService = projectBiddingService;
+    }
 }

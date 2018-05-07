@@ -151,7 +151,7 @@
         <include refid="Blob_Column_List"/>
         from t_project_budget
         where is_deleted=0
-        and project_number = #{projectNumber,jdbcType=INTEGER}
+        and project_number = #{projectNumber,jdbcType=VARCHAR}
     </select>
 
     <select id="findByPageParam" resultMap="BaseResultMap">
@@ -159,7 +159,7 @@
         <include refid="Base_Column_List"/>
         FROM t_project_budget
         WHERE is_deleted = 0
-        LIMIT #{pageParam.offset,jdbcType=INTEGER},#{pageParam.pageSize,jdbcType=INTEGER}
+        LIMIT #{pageParam.offset,jdbcType=VARCHAR},#{pageParam.pageSize,jdbcType=INTEGER}
     </select>
 
     <select id="getTotal" resultType="java.lang.Integer">
@@ -168,5 +168,11 @@
         WHERE is_deleted = 0
     </select>
 
+    <select id="findTotalPricesByProjectNumber" resultType="java.lang.Double">
+        SELECT sum(budget_money)
+        FROM t_project_budget
+        WHERE is_deleted = 0
+              AND project_number = #{projectNumber,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

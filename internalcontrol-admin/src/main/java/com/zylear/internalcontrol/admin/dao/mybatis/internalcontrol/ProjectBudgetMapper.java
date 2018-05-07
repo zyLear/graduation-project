@@ -27,4 +27,6 @@ public interface ProjectBudgetMapper {
     List<ProjectBudget> findByPageParam(@Param("pageParam") PageParam pageParam);
 
     int getTotal();
+
+    Double findTotalPricesByProjectNumber(@Param("projectNumber")String projectNumber);
 }

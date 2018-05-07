@@ -73,6 +73,14 @@ public class BudgetManager {
             return BasePageResult.ERROR_RESPONSE;
         }
 
+        double total = 0.0;
+        for (ProjectBudget projectBudget : projectBudgetItems) {
+            total += projectBudget.getBudgetMoney();
+        }
+        if (total > project.getProjectBudget()) {
+            return BasePageResult.OVERSPEND_RESPONSE;
+        }
+
         projectService.updateStatus(projectNumber, ProjectStatus.bidding.getValue());
 
         for (ProjectBudget projectBudget : projectBudgetItems) {

@@ -6,6 +6,7 @@ import com.zylear.internalcontrol.admin.domain.Project;
 import com.zylear.internalcontrol.admin.domain.ProjectBidding;
 import com.zylear.internalcontrol.admin.enums.BiddingStatus;
 import com.zylear.internalcontrol.admin.service.ProjectBiddingService;
+import com.zylear.internalcontrol.admin.service.ProjectBudgetService;
 import com.zylear.internalcontrol.admin.service.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class BiddingManager {
     private String filePathPrefix;
     private ProjectService projectService;
     private ProjectBiddingService projectBiddingService;
+    private ProjectBudgetService projectBudgetService;
 
 
     public BasePageResult saveBidding(String projectNumber, String biddingNumber, String biddingName, Date biddingStartTime, Date biddingEndTime, String biddingContent, Double prices, MultipartFile file) {
@@ -49,6 +51,14 @@ public class BiddingManager {
         projectBidding = projectBiddingService.findByFilePath(FileDirectory.BIDDING_FILE_DIRECTORY + file.getOriginalFilename());
         if (projectBidding != null) {
             return BasePageResult.FILE_EXIST_RESPONSE;
+        }
+
+        Double currentTotal = projectBiddingService.findTotalPricesByProjectNumber(projectNumber);
+        Double currentBudget = projectBudgetService.findTotalPricesByProjectNumber(projectNumber);
+        currentTotal = currentTotal == null ? 0 : currentTotal;
+        currentBudget = currentBudget == null ? 0 : currentBudget;
+        if (currentTotal + prices > currentBudget) {
+            return BasePageResult.OVERSPEND_RESPONSE;
         }
 
         try {
@@ -162,5 +172,8 @@ public class BiddingManager {
         this.projectService = projectService;
     }
 
-
+    @Autowired
+    public void setProjectBudgetService(ProjectBudgetService projectBudgetService) {
+        this.projectBudgetService = projectBudgetService;
+    }
 }

@@ -2,6 +2,7 @@ package com.zylear.internalcontrol.admin.controller;
 
 import com.zylear.internalcontrol.admin.bean.*;
 import com.zylear.internalcontrol.admin.manager.BiddingManager;
+import com.zylear.internalcontrol.admin.manager.ProjectManager;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class BiddingController {
 
     private static final Logger logger = LoggerFactory.getLogger(BiddingController.class);
     private BiddingManager biddingManager;
+    private ProjectManager projectManager;
 
 
     @RequestMapping("/bidding-list")
@@ -35,6 +37,14 @@ public class BiddingController {
     @RequestMapping("/bidding-create")
     public ModelAndView biddingCreatePage() {
         return new ModelAndView("bidding/bidding-create");
+    }
+
+    @RequestMapping("/specified-bidding-create")
+    public ModelAndView specifiedBiddingCreatePage(@Param("projectNumber") String projectNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("bidding/specified-bidding-create");
+        modelAndView.addObject("project", projectManager.findProjectViewBean(projectNumber, false));
+        return modelAndView;
     }
 
     @ResponseBody
@@ -90,9 +100,13 @@ public class BiddingController {
 //        return pageResult;
 //    }
 
-
     @Autowired
     public void setBiddingManager(BiddingManager biddingManager) {
         this.biddingManager = biddingManager;
+    }
+
+    @Autowired
+    public void setProjectManager(ProjectManager projectManager) {
+        this.projectManager = projectManager;
     }
 }
