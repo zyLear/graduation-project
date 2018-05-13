@@ -23,6 +23,7 @@ public class WebFilterConfig {
         registrationBean.addUrlPatterns("/budget/*");
         registrationBean.addUrlPatterns("/contract/*");
         registrationBean.addUrlPatterns("/project/*");
+        registrationBean.addInitParameter("excludePages", "/bidding/get-bidding-content,/project/show-project");
         registrationBean.setOrder(10);
         return registrationBean;
     }
@@ -34,6 +35,8 @@ public class WebFilterConfig {
         BidderFilter bidderFilter = new BidderFilter();
         registrationBean.setFilter(bidderFilter);
         registrationBean.addUrlPatterns("/bid/*");
+        registrationBean.addUrlPatterns("/bidding/get-bidding-content");
+        registrationBean.addUrlPatterns("/project/show-project");
         registrationBean.setOrder(12);
         return registrationBean;
     }
