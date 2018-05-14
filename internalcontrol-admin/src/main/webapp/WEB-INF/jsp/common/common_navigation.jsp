@@ -246,22 +246,23 @@
                     <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
 
-                <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 项目管理<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/project/project-list">项目列表</a>
-                        </li>
-                        <c:if test="${pageContext.session.getAttribute('authority')==1}">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
-                            </li>
-                        </c:if>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-
                 <c:if test="${pageContext.session.getAttribute('authority')==1}">
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 项目管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/project/project-list">项目列表</a>
+                            </li>
+                            <c:if test="${pageContext.session.getAttribute('authority')==1}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/project/project-application">立项申请</a>
+                                </li>
+                            </c:if>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+
+
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -283,9 +284,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/bidding/bidding-list"> 招标列表</a>
                             </li>
-                            <%--<li>--%>
+                                <%--<li>--%>
                                 <%--<a href="${pageContext.request.contextPath}/bidding/bidding-create"> 添加招标公告</a>--%>
-                            <%--</li>--%>
+                                <%--</li>--%>
                                 <%--<li>--%>
                                 <%--<a href="${pageContext.request.contextPath}/bid/bid-list"> 标书申请列表</a>--%>
                                 <%--</li>--%>
@@ -298,9 +299,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/contract/contract-list"> 合同列表</a>
                             </li>
-                            <%--<li>--%>
+                                <%--<li>--%>
                                 <%--<a href="${pageContext.request.contextPath}/contract/contract-create"> 新订合同</a>--%>
-                            <%--</li>--%>
+                                <%--</li>--%>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -311,9 +312,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
                             </li>
-                            <%--<li>--%>
+                                <%--<li>--%>
                                 <%--<a href="${pageContext.request.contextPath}/asset/add-asset"> 资产入库</a>--%>
-                            <%--</li>--%>
+                                <%--</li>--%>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

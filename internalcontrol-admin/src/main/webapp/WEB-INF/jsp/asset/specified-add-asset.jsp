@@ -50,6 +50,15 @@
 
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">中标公司</label>
+                        <div class="col-sm-7">
+                            <input readonly value="${contract.bidCompany}" type="text" class="form-control"
+                                   placeholder="中标公司">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">资产编号</label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="assetNumber" name="assetNumber"
@@ -71,6 +80,14 @@
                         <div class="col-sm-7">
                             <textarea cols="30" rows="10" class="form-control custom-textarea"
                                       id="remark" name="remark"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">剩余最大可用金额</label>
+                        <div class="col-sm-7">
+                            <input readonly type="text" class="form-control"
+                                 value="${contract.leaveAssetPrices}"   placeholder="剩余最大可用金额">
                         </div>
                     </div>
 
@@ -153,6 +170,11 @@
 
             if (isNaN($('#prices').val())) {
                 alert('单价必须是数字');
+                return;
+            }
+
+            if ($('#prices').val() <= 0) {
+                alert('单价必须大于0');
                 return;
             }
 

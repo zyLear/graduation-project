@@ -42,23 +42,6 @@
 
             <div style="height: 20px;"></div>
 
-            <%--<div class="panel panel-default">--%>
-                <%--&lt;%&ndash;<div class="panel-heading">Filter</div>&ndash;%&gt;--%>
-                <%--<div class="panel-body">--%>
-                    <%--<div class="form-group form-horizontal">--%>
-                        <%--<div class="form-group">--%>
-                            <%--<label class="control-label col-xs-2"></label>--%>
-                            <%--<div class="col-xs-2">--%>
-                                <%--<select readonly class="form-control selectpicker" data-header="Select type">--%>
-                                    <%--<option value="none">${biddingNumber}</option>--%>
-                                <%--</select>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-
             <table id="table"></table>
 
 
@@ -143,7 +126,7 @@
                         field: 'projectNumber',
                         title: '项目编号',
                         formatter: function (value, row, index) {
-                            return formShowProjectLink('${pageContext.request.contextPath}',value);
+                            return formShowProjectLink('${pageContext.request.contextPath}', value);
                         }
                     }, {
                         field: 'projectName',
@@ -182,28 +165,24 @@
                         field: 'filePath',
                         title: '投标文件',
                         formatter: function (value, row, index) {
-                            return formFileLink('${pageContext.request.contextPath}',row.filePath,row.fileName);
+                            return formFileLink('${pageContext.request.contextPath}', row.filePath, row.fileName);
                         }
-                    }/*, {
+                    }, {
                         field: 'bidNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
                             var html = "";
-                            if (row.biddingStatus == BiddingStatusEnum.open) {
-                                html += '<button onclick="sureChoseBid(\'' + value + '\')" ' +
-                                    'type="button" class="btn btn-info custom-button-inline">此标书中标</button>';
-//                            } else if (row.biddingStatus == BiddingStatusEnum.open) {
-//                                html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.close + '\')" ' +
-//                                    'type="button" class="btn btn-info custom-button-inline">停止招标</button>';
+                            if (row.bidStatus == BidStatusEnum.contracted) {
+                                html += '<button onclick="showContract(\'' + value + '\')" ' +
+                                    'type="button" class="btn btn-info custom-button-inline">查看合同</button>';
                             } else {
-                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">已完成</button>';
+                                html += '<button disabled=disabled type="button" class="btn btn-info custom-button-inline">无操作</button>';
                             }
-//                            html += '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
 
 
                             return html;
                         }
-                    }*/]
+                    }]
                 });
             };
 
@@ -222,24 +201,8 @@
         };
 
 
-        sureChoseBid = function (value) {
-            if (confirm('你确定')) {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/bid/sure-choose-bid',
-                    type: 'POST',
-                    data: {
-                        "bidNumber": value
-                    },
-                    success: function (data) {
-                        alert(data.errorMessage);
-                        window.location.reload();
-                    },
-                    error: function (data) {
-                        alert('错误');
-                    }
-                });
-            }
-
+        showContract = function (value) {
+            window.location.href = '${pageContext.request.contextPath}/contract/show-contract?bidNumber=' + value;
         };
 
         showContent = function (value) {

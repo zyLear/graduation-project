@@ -182,6 +182,11 @@
                 return;
             }
 
+            if ($('#prices').val() <= 0) {
+                alert('单价必须大于0');
+                return;
+            }
+
             if ($('#file').val() == '') {
                 alert('招标文件不能为空');
                 return;

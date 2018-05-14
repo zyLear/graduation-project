@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebFilterConfig {
 
+
     @Bean
     public FilterRegistrationBean adminFilterRegistrationBean() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
@@ -40,6 +41,5 @@ public class WebFilterConfig {
         registrationBean.setOrder(12);
         return registrationBean;
     }
-
 
 }
