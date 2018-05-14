@@ -43,7 +43,7 @@ public class AssetController {
     public ModelAndView specifiedContractCreatePage(@Param("contractNumber") String contractNumber) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("asset/specified-add-asset");
-        modelAndView.addObject("contract", contractManager.findContractViewBean(contractNumber));
+        modelAndView.addObject("contract", contractManager.findAddAssetContractViewBean(contractNumber));
         return modelAndView;
     }
 

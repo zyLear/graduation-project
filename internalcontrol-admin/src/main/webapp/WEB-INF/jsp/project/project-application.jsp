@@ -147,6 +147,12 @@
                     return;
                 }
 
+                if ($('#projectBudget').val() <= 0) {
+                    alert('金额必须大于0');
+                    return;
+                }
+
+
                 if ($('#file').val() == '') {
                     alert('申请表不能为空');
                     return;

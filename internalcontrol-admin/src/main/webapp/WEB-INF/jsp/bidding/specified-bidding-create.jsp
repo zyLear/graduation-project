@@ -96,7 +96,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">剩余最大招标金额</label>
                         <div class="col-sm-7">
-                            <input value="${project.leaveBiddingPrices}" type="text" class="form-control">
+                            <input readonly value="${project.leaveBiddingPrices}" type="text" class="form-control">
                         </div>
                     </div>
 
@@ -186,6 +186,11 @@
 
             if (isNaN($('#prices').val())) {
                 alert('招标价格是数字');
+                return;
+            }
+
+            if ($('#prices').val() <= 0) {
+                alert('招标价格必须大于0');
                 return;
             }
 

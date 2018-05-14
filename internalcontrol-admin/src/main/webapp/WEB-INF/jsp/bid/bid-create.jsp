@@ -150,6 +150,12 @@
                 return;
             }
 
+            if ($('#bidPrices').val() <= 0) {
+                alert('投标价格必须大于0');
+                return;
+            }
+
+
             if ($('#file').val() == '') {
                 alert('标书文件不能为空');
                 return;

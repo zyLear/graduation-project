@@ -123,10 +123,17 @@
                                                placeholder="金额">
                                         <c:choose>
                                             <c:when test="${empty item.finishDay}">
-                                                <button type="button" class="btn btn-info custom-button"
-                                                        onclick="sureFinish(${item.itemId})">
-                                                    确定完成
-                                                </button>
+                                                <c:if test="${pageContext.session.getAttribute('authority')==1}">
+                                                    <button type="button" class="btn btn-info custom-button"
+                                                            onclick="sureFinish(${item.itemId})">
+                                                        确定完成
+                                                    </button>
+                                                </c:if>
+                                                <c:if test="${pageContext.session.getAttribute('authority')==0}">
+                                                    <button disabled type="button" class="btn btn-info custom-button">
+                                                        未完成
+                                                    </button>
+                                                </c:if>
                                             </c:when>
                                             <c:otherwise>
                                                 完成时间：${item.finishDay}

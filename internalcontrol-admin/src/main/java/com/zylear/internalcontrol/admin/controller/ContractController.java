@@ -37,7 +37,7 @@ public class ContractController {
     @RequestMapping("/show-contract")
     public ModelAndView showContract(@Param("bidNumber") String bidNumber) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("contract/edit-items");
+        modelAndView.setViewName("contract/show-contract");
         modelAndView.addObject("contract", contractManager.findContractViewBeanByBidNumber(bidNumber));
         return modelAndView;
     }

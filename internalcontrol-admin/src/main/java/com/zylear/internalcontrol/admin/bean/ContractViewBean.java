@@ -20,6 +20,17 @@ public class ContractViewBean {
     private String filePath;
     private String contractContent;
 
+    private Double leaveAssetPrices;
+
+
+    public Double getLeaveAssetPrices() {
+        return leaveAssetPrices;
+    }
+
+    public void setLeaveAssetPrices(Double leaveAssetPrices) {
+        this.leaveAssetPrices = leaveAssetPrices;
+    }
+
     private List<ContractItemViewbean> items;
 
     private String fileName;

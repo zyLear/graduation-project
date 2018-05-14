@@ -155,6 +155,12 @@
                 return;
             }
 
+            if ($('#prices').val() <= 0) {
+                alert('单价必须大于0');
+                return;
+            }
+
+
             $.ajax({
                 url: '${pageContext.request.contextPath}/asset/sure-add-asset',
                 type: 'POST',

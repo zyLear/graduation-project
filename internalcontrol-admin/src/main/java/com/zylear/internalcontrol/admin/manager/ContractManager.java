@@ -34,6 +34,7 @@ public class ContractManager {
     private ProjectBidService projectBidService;
     private ProjectBiddingService projectBiddingService;
     private ProjectService projectService;
+    private AssetService assetService;
 
     @Transactional(value = DataSourceInternalControlConfig.TX_MANAGER)
     public BasePageResult saveContract(String bidNumber, String contractNumber, String contractName, String contractContent, MultipartFile file, String items) {
@@ -178,6 +179,34 @@ public class ContractManager {
         return list;
     }
 
+    public ContractViewBean findAddAssetContractViewBean(String contractNumber) {
+
+        ProjectContract contract = projectContractService.findByContractNumber(contractNumber);
+        if (contract == null) {
+            return null;
+        }
+        ContractViewBean contractViewBean = new ContractViewBean();
+        ProjectBid bid = projectBidService.findByBidNumber(contract.getBidNumber());
+        if (bid != null) {
+            contractViewBean.setBidCompany(bid.getBidCompany());
+        }
+
+        Double currentTotalMoney = assetService.findTotalMoneyByContractNumber(contractNumber);
+        currentTotalMoney = currentTotalMoney == null ? 0 : currentTotalMoney;
+        contractViewBean.setLeaveAssetPrices(contract.getContractMoney() - currentTotalMoney);
+
+        contractViewBean.setContractNumber(contract.getContractNumber());
+        contractViewBean.setContractName(contract.getContractName());
+        contractViewBean.setBidNumber(contract.getBidNumber());
+        contractViewBean.setContractContent(contract.getContractContent());
+        contractViewBean.setContractStatus(contract.getContractStatus());
+        contractViewBean.setFinishDay(contract.getFinishDay());
+        contractViewBean.setFilePath(contract.getFilePath());
+        contractViewBean.setFileName(FileDirectory.getFileName(contract.getFilePath()));
+        contractViewBean.setContractMoney(contract.getContractMoney());
+
+        return contractViewBean;
+    }
 
     public ContractViewBean findContractViewBean(String contractNumber) {
 
@@ -279,5 +308,8 @@ public class ContractManager {
         this.filePathPrefix = filePathPrefix;
     }
 
-
+    @Autowired
+    public void setAssetService(AssetService assetService) {
+        this.assetService = assetService;
+    }
 }
