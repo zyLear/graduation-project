@@ -53,7 +53,7 @@ public class ContractManager {
         }
 
         ProjectContract projectContract = projectContractService.findByContractNumber(contractNumber);
-//        System.out.println("test:"+projectContract.getCreateTime());
+
         if (projectContract != null) {
             return BasePageResult.ID_EXIST_RESPONSE;
         }

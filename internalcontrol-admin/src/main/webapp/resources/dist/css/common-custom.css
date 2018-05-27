@@ -1,6 +1,6 @@
 
 .custom-content {
-    padding-top: 30px;
+    padding-top: 20px;
     padding-bottom: 60px;
 }
 
@@ -15,8 +15,7 @@
 }
 
 .custom-button-inline {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin: 5px;
 }
 
 .custom-label {

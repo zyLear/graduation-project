@@ -57,7 +57,7 @@
                                 <label class="col-sm-2 control-label">项目名字</label>
                                 <div class="col-sm-7">
                                     <input readonly type="text" class="form-control" id="projectName" name="projectName"
-                                           value="${project.projectNumber}" placeholder="项目名字">
+                                           value="${project.projectName}" placeholder="项目名字">
                                 </div>
                             </div>
                             <div class="form-group">

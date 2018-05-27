@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">项目描述</label>
                         <div class="col-sm-7">
-                            <textarea cols="60" rows="15" class="form-control custom-textarea"
+                            <textarea cols="60" rows="13" class="form-control custom-textarea"
                                       id="projectContent" name="projectContent"></textarea>
                         </div>
                     </div>

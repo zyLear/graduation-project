@@ -86,6 +86,14 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">招标价格</label>
+                        <div class="col-sm-7">
+                            <input readonly  type="text" class="form-control"
+                                value="${bidding.prices}"   placeholder="招标价格">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">投标价格</label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="bidPrices" name="bidPrices"

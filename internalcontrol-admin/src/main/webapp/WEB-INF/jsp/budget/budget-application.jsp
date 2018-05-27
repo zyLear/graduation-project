@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>项目审批</title>
+    <title>添加预算</title>
 
     <%@include file="../common/common_head_resource.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap-fileinput/css/fileinput.min.css"
@@ -28,7 +28,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">项目审批</h1>
+                <h1 class="page-header">添加预算</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -57,7 +57,7 @@
                                 <label class="col-sm-2 control-label">项目名字</label>
                                 <div class="col-sm-7">
                                     <input readonly type="text" class="form-control" id="projectName" name="projectName"
-                                           value="${project.projectNumber}" placeholder="项目名字">
+                                           value="${project.projectName}" placeholder="项目名字">
                                 </div>
                             </div>
                             <div class="form-group">

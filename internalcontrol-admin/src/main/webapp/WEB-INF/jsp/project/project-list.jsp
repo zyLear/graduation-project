@@ -138,13 +138,13 @@
                     }, {
                         field: 'planBudget',
                         title: '计划预算'
-                    }, {
+                    },/* {
                         field: 'projectStatus',
                         title: '项目状态',
                         formatter: function (value, row, index) {
                             return formatProjectStatus(value);
                         }
-                    }, {
+                    },*/ {
                         field: 'id',
                         title: '申请表',
                         formatter: function (value, row, index) {

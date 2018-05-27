@@ -171,9 +171,9 @@
                         title: '操作',
                         formatter: function (value, row, index) {
                             if (row.biddingStatus == BiddingStatusEnum.open) {
-                                return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info">投标</button>';
+                                return '<button onclick="bid(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">投标</button>';
                             } else {
-                                return '<button disabled="disabled" type="button" class="btn btn-info"> 无操作 </button>';
+                                return '<button disabled="disabled" type="button" class="btn btn-info custom-button-inline"> 无操作 </button>';
                             }
                         }
                     }]

@@ -37,21 +37,28 @@
         DELETE FROM t_project
         WHERE id = #{id,jdbcType=INTEGER}
     </delete>
+
     <insert id="insert" parameterType="com.zylear.internalcontrol.admin.domain.Project">
         INSERT INTO t_project (id, project_number, project_name,
                                applicant, application_department, project_budget,
                                project_status, approval_comment, file_path,
                                is_deleted, create_time, last_update_time,
                                project_content)
-        VALUES (#{id,jdbcType=INTEGER}, #{projectNumber,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR},
-                                        #{applicant,jdbcType=VARCHAR}, #{applicationDepartment,jdbcType=VARCHAR},
-                                        #{projectBudget,jdbcType=DOUBLE},
-                                        #{projectStatus,jdbcType=TINYINT}, #{approvalComment,jdbcType=VARCHAR},
-                                        #{filePath,jdbcType=VARCHAR},
-                                        #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
-                #{lastUpdateTime,jdbcType=TIMESTAMP},
-                #{projectContent,jdbcType=LONGVARCHAR})
+        VALUES (#{id,jdbcType=INTEGER},
+            #{projectNumber,jdbcType=VARCHAR},
+            #{projectName,jdbcType=VARCHAR},
+            #{applicant,jdbcType=VARCHAR},
+            #{applicationDepartment,jdbcType=VARCHAR},
+            #{projectBudget,jdbcType=DOUBLE},
+            #{projectStatus,jdbcType=TINYINT},
+            #{approvalComment,jdbcType=VARCHAR},
+            #{filePath,jdbcType=VARCHAR},
+            #{isDeleted,jdbcType=TINYINT},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{lastUpdateTime,jdbcType=TIMESTAMP},
+            #{projectContent,jdbcType=LONGVARCHAR})
     </insert>
+
     <insert id="insertSelective" parameterType="com.zylear.internalcontrol.admin.domain.Project">
         insert into t_project
         <trim prefix="(" suffix=")" suffixOverrides=",">

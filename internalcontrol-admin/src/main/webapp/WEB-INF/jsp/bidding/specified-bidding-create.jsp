@@ -60,10 +60,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">招标名字</label>
+                        <label class="col-sm-2 control-label">招标名称</label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="biddingName" name="biddingName"
-                                   placeholder="招标名字">
+                                   placeholder="招标名称">
                         </div>
                     </div>
 

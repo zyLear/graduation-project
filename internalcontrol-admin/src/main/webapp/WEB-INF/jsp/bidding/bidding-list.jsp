@@ -205,7 +205,7 @@
                         field: 'biddingNumber',
                         title: '操作',
                         formatter: function (value, row, index) {
-                            var html = '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info">查看招标情况</button>';
+                            var html = '<button onclick="showBid(\'' + value + '\')" type="button" class="btn btn-info custom-button-inline">查看招标情况</button>';
                             if (row.biddingStatus == BiddingStatusEnum.close) {
                                 html += '<button onclick="changeBiddingStatus(\'' + value + '\',\'' + BiddingStatusEnum.open + '\')" ' +
                                     'type="button" class="btn btn-info custom-button-inline">启动招标</button>';
@@ -260,7 +260,11 @@
                         "biddingStatus": status
                     },
                     success: function (data) {
-                        alert(data.errorMessage);
+                        if (data.errorCode == 0) {
+                            alert('操作成功');
+                        }else {
+                            alert('操作失败');
+                        }
                         window.location.reload();
                     },
                     error: function (data) {

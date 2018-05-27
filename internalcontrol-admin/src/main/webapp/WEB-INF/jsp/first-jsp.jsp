@@ -15,7 +15,7 @@ this is first jsp file 2
 
 <a onclick="click1()"> view pdf </a>
 
-<%@include file="WEB-INF/jsp/common/common_bottom_resource.jsp" %>
+<%@include file="common/common_bottom_resource.jsp" %>
 
 <script>
 

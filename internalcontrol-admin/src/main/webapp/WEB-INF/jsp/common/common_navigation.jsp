@@ -242,13 +242,13 @@
                     </div>
                     <!-- /input-group -->
                 </li>
-                <li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                </li>
+                <%--<li>--%>
+                    <%--<a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>--%>
+                <%--</li>--%>
 
                 <c:if test="${pageContext.session.getAttribute('authority')==1}">
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 项目管理<span class="fa arrow"></span></a>
+                        <a href="#"><i class="glyphicon glyphicon-th-large"></i> 项目管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="${pageContext.request.contextPath}/project/project-list">项目列表</a>
@@ -264,7 +264,7 @@
 
 
                     <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 预算管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="${pageContext.request.contextPath}/budget/budget-list"> 预算列表</a>
@@ -307,7 +307,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 资产管理<span class="fa arrow"></span></a>
+                        <a href="#"><i class="glyphicon glyphicon-usd"></i> 资产管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="${pageContext.request.contextPath}/asset/asset-list"> 资产列表</a>
@@ -339,7 +339,7 @@
                 </c:if>
 
                 <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> 用户管理<span class="fa arrow"></span></a>
+                    <a href="#"><i class="glyphicon glyphicon-user"></i> 用户管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <c:if test="${pageContext.session.getAttribute('authority')==1}">
                             <li>

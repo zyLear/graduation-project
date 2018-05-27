@@ -104,7 +104,7 @@
                             <%--</div>--%>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">申请表上传</label>
+                                <label class="col-sm-2 control-label">合同文件上传</label>
                                 <div class="col-sm-9">
                                     <input id="file" name="file" data-show-upload="false" type="file" class="file">
                                 </div>
@@ -200,7 +200,7 @@
 //                }
 
                 if ($('#file').val() == '') {
-                    alert('申请表不能为空');
+                    alert('合同文件不能为空');
                     return;
                 }
 
@@ -278,7 +278,8 @@
             var html = '  <div name="item" class="form-group">' +
                 '<label class="col-sm-1 control-label custom-label">合同项</label>' +
                 '<div class="col-sm-8">' +
-                '<textarea cols="60" rows="3" class="form-control custom-textarea"></textarea>' +
+                '<textarea cols="60" rows="3" class="form-control custom-textarea"' +
+                '  placeholder="合同项描述"></textarea>' +
                 '</div>' +
                 '<div class="col-sm-2">' +
                 '<input type="text" class="form-control" placeholder="金额">' +

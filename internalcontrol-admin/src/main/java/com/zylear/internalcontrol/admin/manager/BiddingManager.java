@@ -135,10 +135,17 @@ public class BiddingManager {
         biddingViewBean.setBiddingName(biddingNumber);
         biddingViewBean.setProjectNumber(project.getProjectNumber());
         biddingViewBean.setProjectName(project.getProjectName());
+        biddingViewBean.setPrices(projectBidding.getPrices());
         return biddingViewBean;
     }
 
     public BasePageResult changeBiddingStatus(String biddingNumber, Integer biddingStatus) {
+
+
+        ProjectBidding bidding = projectBiddingService.findByBiddingNumber(biddingNumber);
+        if (BiddingStatus.finish.getValue().equals(bidding.getBiddingStatus())) {
+            return BasePageResult.ERROR_RESPONSE;
+        }
         projectBiddingService.updateStatus(biddingNumber, biddingStatus);
         return BasePageResult.SUCCESS_RESPONSE;
     }

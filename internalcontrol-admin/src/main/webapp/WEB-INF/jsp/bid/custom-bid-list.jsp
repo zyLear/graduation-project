@@ -47,7 +47,7 @@
                 <div class="panel-body">
                     <div class="form-group form-horizontal">
                         <div class="form-group">
-                            <label class="control-label col-xs-2">标书编号</label>
+                            <label class="control-label col-xs-2">招标编号</label>
                             <div class="col-xs-2">
                                 <select readonly class="form-control selectpicker" data-header="Select type">
                                     <option value="none">${biddingNumber}</option>
@@ -229,7 +229,7 @@
 
 
         sureChoseBid = function (value) {
-            if (confirm('你确定')) {
+            if (confirm('你确定此标书中标吗')) {
                 $.ajax({
                     url: '${pageContext.request.contextPath}/bid/sure-choose-bid',
                     type: 'POST',
