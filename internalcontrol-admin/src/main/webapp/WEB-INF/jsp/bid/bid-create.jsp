@@ -88,8 +88,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">招标价格</label>
                         <div class="col-sm-7">
-                            <input readonly  type="text" class="form-control"
-                                value="${bidding.prices}"   placeholder="招标价格">
+                            <input readonly type="text" class="form-control"
+                                   value="${bidding.prices}" placeholder="招标价格">
                         </div>
                     </div>
 
@@ -170,7 +170,6 @@
             }
 
 
-
             var param = new FormData($('#form')[0]);
             param.append('biddingNumber', '${bidding.biddingNumber}');
             $.ajax({
@@ -182,10 +181,12 @@
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        if (data.errorCode==0) {
+                        if (data.errorCode == 0) {
                             alert('投标成功');
                             window.location.href = '${pageContext.request.contextPath}/bid/bidding-list';
-                        }else {
+                        } else if (data.errorCode == 5) {
+                            alert('添加失败,标书价格大于招标价格');
+                        } else {
                             alert(data.errorMessage);
                         }
                     },

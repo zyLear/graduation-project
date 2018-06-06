@@ -139,13 +139,13 @@
                     }, {
                         field: 'budgetMoney',
                         title: '金额'
-                    }, {
+                    }/*, {
                         field: 'filePath',
                         title: '申请表',
                         formatter: function (value, row, index) {
                             return '点击查看';
                         }
-                    }, {
+                    }*/, {
                         field: 'createTime',
                         title: '创建时间',
                         formatter: function (value, row, index) {

@@ -26,7 +26,10 @@ CREATE TABLE IF NOT EXISTS `t_asset` (
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_asset_number` (`asset_number`),
+  KEY `FK_t_asset_t_project_contract` (`contract_number`),
+  CONSTRAINT `FK_t_asset_t_project_contract` FOREIGN KEY (`contract_number`) REFERENCES `t_project_contract` (`contract_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -48,7 +51,8 @@ CREATE TABLE IF NOT EXISTS `t_project` (
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `number` (`project_number`)
+  UNIQUE KEY `number` (`project_number`),
+  KEY `index_file_path` (`file_path`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -69,8 +73,11 @@ CREATE TABLE IF NOT EXISTS `t_project_bid` (
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_account` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_bid_number` (`bid_number`),
   KEY `index_bidding_number` (`bidding_number`),
-  KEY `index_create_account` (`create_account`)
+  KEY `index_create_account` (`create_account`),
+  KEY `index_file_path` (`file_path`),
+  CONSTRAINT `FK_t_project_bid_t_project_bidding` FOREIGN KEY (`bidding_number`) REFERENCES `t_project_bidding` (`bidding_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -92,7 +99,10 @@ CREATE TABLE IF NOT EXISTS `t_project_bidding` (
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_bidding_number` (`bidding_number`)
+  UNIQUE KEY `unique_bidding_number` (`bidding_number`),
+  KEY `FK_t_project_bidding_t_project` (`project_number`),
+  KEY `index_file_path` (`file_path`),
+  CONSTRAINT `FK_t_project_bidding_t_project` FOREIGN KEY (`project_number`) REFERENCES `t_project` (`project_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -109,7 +119,8 @@ CREATE TABLE IF NOT EXISTS `t_project_budget` (
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_project_number_budget_aspect` (`project_number`,`budget_aspect`)
+  UNIQUE KEY `unique_project_number_budget_aspect` (`project_number`,`budget_aspect`),
+  CONSTRAINT `FK_t_project_budget_t_project` FOREIGN KEY (`project_number`) REFERENCES `t_project` (`project_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -131,7 +142,10 @@ CREATE TABLE IF NOT EXISTS `t_project_contract` (
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_contract_number` (`contract_number`),
-  UNIQUE KEY `unique_contract_name` (`contract_name`)
+  UNIQUE KEY `unique_contract_name` (`contract_name`),
+  UNIQUE KEY `unique_bid_number` (`bid_number`),
+  KEY `index_file_path` (`file_path`),
+  CONSTRAINT `FK_t_project_contract_t_project_bid` FOREIGN KEY (`bid_number`) REFERENCES `t_project_bid` (`bid_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。
@@ -147,7 +161,9 @@ CREATE TABLE IF NOT EXISTS `t_project_contract_item` (
   `is_deleted` tinyint(4) NOT NULL,
   `create_time` datetime NOT NULL,
   `last_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_t_project_contract_item_t_project_contract` (`contract_number`),
+  CONSTRAINT `FK_t_project_contract_item_t_project_contract` FOREIGN KEY (`contract_number`) REFERENCES `t_project_contract` (`contract_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 数据导出被取消选择。

@@ -75,6 +75,10 @@ public class BidManager {
             return BasePageResult.ID_EXIST_RESPONSE;
         }
 
+        if (projectBidding.getPrices() < bidPrices) {
+            return BasePageResult.OVERSPEND_RESPONSE;
+        }
+
         projectBid = new ProjectBid();
         projectBid.setBiddingNumber(biddingNumber);
         projectBid.setBidNumber(bidNumber);
